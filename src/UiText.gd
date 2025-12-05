@@ -48,3 +48,11 @@ static func get_clear_result_label() -> String:
 static func get_clear_battle_message() -> String:
 	_ensure_db()
 	return _db.get_clear_battle_message()
+
+static func get_tea_piece_reward_message() -> String:
+	_ensure_db()
+	return _db.get_tea_piece_reward_message()
+
+static func get_form2_unlocked_message() -> String:
+	_ensure_db()
+	return _db.get_form2_unlocked_message()

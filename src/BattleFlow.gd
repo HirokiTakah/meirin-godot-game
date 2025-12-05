@@ -2,6 +2,7 @@ extends Object
 
 const MessageHelper = preload("res://src/MessageHelper.gd")
 const BattleEffects = preload("res://src/BattleEffects.gd")
+const UiText = preload("res://src/UiText.gd")
 # GameState は Autoload シングルトンをそのまま使う
 
 const TYPEWRITER_SPEED := 0.01
@@ -92,11 +93,53 @@ static func _handle_post_round(scene: Node, result: Dictionary) -> void:
 
 # 敵撃破時の処理（ステージ遷移／クリア）
 static func _handle_enemy_defeated(scene: Node) -> void:
-	# 最終ステージ以外 → 次のステージへ
+	# 最終ステージ以外
 	if GameState.game_stage < 7:
-		GameState.next_stage()
+		scene.set_attack_buttons_enabled(false)
+
+		# 1) ステージ勝利メッセージ
+		var win_msg := GameState.get_stage_win_message()
+		if win_msg != "":
+			await MessageHelper.typewriter_show(
+				scene,
+				scene.battle_text,
+				win_msg,
+				TYPEWRITER_SPEED
+			)
+			# 少しだけ間をおく
+			await scene.get_tree().create_timer(0.8).timeout
+
+		# 2) 報酬（茶器）を反映して、その情報を受け取る
+		var reward_info: Dictionary = GameState.next_stage()
+
+		var tea_add: int = int(reward_info.get("tea_piece_add", 0))
+		if tea_add > 0:
+			var tea_msg := UiText.get_tea_piece_reward_message()
+			if tea_msg != "":
+				await MessageHelper.typewriter_show(
+					scene,
+					scene.battle_text,
+					tea_msg,
+					TYPEWRITER_SPEED
+				)
+				await scene.get_tree().create_timer(0.8).timeout
+
+		# 3) このタイミングでフェイス2が解放された場合のメッセージ
+		var unlocked_form2 := bool(reward_info.get("unlocked_form2", false))
+		if unlocked_form2:
+			var form_msg := UiText.get_form2_unlocked_message()
+			if form_msg != "":
+				await MessageHelper.typewriter_show(
+					scene,
+					scene.battle_text,
+					form_msg,
+					TYPEWRITER_SPEED
+				)
+				await scene.get_tree().create_timer(0.8).timeout
+
+		# 4) 次のステージへ
 		scene.get_tree().reload_current_scene()
 		return
 
-	# 最終ステージ → クリア演出
+	# 最終ステージはクリア演出へ
 	await scene.play_clear_sequence()

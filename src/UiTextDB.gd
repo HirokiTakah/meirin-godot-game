@@ -65,3 +65,11 @@ func get_clear_result_label() -> String:
 
 func get_clear_battle_message() -> String:
 	return String(_ui.get("clear", {}).get("battle_message", ""))
+
+func get_tea_piece_reward_message() -> String:
+	var reward: Dictionary = _ui.get("reward", {})
+	return String(reward.get("tea_piece", ""))
+
+func get_form2_unlocked_message() -> String:
+	var form: Dictionary = _ui.get("form", {})
+	return String(form.get("form2_unlocked", ""))

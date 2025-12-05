@@ -95,13 +95,6 @@ func _setup_ui() -> void:
 	var name1 := UiText.get_move_name(1)
 	var name2 := UiText.get_move_name(2)
 
-	if name0 == "":
-		name0 = "灯籠シールド"
-	if name1 == "":
-		name1 = "浄化のリボン"
-	if name2 == "":
-		name2 = "結び封じ"
-
 	btn_rock.text = name0
 	btn_scissors.text = name1
 	btn_paper.text = name2
@@ -241,8 +234,6 @@ func play_defeat_sequence() -> void:
 
 	if gameover_label:
 		var label_text := UiText.get_game_over_label()
-		if label_text == "":
-			label_text = "GAME OVER"
 		gameover_label.text = label_text
 
 	show_gameover_background()
@@ -259,20 +250,14 @@ func play_defeat_sequence() -> void:
 func play_clear_sequence() -> void:
 	if gameover_label:
 		var label_text := UiText.get_clear_label()
-		if label_text == "":
-			label_text = "GAME CLEAR"
 		gameover_label.text = label_text
 
 	if result_text:
 		var result_label := UiText.get_clear_result_label()
-		if result_label == "":
-			result_label = "クリア！"
 		result_text.text = result_label
 
 	if battle_text:
 		var clear_msg := UiText.get_clear_battle_message()
-		if clear_msg == "":
-			clear_msg = "「……終わった。\n 光が、ぜんぶ戻ってきたね。」"
 		battle_text.text = clear_msg
 
 	await get_tree().create_timer(1.0).timeout
@@ -323,8 +308,6 @@ func start_stage6_drain() -> void:
 	drain_timer.start()
 
 	var msg := UiText.get_drain_start_message()
-	if msg == "":
-		msg = "……力が吸い取られていく……！"
 	battle_text.text = msg
 
 

@@ -1,9 +1,10 @@
+# res://src/StoryDB.gd
+
 extends Object
 
 const BATTLE_TEXTS_JSON_PATH := "res://data/battle_texts.json"
 
 var _stage_texts: Dictionary = {}
-
 
 func _init() -> void:
 	_load_battle_texts()
@@ -24,7 +25,7 @@ func _load_battle_texts() -> void:
 	var text := file.get_as_text()
 	file.close()
 
-	var parsed = JSON.parse_string(text)
+	var parsed: Variant = JSON.parse_string(text)
 	if typeof(parsed) != TYPE_DICTIONARY:
 		push_warning("battle_texts.json の形式が不正です")
 		return
@@ -40,6 +41,18 @@ func get_stage_intro(stage: int) -> String:
 
 	if _stage_texts.has("default"):
 		return String(_stage_texts["default"].get("intro", ""))
+
+	return ""
+
+
+func get_stage_win_message(stage: int) -> String:
+	var key := str(stage)
+
+	if _stage_texts.has(key):
+		return String(_stage_texts[key].get("win_message", ""))
+
+	if _stage_texts.has("default"):
+		return String(_stage_texts["default"].get("win_message", ""))
 
 	return ""
 
@@ -76,9 +89,10 @@ func get_round_text(
 	_enemy_hp: int
 ) -> Dictionary:
 	var round_dict: Dictionary = _get_round_dict(stage)
+
 	var key := ""
 
-	# round_result: 0=あいこ, 1=勝ち, 2=負け （GameState と同じルール）
+	# round_result: 0=あいこ, 1=勝ち, 2=負け
 	if start_drain:
 		key = "drain_start"
 	elif ineffective:
@@ -88,24 +102,15 @@ func get_round_text(
 	elif round_result == 0:
 		key = "draw"
 	elif round_result == 1:
-		if critical:
-			key = "win_critical"
-		else:
-			key = "win_normal"
+		key = "win_critical" if critical else "win_normal"
 	elif round_result == 2:
 		key = "lose"
 
-	var lines: Array = round_dict.get(key, [])
-	var battle_msg: String = _pick_random_line(lines)
+	var entry: Dictionary = round_dict.get(key, {})
 
-	var result_msg := ""
-	match round_result:
-		1:
-			result_msg = "メイリンの攻撃！"
-		2:
-			result_msg = "敵の攻撃！"
-		0:
-			result_msg = "あいこだ。"
+	var result_msg: String = String(entry.get("result", ""))
+	var lines: Array = entry.get("lines", [])
+	var battle_msg: String = _pick_random_line(lines)
 
 	return {
 		"result_msg": result_msg,

@@ -13,6 +13,11 @@ static func _ensure_db() -> void:
 static func get_stage_intro(stage: int) -> String:
 	_ensure_db()
 	return _db.get_stage_intro(stage)
+	
+	
+static func get_stage_win_message(stage: int) -> String:
+	_ensure_db()
+	return _db.get_stage_win_message(stage)
 
 
 static func get_round_text(

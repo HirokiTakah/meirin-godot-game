@@ -1,0 +1,4048 @@
+{
+  "meta": {
+	"format": "meirin_oop_bundle",
+	"oop_version": "1.0.1",
+	"source_sha256": "1e139961f42f2ebd43f637f3cb644107e5bd3998956fda22cb382a4520175169",
+	"generated_at": "2025-08-31T13:52:18.846832",
+	"lossless": true,
+	"notes": "Unify age to 13 across bundle; enrich Form1 visual spec (bells, ribbons, wings metrics, palette notes)."
+  },
+  "Core": {
+	"meta": {
+	  "project": "Meirin Project",
+	  "version": "1.0.6-form2-action-aug+act1-soft2pages",
+	  "language": "ja",
+	  "note": "Act1導入の台詞調整と初同調（合体）＝変身のメカニクス可視化。最初の一手『受け→鞭』をSoTへ明記。Act2の1.0.4b（影の王／灯籠光の吸収／胸部貫通）を保持。 | 年齢統一(13歳)、Form1ビジュアル数値統合。 | Add Core.items.mother_tea_bowl (celadon Longquan model) and palette sync; Act1 notes updated to celadon. | form2 visual rebuilt to 'first-form baseline + numeric enhancements'; unified bluewhite glow; prompts synced. | Act2 reversal expanded: action details, hope-loss, Lin vanish, light extinguish, aura disperse, de-transform, bridge to Act3. Updated 2025-08-31T14:07:51 | Act1 初変身：神秘・可憐（妖精的）2ページ版の数値化とPanels/Prompts同期 2025-08-31T16:01:30.805757Z",
+	  "narrative": {
+		"pov": "first_person",
+		"narrator": "メイリン",
+		"style": [
+		  "感情描写を丁寧に",
+		  "情景描写を丁寧に",
+          "会話量を増やす"
+		]
+	  }
+	},
+	"theme": {
+	  "id": "oath-again",
+	  "title": "OATH AGAIN（再起の誓い）",
+	  "principles": [
+		"居場所＝人と人のつながり",
+        "破壊ではなく浄化"
+	  ]
+	},
+	"symbols": [
+	  {
+		"id": "lantern",
+		"label": "灯籠",
+		"meaning": "居場所の光"
+	  },
+	  {
+		"id": "tea_set",
+		"label": "茶器（金継ぎ）",
+		"meaning": "壊れても直せる希望"
+	  },
+	  {
+		"id": "ribbon",
+		"label": "リボン",
+		"meaning": "意志・絆"
+	  },
+	  {
+		"id": "bell",
+		"label": "鈴音",
+		"meaning": "存在の証"
+	  },
+	  {
+		"id": "home",
+		"label": "居場所",
+		"meaning": "人のつながり"
+	  }
+	],
+	"world": {
+	  "setting": "中華風の町と茶館跡",
+	  "enemy": {
+		"id": "shadow",
+		"label": "影（カゲロウ）",
+		"traits": [
+		  "墨のにじみのように広がる",
+		  "光に反発する",
+		  "嘲笑う声で言葉を発する",
+          "奪った灯籠の光を自身に吸収する"
+		],
+		"classes": [
+		  "minor",
+		  "major",
+          "shadow_king"
+		]
+	  },
+	  "ally_beasts": [
+		{
+		  "id": "lin",
+		  "name": "リン",
+		  "motif": "麒麟幼生体マスコット（兎＋小鹿＋小型竜角）",
+		  "traits": [
+			"浮遊",
+			"淡い光",
+			"金粒子",
+            "鈴音"
+		  ],
+		  "visibility_rule": "適性者にのみ視認可",
+		  "function": "支援・同調",
+		  "visual_spec": {
+			"spec_id": "lin_visual_spec_v2_mascot_kirin_infant",
+			"last_updated": "2025-08-31T11:52:46.918414Z",
+			"locale": "ja",
+			"summary": "麒麟幼生体マスコット版：哺乳類的なしなやかさ＋胸元の鈴を盛り込んだ修正版。",
+			"proportions": {
+			  "body_length_cm": 38,
+			  "body_height_cm": 25,
+			  "head_body_ratio": 2.5,
+			  "body_type_note": "丸みを保ちつつ四肢と胴にしなやかな曲線、哺乳類的筋肉の柔軟さ"
+			},
+			"head": {
+			  "ears": {
+				"length_cm": 14,
+				"root_thickness_note": "根元はしっかり厚み、先端へ向けて細く",
+				"balance_note": "兎＋小獣のバランス"
+			  },
+			  "horns": {
+				"length_cm": 8,
+				"style": "細身で優雅に湾曲、乳白→金グラデーション（竜角の名残）"
+			  },
+			  "eyes": {
+				"diameter_cm": 3.5,
+				"iris_gradient": [
+				  "青",
+                  "金"
+				],
+				"highlight_style": "星形ハイライト"
+			  }
+			},
+			"torso": {
+			  "shoulder_note": "子猫や小鹿を参考にした筋肉ライン。首肩の自然な繋がり",
+			  "foreleg_length_cm": 7,
+			  "foreleg_tip": "丸みのある金色刻印（馬蹄模様）＋柔らかい肉球質感",
+			  "hindleg_length_cm": 9,
+			  "hindleg_note": "しっかりした太腿でウサギの跳躍力を想起",
+			  "tail": {
+				"bunny_tail_diameter_cm": 4,
+				"light_tail_length_cm": 12,
+				"particle_note": "揺れに応じて粒子が流れる"
+			  }
+			},
+			"ornaments": {
+			  "bell": {
+				"diameter_cm": 2.5,
+				"color_hex": "#FFD700",
+				"suspension": "小さなリボン紐で首元から下げる",
+				"sound_note": "動くたびに「チリン…」の微音。メイリン同調のトリガー象徴"
+			  },
+			  "scales": {
+				"placement": "胸元の鈴の両脇に小さな金色の鱗を2枚ずつ",
+				"count_left": 2,
+				"count_right": 2
+			  }
+			},
+			"colors": {
+			  "fur_hex": "#F8FAFF",
+			  "inner_ear_cheek_hex": "#FFD6E0",
+			  "horn_scale_bell_hex": "#FFD700",
+			  "outline_glow_hex": "#AEE6FF",
+			  "outline_glow_thickness_px": 2
+			},
+			"impression": [
+			  "ウサギ＋小鹿の柔らかさをベースに麒麟への進化を感じさせる",
+			  "胸元の鈴は吉兆と同調の象徴",
+              "マスコットの可愛さと神獣の品格の両立"
+			]
+		  }
+		},
+		{
+		  "id": "fuo",
+		  "name": "フオニアン",
+		  "motif": "小さな鳳凰",
+		  "traits": [
+			"炎の粒子",
+            "再生の象徴"
+		  ],
+		  "visibility_rule": "適性者にのみ視認可",
+		  "function": "導き"
+		}
+	  ],
+	  "laws": {
+		"resolution": "purification",
+		"home_definition": "居場所とは建物ではなく、人の手と心のつながり"
+	  }
+	},
+	"forms": [
+	  {
+		"id": "form1",
+		"name": "第一形態"
+	  },
+	  {
+		"id": "form2",
+		"name": "第二形態の覚醒解放"
+	  },
+	  {
+		"id": "fusion",
+		"name": "光麟一体"
+	  }
+	],
+	"forms_details": {
+	  "form1": {
+		"aka": "初同調（初変身）",
+		"onboarding": [
+		  "呼吸を合わせる",
+		  "鈴音を中心に置く",
+          "光粒子が衣装／リボンを形成"
+		],
+		"capabilities": [
+		  "受け（盾円）",
+		  "鞭（打撃）",
+          "絡め落とす（拘束→転倒）"
+		],
+		"first_move_template": "受け→鞭",
+		"visual_details": {
+		  "aka": "第一形態（初同調・第1段階）",
+		  "hair": {
+			"base": "薄い青",
+			"effect": "青白く発光",
+			"style": "左右に小さなお団子ヘア",
+			"fringe": "軽い透け感、目にかからない",
+			"style_note": "全体にやや癖っ毛があり、毛先がはねやすい",
+			"metrics": {
+			  "length_cm": 40,
+			  "spread_angle_deg": 28,
+			  "glow_intensity_vs_white": 1.2
+			}
+		  },
+		  "horn": {
+			"size": "小さく華奢",
+			"color": "白",
+			"note": "少女らしさを壊さないサイズ感。変身時のみ出現。",
+			"appears_only_when_transformed": true,
+			"metrics": {
+			  "length_cm": 4.5,
+			  "base_diameter_cm": 1.0,
+			  "tip_diameter_cm": 0.3,
+			  "tilt_deg": 15
+			}
+		  },
+		  "outfit": {
+			"base_colors": [
+			  "白",
+			  "金",
+              "淡いオレンジ"
+			],
+			"design": "スリムなチャイナ風ドレス、脇に深いスリット、肩や腕を出す",
+			"sleeves_shoulders": "肩・腕を出して動きやすい",
+			"ribbons": {
+			  "description": "腰から細長いリボンが流れる（先端に金の小鈴）",
+			  "waist": {
+				"count": 4,
+				"length_cm_each": 215,
+				"width_cm": 6,
+				"sway_angle_max_deg": 30,
+				"tip_bell_diameter_cm": 2.5
+			  },
+			  "back_knot": {
+				"width_cm": 14,
+				"height_cm": 9,
+				"thickness_mm": 5
+			  }
+			},
+			"tail": {
+			  "decor": "小さな獣毛飾り（麒麟の尾の未発達版）",
+			  "metrics": {
+				"undeveloped_tail_length_cm": 15
+			  }
+			},
+			"patterns": "腕・脚に麒麟の鱗を抽象化した淡い光の紋様",
+			"shoes": {
+			  "type": "短いチャイナシューズ",
+			  "heel_height_cm": 2,
+			  "color": "白地に金縁"
+			},
+			"wings": {
+			  "type": "小型の光翼（装飾的）",
+			  "metrics": {
+				"length_cm": 20,
+				"width_cm": 12,
+				"glow_intensity_ratio": 0.8
+			  }
+			},
+			"wings_metrics": {
+			  "length_cm": 20,
+			  "width_cm": 12,
+			  "glow_intensity_ratio": 0.8
+			},
+			"metrics": {
+			  "dress_length_cm": 85,
+			  "slit_length_cm": 30,
+			  "collar_height_cm": 4,
+			  "shoulder_exposed": true,
+			  "sleeves": "なし",
+			  "waist_ribbons": {
+				"count": 4,
+				"length_cm_each": 215,
+				"width_cm": 6,
+				"sway_angle_max_deg": 30,
+				"bell_diameter_cm": 2.5
+			  },
+			  "waist_ornaments": {
+				"lantern_diameter_cm": 5,
+				"undeveloped_tail_length_cm": 15
+			  },
+			  "shoes": {
+				"heel_height_cm": 2,
+				"color": "白地に金縁"
+			  },
+			  "pattern_spots": {
+				"arm_light_rings_per_arm": 3,
+				"leg_light_rings_per_leg": 3,
+				"ring_diameter_cm": [
+				  1.5,
+				  2.0
+				]
+			  },
+			  "arm_light_rings_per_arm": 3,
+			  "leg_light_rings_per_leg": 3,
+			  "ring_diameter_cm": [
+				1.5,
+				2.0
+			  ]
+			}
+		  },
+		  "motifs": {
+			"lantern": "腰ベルトに小型装飾（直径5cm）",
+			"tea_set": "胸元と腰布に金継ぎ模様を薄く配置",
+			"kirin": "鱗・雲・炎モチーフを控えめに配置"
+		  },
+		  "palette_notes": {
+			"primary": "白",
+			"secondary": "金",
+			"accent": "淡いオレンジ",
+			"hair_glow": "青白",
+			"bg_suggestion": "墨色〜黒の暗めグラデーションで発光を際立てる"
+		  },
+		  "metrics": {
+			"height_cm": 145,
+			"apparent_height_gain_cm": 2,
+			"hair_length_cm": 40,
+			"hair_spread_angle_deg": 28,
+			"horn": {
+			  "length_cm": 4.5,
+			  "base_diameter_cm": 1.0,
+			  "tip_diameter_cm": 0.3,
+			  "tilt_deg": 15
+			},
+			"color_ratio": {
+			  "white": 0.65,
+			  "gold": 0.25,
+			  "orange_accent": 0.1
+			},
+			"glow_intensity": {
+			  "hair_glow_vs_white": 1.2
+			},
+			"bust_cm": 70,
+			"waist_cm": 55,
+			"hip_cm": 75
+		  },
+		  "eyes": {
+			"color": "薄青色",
+			"note": "変身後は澄んだ薄青色に輝く"
+		  },
+		  "mouth": {
+			"feature": "とても小さな八重歯",
+			"expression_note": "口を開けた際に僅かに見える程度"
+		  },
+		  "cheek_patterns": {
+			"design": "頬に腕と同じ麒麟の鱗を抽象化した光模様",
+			"effect": "発光、戦闘時に輝きが増す"
+		  },
+		  "hair_ornaments": {
+			"design": "お団子近くに小さな獣毛飾り（麒麟モチーフ）",
+			"note": "光を帯びて揺れる"
+		  },
+		  "face": {
+			"eyes": {
+			  "color": "薄青色",
+			  "note": "変身後は澄んだ薄青色に輝く"
+			},
+			"mouth": {
+			  "feature": "とても小さな八重歯",
+			  "expression_note": "口を開けた際に僅かに見える程度"
+			},
+			"cheek_patterns": {
+			  "design": "麒麟の鱗を抽象化した光模様",
+			  "effect": "戦闘時に輝きが増す"
+			}
+		  },
+		  "chest_accessory": {
+			"id": "center_bell",
+			"label": "胸元の小鈴",
+			"note": "胸中央に細い金の紐で固定。動作に応じて微かに鳴る。",
+			"metrics": {
+			  "bell_diameter_cm": 1.8,
+			  "cord_width_mm": 2,
+			  "drop_length_cm": 6
+			}
+		  },
+		  "body_metrics": {
+			"height_cm": 145,
+			"apparent_height_gain_cm": 2,
+			"bust_cm": 70,
+			"waist_cm": 55,
+			"hip_cm": 75,
+			"color_ratio": {
+			  "white": 0.65,
+			  "gold": 0.25,
+			  "orange_accent": 0.1
+			}
+		  }
+		}
+	  },
+	  "normal": {
+		"visual_details": {
+		  "aka": "通常状態（変身前）",
+		  "age": 13,
+		  "body_metrics": {
+			"height_cm": 150,
+			"weight_kg_approx": 40,
+			"head_to_body_ratio": 6,
+			"bust_cm": 70,
+			"waist_cm": 55,
+			"hip_cm": 75
+		  },
+		  "hair": {
+			"follows_first_form_shape": true,
+			"front_bangs_cm": 7.5,
+			"bangs_transparency_ratio": 0.3,
+			"side_hair_cm": 20,
+			"back_hair_length_cm": 29,
+			"natural_waves": "light",
+			"buns": {
+			  "exists": true,
+			  "ribbons": {
+				"color_name": "青",
+				"color_hex": "#1B6CFF",
+				"width_cm": 2.5,
+				"length_cm": 12
+			  }
+			},
+			"color": {
+			  "name": "栗色（ダークブラウン）",
+			  "rgb_hex": "#5A3A29"
+			}
+		  },
+		  "face": {
+			"eyes_shape_follows_first_form": true,
+			"iris_color": {
+			  "name": "紺",
+			  "rgb_hex": "#1B2D55"
+			},
+			"iris_diameter_cm": 2.8,
+			"highlight": "round",
+			"nose_width_ratio_vs_face": 0.03,
+			"mouth_width_cm": 3.2,
+			"teeth": {
+			  "has_small_canine": true
+			},
+			"cheek_pattern": {
+			  "kirin_scale_motif_visible": false,
+			  "note": "通常は非表示（発光しない）"
+			}
+		  },
+		  "skeleton": {
+			"shoulder_width_cm": 32,
+			"arm_length_to_wrist_cm": 57,
+			"palm_width_cm": 6.5,
+			"inseam_cm": 68,
+			"foot_size_cm": 22.5
+		  },
+		  "outfit": {
+			"design": "主人公らしく装飾を加えた膝丈チャイナ服（第一形態の簡素化）",
+			"colors": {
+			  "base": {
+				"name": "ロイヤルブルー",
+				"rgb_hex": "#2A4C9A"
+			  },
+			  "trim": {
+				"name": "ライトブルー",
+				"rgb_hex": "#B0D0FF"
+			  },
+			  "shoes": {
+				"name": "ブルーグレー",
+				"rgb_hex": "#3C5478"
+			  }
+			},
+			"metrics": {
+			  "dress_length_cm": 80,
+			  "slit_above_knee_cm": 10,
+			  "collar_height_cm": 4,
+			  "sleeve_length_cm": 15,
+			  "decor": {
+				"chest_knots_count": 2,
+				"chest_knots_diameter_cm": 2.2,
+				"embroidery": {
+				  "color_name": "銀",
+				  "area": [
+					"collar",
+                    "sleeve"
+				  ]
+				}
+			  },
+			  "shoes": {
+				"heel_height_cm": 0,
+				"sole_thickness_cm": 1.5
+			  }
+			}
+		  },
+		  "consistency": {
+			"hair_shape_matches_form1": true,
+			"eye_shape_matches_form1": true,
+			"difference_from_form1": "色のみ（髪＝栗色、瞳＝紺）。姿勢は控えめ。衣装はブルー系で簡素化。"
+		  },
+		  "notes": [
+			"第一形態と骨格・体格数値は同一。",
+            "印象は控えめだが主人公らしさを感じる装飾へ更新。"
+		  ]
+		}
+	  },
+	  "form2": {
+		"visual_details": {
+		  "aka": "第二形態（覚醒解放・第一形態ベース強化）",
+		  "hair": {
+			"base": "薄い青",
+			"effect": "青白く発光（全発光色を青白に統一）",
+			"style": "左右に小さなお団子ヘア（第一形態継承）",
+			"metrics": {
+			  "length_cm": 40,
+			  "spread_angle_deg": 28,
+			  "glow_intensity_vs_white": 1.3
+			}
+		  },
+		  "horn": {
+			"count": 2,
+			"style": "slender",
+			"color": "乳白→金グラデーション",
+			"note": "麒麟／鹿を思わせる直線的シルエット",
+			"metrics": {
+			  "length_cm": 20.0,
+			  "base_diameter_cm": 1.2,
+			  "tip_diameter_cm": 0.4,
+			  "tilt_deg": 0
+			}
+		  },
+		  "face": {
+			"eyes": {
+			  "color": "薄青色",
+			  "note": "青白い淡光で統一"
+			},
+			"mouth": {
+			  "feature": "通常サイズの八重歯",
+			  "metrics": {
+				"canine_visible_length_mm": 6
+			  }
+			},
+			"cheek_patterns": {
+			  "design": "麒麟鱗の光模様（第一形態より複雑）",
+			  "effect": "青白い淡光、戦闘時に輝度上昇"
+			}
+		  },
+		  "outfit": {
+			"base_colors": [
+			  "白",
+			  "金",
+              "青白い発光"
+			],
+			"design": "チャイナドレス基調（ミニ丈／尖り裾／三方向スリット）を第一形態から継承",
+			"skirt": {
+			  "length": "mini",
+			  "hem_shape": "pointed",
+			  "split": {
+				"front": 1,
+				"back": 2
+			  }
+			},
+			"sleeves_shoulders": "肩・腕を出す（第一形態継承）",
+			"skin": {
+			  "translucent": true,
+			  "note": "やや半透明、麒麟紋様は流線的で複雑"
+			},
+			"ornaments": {
+			  "waist_kirin_emblem_cm": {
+				"width": 25,
+				"height": 30
+			  },
+			  "waist_mane": {
+				"bundles": 7,
+				"bundle_width_cm": 4,
+				"length_cm": 25,
+				"glow": "bluewhite"
+			  },
+			  "lantern": {
+				"diameter_cm": 5,
+				"note": "第一形態と同じ小型ランタン"
+			  }
+			},
+			"ribbons": {
+			  "waist": {
+				"count": 6,
+				"length_cm_each": 250,
+				"width_cm": 6,
+				"tip_bell_diameter_cm": 2.5
+			  }
+			},
+			"tail": {
+			  "shape": "slender",
+			  "metrics": {
+				"length_cm": 85,
+				"base_diameter_cm": 3.0,
+				"tip_diameter_cm": 0.5,
+				"tip": "fluffy",
+				"glow": "bluewhite"
+			  }
+			},
+			"wings": {
+			  "type": "光翼",
+			  "count": 4,
+			  "layout": "上下2段で横に大きく展開",
+			  "metrics": {
+				"length_cm_each": 60,
+				"width_cm_each": 30,
+				"glow_intensity_ratio": 1.6,
+				"hue": "bluewhite"
+			  }
+			},
+			"patterns": "腕・脚・腹部・太腿にかけて麒麟の鱗文様を強調（青白）",
+			"shoes": {
+			  "type": "短いチャイナシューズ",
+			  "heel_height_cm": 2,
+			  "color": "白地に金縁（発光演出は青白に統一）"
+			},
+			"metrics": {
+			  "dress_length_cm": 85,
+			  "slit_length_cm": 30,
+			  "collar_height_cm": 4,
+			  "shoulder_exposed": true,
+			  "sleeves": "なし",
+			  "waist_ribbons": {
+				"count": 6,
+				"length_cm_each": 250,
+				"width_cm": 6,
+				"bell_diameter_cm": 2.5
+			  },
+			  "waist_ornaments": {
+				"lantern_diameter_cm": 5,
+				"mane_length_cm": 25,
+				"kirin_emblem_cm": {
+				  "width": 25,
+				  "height": 30
+				}
+			  },
+			  "wings": {
+				"count": 4,
+				"length_cm_each": 60,
+				"width_cm_each": 30
+			  }
+			}
+		  },
+		  "glow_rule": {
+			"unified_color": "bluewhite",
+			"particles": {
+			  "diameter_cm_range": [
+				0.3,
+				0.5
+			  ],
+			  "count_range": [
+				30,
+				50
+			  ]
+			},
+			"aura": {
+			  "radius_cm": 70,
+			  "hue": "bluewhite",
+			  "behavior": "motion-reactive"
+			}
+		  },
+		  "metrics": {
+			"height_cm": 145,
+			"bust_cm": 70,
+			"waist_cm": 55,
+			"hip_cm": 75,
+			"hair_length_cm": 40,
+			"hair_spread_angle_deg": 28,
+			"horn": {
+			  "length_cm": 20.0,
+			  "count": 2
+			},
+			"ribbons": {
+			  "count": 6,
+			  "length_cm_each": 250,
+			  "width_cm": 6
+			},
+			"wings": {
+			  "count": 4,
+			  "length_cm_each": 60,
+			  "width_cm_each": 30
+			},
+			"tail": {
+			  "length_cm": 85,
+			  "tip": "fluffy"
+			}
+		  },
+		  "weapon_expression": "リボン・尾・鬣が麒麟の鬚や炎のように伸び、受け／鞭／拘束を強化。破壊ではなく浄化。",
+		  "notes": [
+			"体格・服の基本値は第一形態を完全継承。",
+            "演出は青白い淡光に統一し、神秘性と覚悟を強調。"
+		  ]
+		}
+	  }
+	},
+	"stages": [
+	  {
+		"id": "market",
+		"label": "市場",
+		"symbol": "布とリボン"
+	  },
+	  {
+		"id": "rooftop",
+		"label": "屋上（茶館跡地）",
+		"symbol": "灯籠"
+	  },
+	  {
+		"id": "river",
+		"label": "川辺",
+		"symbol": "光粒子"
+	  },
+	  {
+		"id": "ruin_plaza",
+		"label": "廃墟の広場",
+		"symbol": "暗闇"
+	  }
+	],
+	"character_meirin": {
+	  "name": "メイリン",
+	  "age": 13,
+	  "traits": [
+		"おとなしいが芯が強い",
+        "居場所への渇望"
+	  ],
+	  "speech": [
+		"一人称＝わたし",
+        "弱さを認めつつ前進"
+	  ],
+	  "role": "主人公"
+	},
+	"supporting_characters": [
+	  {
+		"id": "shuen",
+		"name": "シュエン",
+		"age": 15,
+		"role": "陶器修復師の娘",
+		"traits": [
+		  "落ち着き",
+          "芯の強さ"
+		],
+		"skills": [
+          "金継ぎ（修復）"
+		],
+		"visual_notes": [
+		  "作業着",
+          "金粉の跡"
+		],
+		"partner_beast_id": "fuo",
+		"visibility_rule": "適性者にのみ視認可",
+		"function_in_story": "希望の媒介（修復）"
+	  }
+	],
+	"battle": {
+	  "weapons": [
+		"布",
+		"リボン",
+        "光"
+	  ],
+	  "tempo": [
+		"受け",
+		"躱し",
+		"拘束",
+        "浄化"
+	  ],
+	  "finisher": {
+		"id": "fusion_fin",
+		"name": "光麟一体"
+	  },
+	  "fail_visual": [
+		"リボン解ける",
+		"鈴音消える",
+        "暗転"
+	  ],
+	  "win_visual": [
+		"灯籠再点灯",
+        "浄化の光"
+	  ],
+	  "mechanics": {
+		"sync_transform": {
+		  "name": "同調（合体）",
+		  "trigger": [
+			"呼吸同期",
+            "鈴音のセンタリング（心の中央に置くイメージ）"
+		  ],
+		  "effects": [
+			"感覚拡張（音の可視化）",
+			"衣装：白＋金／髪の青白い縁取り",
+			"リボンの機能拡張（盾／鞭）",
+            "光の浄化"
+		  ]
+		}
+	  },
+	  "combos": [
+		"受け→鞭",
+        "受け→鞭→絡め落とす"
+	  ]
+	},
+	"visual": {
+	  "palette": {
+		"hero": [
+		  "白",
+		  "金",
+          "青白い発光"
+		],
+		"enemy": [
+		  "墨色",
+          "赤黒い瞳"
+		],
+		"symbols": {
+		  "lantern": "橙",
+		  "tea_set": "翡翠（青磁）＋金継ぎ",
+		  "ribbon": "白金"
+		}
+	  },
+	  "directives": [
+		"逆光",
+		"光粒子",
+        "音の可視化"
+	  ]
+	},
+	"plot": {
+	  "logline": "壊れた居場所を巡る少女の再起。破壊ではなく浄化で世界を救う。",
+	  "pages": {
+		"act1": [
+		  1,
+		  25
+		],
+		"act2": [
+		  26,
+		  65
+		],
+		"act3": [
+		  66,
+		  90
+		]
+	  },
+	  "beats": {
+		"act1": {
+		  "intro": "茶館の日常（不自然な独白なし）。",
+		  "inciting": "影の侵入と茶器粉砕。",
+		  "turn1": "初同調（合体）で第一形態。リンが『盾＝受け』『鞭＝打撃』『光＝浄化』を説明し、最初の一手『受け→鞭』で至近の影をほどく。",
+		  "omen": "金粒子が立ち上がり、リンが出現する予兆。鈴音が合図となる（過度なVFXなし）。",
+		  "first_battle": "初同調の直後、至近距離の影に対し、『受け→鞭』でほどく。破壊ではなく浄化。",
+		  "aftermath": "破片を拾い、金継ぎの象徴でしめくくる。次章への導線を置く。"
+		},
+		"act2": {
+		  "trials": "孤独な戦いと修復の並行、居場所理解の深化。",
+		  "midpoint": "灯籠の再点灯、人々の協力。",
+		  "reversal": "廃墟の広場に『影の王』が顕現し、灯籠の光は敵へ吸い込まれていく。メイリンは第一形態で防戦を続け、盾＝受け／鞭＝打撃／絡め落とすを反復しながらも疲弊。背後でシュエンが茶器を修復し、金色の粒子がメイリンへ流入。それを契機に **第二形態の覚醒解放**。麒麟の幻影が背に現れ、六本リボン・尾・鬣・四枚光翼が青白い光で増幅し、短い押し返しに成功。しかし影の王は『はははは、この時を待っていたぞ……』と嘲笑し、漆黒の闇を一気に展開。巨大な触手が稲妻のように走り、**第二形態のメイリンの胸を強烈に貫通**。メイリンは激痛に仰け反り絶叫。胸部の光が触手へと奔流で吸い上げられ、リボンは解け、鈴音が消える。肉体的苦痛ののち、精神的にも諦めが芽生え、**最後の希望が抜け落ちる瞬間**に、『幻獣リン』の光がメイリンの胸から**抜け落ちて消失**。メイリンは絶望の悲鳴を上げる。続けて、**第二形態の外形のまま光が完全消失**し、瞳からも輝きが失われ、力なく崩れ落ちる。地面に倒れた後、**小さなオーラが体から散逸**し、衣装の輝きが失せて**変身解除**。広場と町は暗闇へ沈み、静寂が訪れる。"
+		},
+		"act3": {
+		  "re_oath": "母の言葉と皆の想いで誓い直し（OATH AGAIN）。",
+		  "climax": "光麟一体で浄化を選び、暴力ではなく『導き』で黒を還す。",
+		  "finale": "再建された居場所を皆で守る宣言。リン帰還。"
+		}
+	  },
+	  "storyboards": {
+		"act1": {
+		  "transformation_sequence": [
+			{
+			  "type": "breath",
+			  "description": "灯籠の残光と湯気の記憶を胸に集め、呼吸同期"
+			},
+			{
+			  "type": "chime",
+			  "description": "鈴音を心の中心に置くイメージ"
+			},
+			{
+			  "type": "manifest",
+			  "description": "髪に青白い縁取り、白＋金の衣装、リボンが浮遊"
+			},
+			{
+			  "type": "explain",
+			  "description": "リンが盾／鞭／浄化を簡潔に説明"
+			},
+			{
+			  "type": "first_move",
+			  "description": "『受け→鞭』で至近の影をほどく"
+			}
+		  ],
+		  "transformation_sequence_soft_fairy_v1": [
+			{
+			  "page": 3,
+			  "panel": 1,
+			  "id": "act1_p3_k1_soft",
+			  "camera": "upper-wide, slight backlight",
+			  "composition": "tea shards (celadon) on floor; small spirit light (Lin) rising",
+			  "fx": {
+				"light_particles": {
+				  "count": 120,
+				  "size_cm_range": [
+					0.15,
+					0.4
+				  ],
+				  "spread_radius_cm": 90
+				},
+				"backlight_strength": 0.7
+			  },
+			  "sfx": {
+				"text": "キィィン……",
+				"font_weight": "light",
+				"size_ratio_vs_panel": 0.22
+			  },
+			  "monologue": "……これが……",
+			  "notes": "やわらかい立ち上がり／恐怖ではなく驚き。"
+			},
+			{
+			  "page": 3,
+			  "panel": 2,
+			  "id": "act1_p3_k2_soft",
+			  "camera": "vertical mid, chest-up",
+			  "composition": "Lin light dissolves into Meirin chest",
+			  "pose": {
+				"head_tilt_deg": 8,
+				"shoulder_raise_cm": 1.0
+			  },
+			  "hair": {
+				"lift_cm": 3,
+				"spread_angle_deg": 18
+			  },
+			  "fx": {
+				"wind": "breeze",
+				"glow_intensity": 0.6
+			  },
+			  "sfx": {
+				"text": "……！",
+				"size_ratio_vs_panel": 0.18
+			  },
+			  "notes": "戸惑い：目を大きくしすぎない（虹彩径 2.8cm基準）。"
+			},
+			{
+			  "page": 3,
+			  "panel": 3,
+			  "id": "act1_p3_k3_soft",
+			  "camera": "mid full-body, soft vignette",
+			  "composition": "soft aura hugs small 13yo body; outline blur",
+			  "fx": {
+				"aura_radius_cm": 70,
+				"outline_blur_px": 3,
+				"particle_count": 80
+			  },
+			  "sfx": {
+				"text": "トクン……",
+				"size_ratio_vs_panel": 0.2
+			  }
+			},
+			{
+			  "page": 3,
+			  "panel": 4,
+			  "id": "act1_p3_k4_soft",
+			  "camera": "small lower strip",
+			  "composition": "slender twin horns emerge",
+			  "horn_metrics_cm": {
+				"length": 4.5,
+				"base_diam": 1.0,
+				"tip_diam": 0.3,
+				"tilt_deg": 15
+			  },
+			  "fx": {
+				"gold_particles": {
+				  "count": 25,
+				  "size_cm": 0.2
+				}
+			  },
+			  "sfx": {
+				"text": "スゥゥ……",
+				"size_ratio_vs_panel": 0.16
+			  }
+			},
+			{
+			  "page": 4,
+			  "panel": 1,
+			  "id": "act1_p4_k1_soft",
+			  "camera": "tight face-up",
+			  "eyes": {
+				"iris_color": "薄青色",
+				"iris_diameter_cm": 2.8,
+				"highlight_shape": "star"
+			  },
+			  "emotion": {
+				"valence": "warm",
+				"arousal": "low"
+			  },
+			  "fx": {
+				"inner_eye_glow": 0.35
+			  }
+			},
+			{
+			  "page": 4,
+			  "panel": 2,
+			  "id": "act1_p4_k2_soft",
+			  "camera": "mid waist",
+			  "skirt_metrics": {
+				"length_cm": 85,
+				"split_front": 1,
+				"split_back": 2,
+				"hem_shape": "pointed"
+			  },
+			  "cloth_formation": {
+				"incoming_flakes_count": 24,
+				"flake_size_cm_range": [
+				  1.0,
+				  3.0
+				],
+				"merge_time_s": 1.2
+			  },
+			  "fx": {
+				"fabric_flow": "featherlike",
+				"glow": 0.5
+			  },
+			  "sfx": {
+				"text": "シャララ……",
+				"size_ratio_vs_panel": 0.18
+			  }
+			},
+			{
+			  "page": 4,
+			  "panel": 3,
+			  "id": "act1_p4_k3_soft",
+			  "camera": "vertical center",
+			  "ribbon": {
+				"waist_count": 4,
+				"length_cm_each": 215,
+				"width_cm": 6,
+				"tip_bell_diameter_cm": 2.5
+			  },
+			  "motion": {
+				"sway_deg": 22,
+				"flow_direction": "左右へ対称"
+			  },
+			  "sfx": {
+				"text": "ひらり……",
+				"size_ratio_vs_panel": 0.16
+			  }
+			},
+			{
+			  "page": 4,
+			  "panel": 4,
+			  "id": "act1_p4_k4_soft",
+			  "camera": "large hero full-body",
+			  "pose": {
+				"stance_width_cm": 24,
+				"chin_deg": -2,
+				"spine_curve": "natural"
+			  },
+			  "horn": {
+				"length_cm": 4.5,
+				"tilt_deg": 15
+			  },
+			  "tail": {
+				"length_cm": 15,
+				"tip": "fluffy",
+				"arc_deg": 30
+			  },
+			  "outfit_ratio": {
+				"white": 0.65,
+				"gold": 0.25,
+				"orange_accent": 0.1
+			  },
+			  "bg": {
+				"radial_bloom_strength": 0.6,
+				"bloom_rings": 3
+			  },
+			  "line_sfx": {
+				"entry": "バァァン！",
+				"style": "clean impactful (not heavy)"
+			  },
+			  "dialogue": "――行かなきゃ！"
+			}
+		  ]
+		},
+		"act2": {
+		  "opening_panel": {
+			"type": "wide",
+			"description": "瓦礫の片付け、シュエンと出会い"
+		  },
+		  "reversal_sequence": [
+			{
+			  "type": "stage",
+			  "description": "廃墟の広場。影の王が人型輪郭と複数触手で顕現。灯籠の光が敵に吸い込まれる。"
+			},
+			{
+			  "type": "struggle",
+			  "description": "第一形態の防戦。受け→鞭→絡め落とすを反復。疲弊と息切れ。"
+			},
+			{
+			  "type": "prayer",
+			  "description": "シュエンが茶器を修復し『負けないで！』。金粒子がメイリンへ流入。"
+			},
+			{
+			  "type": "awaken",
+			  "description": "第二形態の覚醒解放。麒麟の幻影、6本リボン／尾／鬣／4枚光翼が青白く増幅。短い押し返し。"
+			},
+			{
+			  "type": "taunt",
+			  "description": "影の王『はははは、この時を待っていたぞ……』。全景が漆黒化。"
+			},
+			{
+			  "type": "pierce",
+			  "description": "巨大触手が胸を貫通。胸部の光が奔流で吸収される。リボン解け・鈴音消失。"
+			},
+			{
+			  "type": "despair",
+			  "description": "肉体的苦痛→精神的諦め。最後の希望が抜け落ちる。"
+			},
+			{
+			  "type": "lin_vanish",
+			  "description": "『幻獣リン』の光が胸から抜け落ち、空中で揺らめいて消失。絶望の悲鳴。"
+			},
+			{
+			  "type": "extinguish",
+			  "description": "第二形態のまま完全に光が消え、瞳の輝きも失われて崩れ落ちる。"
+			},
+			{
+			  "type": "fall",
+			  "description": "地面に倒れる。小さなオーラが散り、衣装の輝きが失せる。"
+			},
+			{
+			  "type": "deform",
+			  "description": "変身解除。静寂の暗闇。"
+			},
+			{
+			  "type": "bridge",
+			  "description": "砕けた茶器の欠片に月光。微かな金粒子が残滓として脈打ち、Act3の誓い直しへ橋渡し。"
+			}
+		  ]
+		}
+	  }
+	},
+	"items": {
+	  "mother_tea_bowl": {
+		"id": "mother_tea_bowl",
+		"name_jp": "母の茶器",
+		"type": "tea_bowl",
+		"origin": "Heirloom from Meirin's mother",
+		"model": {
+		  "material": "Celadon",
+		  "kiln_model": "Longquan (Song dynasty)"
+		},
+		"visual_design": {
+		  "shape": "bowl (wan)",
+		  "dimensions_cm": {
+			"diameter": 12.0,
+			"height": 6.0,
+			"rim_thickness_mm": 2.0,
+			"foot_diameter": 4.0
+		  },
+		  "weight_g": 150,
+		  "glaze": {
+			"hue_name": "jade green",
+			"munsell_approx": "5BG 6/4",
+			"finish": "semi-gloss",
+			"translucency_note": "rim glows faintly when backlit"
+		  },
+		  "surface": {
+			"pooling_note": "deeper jade at the glaze pooling near the foot",
+			"craze_pattern": "fine crackles (kan'nyuu) that catch light",
+			"decoration": "none (plain)"
+		  },
+		  "damage_and_kintsugi": {
+			"shard_size_cm_range": [
+			  1.0,
+			  5.0
+			],
+			"kintsugi": {
+			  "line_width_mm_range": [
+				1.0,
+				1.5
+			  ],
+			  "coverage_ratio": 0.22,
+			  "pattern": "branching lightning / leaf-vein",
+			  "gold_color_hex": "#D4AF37"
+			},
+			"visual_effect": "gold lines resemble kirin antlers / light veins"
+		  },
+		  "symbolism": [
+			"mother's purity and gentleness",
+			"oath and regeneration with kintsugi",
+            "shared place of belonging"
+		  ]
+		}
+	  }
+	}
+  },
+  "Views": {
+	"VisualPrompts": {
+	  "normal_meirin": {
+		"id": "vp_normal_meirin_v1_numeric",
+		"locale": "en/ja",
+		"prompt": "Girl, age 13, height 150cm, approx 40kg.\nHairstyle: dark brown (chestnut) ##5A3A29, back hair 29cm, side 20cm, bangs 7.5cm, light natural waves, twin small buns with ribbons width 2.5cm length 12cm color #1B6CFF.\nEyes: deep navy (紺) #1B2D55, iris diameter 2.8cm, round highlight.\nOutfit: knee-length simplified Chinese dress for protagonist, dress length 80cm, slit 10cm above knee, collar 4cm, sleeves 15cm.\nColors: royal blue base #2A4C9A with light blue trim #B0D0FF, shoes blue-gray #3C5478, flat sole 1.5cm.\nPose: neutral, modest but brave; no magical effects.\nLighting: soft rim light. Background simple.",
+		"negative": "no horns, no glow, no wings, no excessive vfx, no tears, no blood, no weapon, no cleavage, no mature body",
+		"notes": "Pre-transform Meirin (変身前). Numeric specs synchronized from Core.forms_details.normal.visual_details."
+	  },
+	  "form1_meirin": {
+		"id": "vp_form1_meirin_v1_numeric",
+		"locale": "en/ja",
+		"prompt": "Magical girl first form (初同調 第1段階). Height 145cm, hair glowing bluish-white, length 40cm, spread angle 28°; small white horn length 4.5cm tilt 15°.\nCostume: slim Chinese-inspired white & gold dress (ratio white 65% / gold 25% / orange accent 10%), dress length 85cm, slit 30cm, collar 4cm, shoulders exposed, no sleeves.\nRibbons: 4 waist ribbons, each 215cm × 6cm, bell at tip 2.5cm; chest bell 1.8cm diameter.\nWings: decorative light-wings length 20cm width 12cm.\nPatterns: faint kirin-scale light rings on arms and legs (3 each).\nShoes: short Chinese shoes heel 2cm, white with gold trim.\nEyes: clear light blue; cheek light patterns appear during combat.\nBackground suggestion: dark gradient (ink to black) to emphasize glow.\nRendering: gentle glow, visible light particles minimal, sound visualization subtle.",
+		"negative": "no blood, no gore, no large weapons, no heavy armor, no tears, no mature body, avoid extreme VFX",
+		"notes": "First form Meirin (第一形態). Numeric specs synchronized from Core.forms_details.form1.visual_details."
+	  },
+	  "form2_meirin": {
+		"id": "vp_form2_meirin_v1_numeric",
+		"locale": "en/ja",
+		"prompt": "Magical girl second form (第二形態 覚醒解放, 第一形態ベース強化). Height 145cm (no body growth). Hair glowing bluish-white, length 40cm, spread angle 28°, twin small buns. Eyes clear light blue; cheek kirin-scale light patterns (more complex). Fangs: visible canine size 6mm.\nCostume: Chinese mini dress, pointed hem, 3-way slit (front 1 / back 2), collar 4cm, shoulders exposed, no sleeves; colors white 65% / gold 25% / orange 10% with bluewhite glow accents.\nWaist ornaments: kirin emblem 25×30cm, mane-like fluff length 25cm (7 bundles, width 4cm each), lantern diameter 5cm (same as first form).\nRibbons: 6 waist ribbons, each 250×6cm, bell tip 2.5cm.\nHorns: 2 slender, 20cm, straight, ivory→gold gradient.\nTail: slender 85cm (base 3cm→tip 0.5cm), fluffy tip, bluewhite glow.\nWings: 4 light-wings (two tiers), each 60×30cm, horizontally spread; bluewhite glow.\nParticles: 30–50 floating, diameter 0.3–0.5cm. Aura: radius 70cm, bluewhite.\nPose: calm and resolute; emphasis on ribbons, tail and wings.\nLighting: unified bluewhite gentle glow; background dark gradient to emphasize rim light.",
+		"negative": "no blood, no gore, no guns, no realistic violence, no mature body, avoid heavy armor, avoid extreme VFX beyond gentle glow",
+		"notes": "Second form Meirin (第二形態). Numeric specs synchronized from Core.forms_details.form2.visual_details."
+	  },
+	  "vp_act1_p3_k1_soft": {
+		"id": "vp_act1_p3_k1_soft",
+		"locale": "en/ja",
+		"prompt": "Meirin First Form (初同調 可憐Ver.), age 13, height 145cm, small slender horns 4.5cm tilt 15°, mini Chinese-inspired dress length 85cm with slits (front 1 / back 2), 4 waist ribbons 215×6cm with 2.5cm bells, undeveloped tail 15cm (small fur decor) fluffy tip, hair glow bluish-white length 40cm spread 28°; Panel 3-1 act1_p3_k1_soft: upper-wide, slight backlight / tea shards (celadon) on floor; small spirit light (Lin) rising FX:{'light_particles': {'count': 120, 'size_cm_range': [0.15, 0.4], 'spread_radius_cm': 90}, 'backlight_strength': 0.7}. Style: gentle, mystical, fairy-like, soft particles; avoid heavy VFX, no blood/gore/mature body.",
+		"negative": "no blood, no gore, no guns, no heavy armor, avoid extreme VFX, avoid mature body, avoid cleavage",
+		"notes": "Synchronized to SoT numeric specs; panel-specific camera and FX."
+	  },
+	  "vp_act1_p3_k2_soft": {
+		"id": "vp_act1_p3_k2_soft",
+		"locale": "en/ja",
+		"prompt": "Meirin First Form (初同調 可憐Ver.), age 13, height 145cm, small slender horns 4.5cm tilt 15°, mini Chinese-inspired dress length 85cm with slits (front 1 / back 2), 4 waist ribbons 215×6cm with 2.5cm bells, undeveloped tail 15cm (small fur decor) fluffy tip, hair glow bluish-white length 40cm spread 28°; Panel 3-2 act1_p3_k2_soft: vertical mid, chest-up / Lin light dissolves into Meirin chest FX:{'wind': 'breeze', 'glow_intensity': 0.6}. Style: gentle, mystical, fairy-like, soft particles; avoid heavy VFX, no blood/gore/mature body.",
+		"negative": "no blood, no gore, no guns, no heavy armor, avoid extreme VFX, avoid mature body, avoid cleavage",
+		"notes": "Synchronized to SoT numeric specs; panel-specific camera and FX."
+	  },
+	  "vp_act1_p3_k3_soft": {
+		"id": "vp_act1_p3_k3_soft",
+		"locale": "en/ja",
+		"prompt": "Meirin First Form (初同調 可憐Ver.), age 13, height 145cm, small slender horns 4.5cm tilt 15°, mini Chinese-inspired dress length 85cm with slits (front 1 / back 2), 4 waist ribbons 215×6cm with 2.5cm bells, undeveloped tail 15cm (small fur decor) fluffy tip, hair glow bluish-white length 40cm spread 28°; Panel 3-3 act1_p3_k3_soft: mid full-body, soft vignette / soft aura hugs small 13yo body; outline blur FX:{'aura_radius_cm': 70, 'outline_blur_px': 3, 'particle_count': 80}. Style: gentle, mystical, fairy-like, soft particles; avoid heavy VFX, no blood/gore/mature body.",
+		"negative": "no blood, no gore, no guns, no heavy armor, avoid extreme VFX, avoid mature body, avoid cleavage",
+		"notes": "Synchronized to SoT numeric specs; panel-specific camera and FX."
+	  },
+	  "vp_act1_p3_k4_soft": {
+		"id": "vp_act1_p3_k4_soft",
+		"locale": "en/ja",
+		"prompt": "Meirin First Form (初同調 可憐Ver.), age 13, height 145cm, small slender horns 4.5cm tilt 15°, mini Chinese-inspired dress length 85cm with slits (front 1 / back 2), 4 waist ribbons 215×6cm with 2.5cm bells, undeveloped tail 15cm (small fur decor) fluffy tip, hair glow bluish-white length 40cm spread 28°; Panel 3-4 act1_p3_k4_soft: small lower strip / slender twin horns emerge FX:{'gold_particles': {'count': 25, 'size_cm': 0.2}}. Style: gentle, mystical, fairy-like, soft particles; avoid heavy VFX, no blood/gore/mature body.",
+		"negative": "no blood, no gore, no guns, no heavy armor, avoid extreme VFX, avoid mature body, avoid cleavage",
+		"notes": "Synchronized to SoT numeric specs; panel-specific camera and FX."
+	  },
+	  "vp_act1_p4_k1_soft": {
+		"id": "vp_act1_p4_k1_soft",
+		"locale": "en/ja",
+		"prompt": "Meirin First Form (初同調 可憐Ver.), age 13, height 145cm, small slender horns 4.5cm tilt 15°, mini Chinese-inspired dress length 85cm with slits (front 1 / back 2), 4 waist ribbons 215×6cm with 2.5cm bells, undeveloped tail 15cm (small fur decor) fluffy tip, hair glow bluish-white length 40cm spread 28°; Panel 4-1 act1_p4_k1_soft: tight face-up /  FX:{'inner_eye_glow': 0.35}. Style: gentle, mystical, fairy-like, soft particles; avoid heavy VFX, no blood/gore/mature body.",
+		"negative": "no blood, no gore, no guns, no heavy armor, avoid extreme VFX, avoid mature body, avoid cleavage",
+		"notes": "Synchronized to SoT numeric specs; panel-specific camera and FX."
+	  },
+	  "vp_act1_p4_k2_soft": {
+		"id": "vp_act1_p4_k2_soft",
+		"locale": "en/ja",
+		"prompt": "Meirin First Form (初同調 可憐Ver.), age 13, height 145cm, small slender horns 4.5cm tilt 15°, mini Chinese-inspired dress length 85cm with slits (front 1 / back 2), 4 waist ribbons 215×6cm with 2.5cm bells, undeveloped tail 15cm (small fur decor) fluffy tip, hair glow bluish-white length 40cm spread 28°; Panel 4-2 act1_p4_k2_soft: mid waist /  FX:{'fabric_flow': 'featherlike', 'glow': 0.5}. Style: gentle, mystical, fairy-like, soft particles; avoid heavy VFX, no blood/gore/mature body.",
+		"negative": "no blood, no gore, no guns, no heavy armor, avoid extreme VFX, avoid mature body, avoid cleavage",
+		"notes": "Synchronized to SoT numeric specs; panel-specific camera and FX."
+	  },
+	  "vp_act1_p4_k3_soft": {
+		"id": "vp_act1_p4_k3_soft",
+		"locale": "en/ja",
+		"prompt": "Meirin First Form (初同調 可憐Ver.), age 13, height 145cm, small slender horns 4.5cm tilt 15°, mini Chinese-inspired dress length 85cm with slits (front 1 / back 2), 4 waist ribbons 215×6cm with 2.5cm bells, undeveloped tail 15cm (small fur decor) fluffy tip, hair glow bluish-white length 40cm spread 28°; Panel 4-3 act1_p4_k3_soft: vertical center /  FX:{'sway_deg': 22} Style: gentle, mystical, fairy-like, soft particles; avoid heavy VFX, no blood/gore/mature body.",
+		"negative": "no blood, no gore, no guns, no heavy armor, avoid extreme VFX, avoid mature body, avoid cleavage",
+		"notes": "Synchronized to SoT numeric specs; panel-specific camera and FX."
+	  },
+	  "vp_act1_p4_k4_soft": {
+		"id": "vp_act1_p4_k4_soft",
+		"locale": "en/ja",
+		"prompt": "Meirin First Form (初同調 可憐Ver.), age 13, height 145cm, small slender horns 4.5cm tilt 15°, mini Chinese-inspired dress length 85cm with slits (front 1 / back 2), 4 waist ribbons 215×6cm with 2.5cm bells, undeveloped tail 15cm (small fur decor) fluffy tip, hair glow bluish-white length 40cm spread 28°; Panel 4-4 act1_p4_k4_soft: large hero full-body /  FX:{'radial_bloom_strength': 0.6} Style: gentle, mystical, fairy-like, soft particles; avoid heavy VFX, no blood/gore/mature body.",
+		"negative": "no blood, no gore, no guns, no heavy armor, avoid extreme VFX, avoid mature body, avoid cleavage",
+		"notes": "Synchronized to SoT numeric specs; panel-specific camera and FX."
+	  }
+	},
+	"PageScripts": {
+	  "act1_soft2pages_map_v1": {
+		"panels": [
+		  {
+			"id": "act1_p3_k1_soft",
+			"prompt_id": "vp_act1_p3_k1_soft"
+		  },
+		  {
+			"id": "act1_p3_k2_soft",
+			"prompt_id": "vp_act1_p3_k2_soft"
+		  },
+		  {
+			"id": "act1_p3_k3_soft",
+			"prompt_id": "vp_act1_p3_k3_soft"
+		  },
+		  {
+			"id": "act1_p3_k4_soft",
+			"prompt_id": "vp_act1_p3_k4_soft"
+		  },
+		  {
+			"id": "act1_p4_k1_soft",
+			"prompt_id": "vp_act1_p4_k1_soft"
+		  },
+		  {
+			"id": "act1_p4_k2_soft",
+			"prompt_id": "vp_act1_p4_k2_soft"
+		  },
+		  {
+			"id": "act1_p4_k3_soft",
+			"prompt_id": "vp_act1_p4_k3_soft"
+		  },
+		  {
+			"id": "act1_p4_k4_soft",
+			"prompt_id": "vp_act1_p4_k4_soft"
+		  }
+		],
+		"created_at": "2025-08-31T16:01:30.805757Z",
+		"notes": "神秘・可憐 2ページ版：各コマに対してパネル専用プロンプトを割当て。"
+	  },
+	  "act1_full_novel_map_v1": {
+		"meta": {
+		  "title": "Act1 Full Novel Map",
+		  "version": "v1",
+		  "created_utc": "2025-09-01T15:57:21.627637Z",
+		  "purpose": "Enable end-to-end novelization of Act1 (p1–25) strictly from Core + Notes, without ad‑hoc additions.",
+		  "rules": [
+			"Follow Core as SoT; Views order strict; reflect Notes nuances; no improvisation.",
+			"If an item is not defined in Core, mark as [MISSING:<key.path>].",
+            "Use numeric values from Core.VisualDesign and forms_details."
+		  ]
+		},
+		"pages": [
+		  {
+			"range": "p1-6",
+			"slug": "intro_daily_life",
+			"goal": "Quiet daily scene at tea house; establish 'place' motif.",
+			"source_refs": [
+			  "Core.plot.beats.act1.intro",
+			  "Core.items.mother_tea_bowl",
+			  "Core.world.symbols.place",
+              "Notes.Act1.raw_text.intro"
+			]
+		  },
+		  {
+			"range": "p7-10",
+			"slug": "inciting_break_tea_bowl",
+			"goal": "Shadow intrusion; mother tea bowl (celadon) breaks.",
+			"source_refs": [
+			  "Core.plot.beats.act1.inciting",
+			  "Core.world.enemy",
+			  "Core.items.mother_tea_bowl.visual_design",
+              "Notes.Act1.raw_text.inciting"
+			]
+		  },
+		  {
+			"range": "p11-12",
+			"slug": "omen_lin_appears",
+			"goal": "Gold particles rise; ally beast Lin appears; bell cue.",
+			"source_refs": [
+			  "Core.world.ally_beasts.lin",
+			  "Core.plot.beats.act1.omen",
+              "Notes.Act1.raw_text.omen"
+			]
+		  },
+		  {
+			"range": "p13-16",
+			"slug": "first_transform_sequence",
+			"goal": "First transformation in 4–5 beats; keep numbers from Core.",
+			"source_refs": [
+			  "Views.PageScripts.act1_soft2pages_map_v1",
+			  "Core.forms_details.form1.visual_details",
+              "Notes.Act1.raw_text.transform"
+			]
+		  },
+		  {
+			"range": "p17-22",
+			"slug": "first_battle_close_quarters",
+			"goal": "Defense (shield-circle) then whip; 'untying' not destroying.",
+			"source_refs": [
+			  "Core.forms_details.form1.capabilities",
+			  "Core.battle.combos",
+			  "Core.plot.beats.act1.first_battle",
+              "Notes.Act1.raw_text.first_battle"
+			]
+		  },
+		  {
+			"range": "p23-25",
+			"slug": "afterglow_kintsugi_hook_to_act2",
+			"goal": "Pick up shards; kintsugi symbolism; move to Act2.",
+			"source_refs": [
+			  "Core.items.mother_tea_bowl.visual_design.symbolism",
+			  "Core.plot.beats.act1.aftermath",
+              "Notes.Act1.raw_text.aftermath"
+			]
+		  }
+		]
+	  }
+	},
+	"Act1View": {
+	  "title": "Act1（p1–25）",
+	  "point_of_view": "first_person",
+	  "narrator": "メイリン",
+	  "scenes": [
+		{
+		  "no": 1,
+		  "range": "p1-6",
+		  "slug": "intro_daily_life",
+		  "source_refs": [
+			"Core.plot.beats.act1.intro",
+			"Core.items.mother_tea_bowl",
+			"Core.world.symbols.place",
+            "Notes.Act1.raw_text.intro"
+		  ]
+		},
+		{
+		  "no": 2,
+		  "range": "p7-10",
+		  "slug": "inciting_break_tea_bowl",
+		  "source_refs": [
+			"Core.plot.beats.act1.inciting",
+			"Core.world.enemy",
+			"Core.items.mother_tea_bowl.visual_design",
+            "Notes.Act1.raw_text.inciting"
+		  ]
+		},
+		{
+		  "no": 3,
+		  "range": "p11-12",
+		  "slug": "omen_lin_appears",
+		  "source_refs": [
+			"Core.world.ally_beasts.lin",
+			"Core.plot.beats.act1.omen",
+            "Notes.Act1.raw_text.omen"
+		  ]
+		},
+		{
+		  "no": 4,
+		  "range": "p13-16",
+		  "slug": "first_transform_sequence",
+		  "source_refs": [
+			"Views.PageScripts.act1_soft2pages_map_v1",
+			"Core.forms_details.form1.visual_details",
+            "Notes.Act1.raw_text.transform"
+		  ]
+		},
+		{
+		  "no": 5,
+		  "range": "p17-22",
+		  "slug": "first_battle_close_quarters",
+		  "source_refs": [
+			"Core.forms_details.form1.capabilities",
+			"Core.battle.combos",
+			"Core.plot.beats.act1.first_battle",
+            "Notes.Act1.raw_text.first_battle"
+		  ]
+		},
+		{
+		  "no": 6,
+		  "range": "p23-25",
+		  "slug": "afterglow_kintsugi_hook_to_act2",
+		  "source_refs": [
+			"Core.items.mother_tea_bowl.visual_design.symbolism",
+			"Core.plot.beats.act1.aftermath",
+            "Notes.Act1.raw_text.aftermath"
+		  ]
+		}
+	  ]
+	}
+  },
+  "Notes": {
+	"Act1": {
+	  "raw_text": "# meirin_act1_detailed\n\n> SoT: meirin_canon.json に準拠\n> 最終更新: 2025-08-27 15:52:02Z\n\n## 目的\nAct1の演出・用語・戦闘メカニクスを統一し、以降の脚本・絵コンテ・演出指示の土台とする。\n\n---\n\n## 1. 導入（日常）\n- 店内の**音・灯り・所作**で空気をつくる（鈴の余韻／湯気／木床のきしみ）。\n- 不自然な独白（例：「私には守れない」等）は**使用しない**。不安は環境音や微細な動作（指の震え等）で示す。\n- 翡翠色の**青磁の茶器**は“無傷”として提示（光の反射）。後半の粉砕へ伏線。\n\n### 画（キーショット）\n- 逆光の灯籠／盆の動線／湯気に滲む橙。\n- 鈴音は**可視化しない**（初同調までの“気配”扱い）。\n\n---\n\n## 2. 触発（茶館崩壊）\n- **影（カゲロウ）**が床・壁の隙から**墨のにじみ**として侵入、通路を遮断。\n- 客を**低姿勢で誘導**し、主人公は**身体で通路を確保**。\n- 棚に衝突 → **茶器が粉砕**（ガシャン）。淡い翡翠色の破片が灯籠の光を反射。ここで“守れなかった”という**感情の刺し**を明確化（独白は簡潔に）。\n\n### 必須ディテール\n- 影の質感：液状の黒。光への反発。\n- SFX：破砕音は一度だけ鋭く。余韻に小破片の落下。\n\n---\n\n## 3. 初同調（合体）＝初変身（新規詳述・Act1内に統合）\n### トリガー\n- **呼吸同期**（吸って→吐く）\n- **鈴音センタリング**（心の中心に鈴を置くイメージ）\n\n### 演出（見た目と感覚）\n- 髪：**青白い縁取り**。\n- 装束：**白＋金**が光粒子から編まれて出現。\n- **リボン**がふわりと浮く（重さの反転）。\n- **感覚拡張**：音が“見える”ような明瞭化（過度なVFX禁止、粒子の揺れで示す）。\n\n### メカニクス（リンの即時説明）\n- 盾＝**受け（円盾）**：衝撃を面で拡散。\n- 鞭＝**打撃**：返しで黒を**ほどく（浄化）**。\n- 光＝**浄化**：破壊ではなく、汚れを薄めて還す。\n\n### 最初の一手（テンプレ）\n- **『受け → 鞭』**で至近の一体を処理。  \n  - 受け：前方に布の円。  \n  - 鞭：手首の返しで一閃（SFXは一拍だけ鋭く）。\n\n### 基本連携（以降の最少サイクル）\n- **『受け → 鞭 → 絡め落とす』**  \n  - 絡め：布の輪で拘束。  \n  - 落とす：体軸回転で転倒→**浄化**。\n\n---\n\n## 4. 初戦の運用（Act1の戦い方）\n- テンポ原則：**受け → 躱し → 拘束 → 浄化**（圧より**導き**）。\n- 視界が狭い時は**鈴音で距離感リセット**（ワンチリン）。\n- 過剰な必殺演出は**禁止**（大技はAct2以降）。\n\n### カメラ提案\n- 受け：胸元寄りの**半身**。\n- 鞭：**斜め後方**から軌跡を拾う。粒子は最小限。\n\n---\n\n## 5. 余韻（Act1クロージング）\n- 床の**淡い翡翠色の破片**を掌で温める描写。灯籠の微光が反射。\n- セリフは短く、**次の一歩**を前へ向けて締める。\n\n---\n\n## 付録：用語・演出の統一\n- 解決手段＝**浄化（purification）**。破壊・殲滅は避ける。\n- リボンは**武器ではなく媒介**（受け／鞭／拘束）。\n- 鈴音は**存在の証**（演出は控えめ、要所のみ）。\n\n\n\n### 変身（神秘・可憐 2ページ数値版）\n- ページ3：\n  - コマ1：光粒子 120個（0.15–0.4cm）、拡散半径 90cm、逆光0.7。SFX「キィィン……」\n  - コマ2：髪リフト 3cm、広がり角 18°、胸への溶解、SFX「……！」\n  - コマ3：オーラ半径 70cm、輪郭ブラー 3px、粒子 80。SFX「トクン……」\n  - コマ4：角=長4.5cm/根径1.0cm/先端0.3cm/傾き15°、金粒子25。SFX「スゥゥ……」\n- ページ4：\n  - コマ1：瞳=薄青、虹彩径2.8cm、内側発光0.35。\n  - コマ2：スカート形成=長85cm、前1/後2スリット、布片24（1.0–3.0cm）、統合1.2s。SFX「シャララ……」\n  - コマ3：腰リボン=4本×(215×6cm), 先端鈴2.5cm、左右へ22°揺れ。SFX「ひらり……」\n  - コマ4：尾=85cm（先端ふさふさ）軌跡弧30°、配色比 白0.65/金0.25/橙0.10、放射ブルーム0.6（リング3）。台詞「――行かなきゃ！」SFX「バァァン！」"
+	},
+	"Act2": {
+	  "raw_text": "[[REF]]\nconstants: meirin_constants.yml\nSoT: symbolism=meirin_symbolism_themes.txt; battle_rule=meirin_battle_style.txt; world=meirin_worldbuilding.txt; battlefields=meirin_worldbuilding_battlefields.txt; visual_rules=meirin_visual_design_notes.txt; checklist=meirin_master_checklist.txt; plot=meirin_plot.txt\n[[/REF]]\n\n# Act2 Detailed（成長と試練・同期版）\n\n<!-- @anchor:act2-opening -->\n## 冒頭（片付けと出会い）\n* 壊れ果てた茶館で片付けをするメイリン。砕けた「茶器」の破片を拾い集めている。  \n* そこに現れるのが **シュエン（陶器修復師の娘、15歳）**。  \n* シュエンは茶器の欠片を共に集め、「それ、大切なものでしょう……きっと直せるよ」と声をかける。  \n* 彼女の傍らには幻獣 **フオニアン（鳳凰）** が炎の粒子をまとって寄り添っている。ただし、見えるのはメイリンのような適性者のみ。  \n* フオニアンは砕けた茶器に光を落とし、「壊れても直せる」未来を暗示する。  \n\n---\n\n<!-- @anchor:act2-trials -->\n## 試練（孤独な戦いと修復の並行）\n* canon.plot.beats.act2.trials → 「市場で協力、再建で居場所理解が進む」  \n* 実際には、メイリンは基本ひとりで布とリボンを操り、小型影を浄化する戦いを続ける。  \n* その合間に、シュエンは砕けた茶器を少しずつ修復している。彼女には戦う力はないが、金継ぎの技で「壊れたものを直す」努力を続ける。  \n* 戦いと修復が並行することで、メイリンは「自分一人ではない」と気づき、「居場所＝人のつながり」の理解を深めていく。  \n* 象徴：リボン＝メイリンの意志、茶器の修復＝希望。  \n\n---\n\n<!-- @anchor:act2-midpoint -->\n## 中間点（灯籠再点灯）\n* canon.plot.beats.act2.midpoint → 「灯籠再点灯」  \n* 再建作業が進み、町の人々の協力によって灯籠が一つ、また一つと点灯していく。  \n* メイリンは「一人じゃない」という確信を強める。  \n* 象徴：灯籠の光粒子＝再生の兆し。  \n\n---\n\n<!-- @anchor:act2-reversal -->\n## 第二転換（逆転と喪失・詳細描写／拡張版・アクション強化）\n* 廃墟の広場に黒墨のにじみが拡大し、**影の王**が顕現。奪われた灯籠の光が吸い込まれ、広場は漆黒の舞台となる。  \n* メイリンは**第一形態**で防戦。盾＝受け／鞭＝打撃／絡め落とすを反復し、ひとつ押してはふたつ下がる。膝の震え、息の乱れ、肩の引き込みなど**疲弊の身体記号**を明示。  \n* 背後で**シュエン**が茶器を修復。「メイリン、負けないで！」。割れ目から**金粒子**が溢れ、祈りのようにメイリンへ流入。  \n* その光を受けて**第二形態の覚醒解放**。麒麟の幻影が背に顕れ、**6本のリボン／尾／鬣／4枚の光翼**が青白く増幅。短時間の**押し返し**：リボンは刃のように触手を断ち、尾は絡めて引き倒し、鬣は稲妻のような軌跡で払う。  \n* しかし影の王は嘲笑し「**この時を待っていた**」。全景が**漆黒化**。巨大触手が稲妻の軌跡で**胸を貫通**。  \n* **肉体的苦痛**：仰け反り、声が裂け、四肢の痙攣。胸の光が奔流で吸い上げられる。**リボン解け／鈴音消失**。  \n* **精神的諦め**：短い独白（「だめだ……もう、勝てない……」）。**最後の希望が抜け落ちる**。  \n* その瞬間、**幻獣リン**の光が胸から**抜け落ちて消失**。メイリンは**絶望の悲鳴**を上げる。  \n* **光の完全消失**：第二形態の外形のまま、青白い輝きがゼロに。瞳の光も消え、力なく崩れ落ちる。  \n* **倒伏と解除**：地面に倒れ、**小さなオーラが散逸**。衣装の輝きが失われ、**変身解除**。広場と町は暗闇と静寂。  \n* **橋渡し**：砕けた茶器の**欠片に月光**。微かな**金粒子の残滓**が脈打ち、Act3「誓い直し（OATH AGAIN）」への接続サインとする。\n------\n\n## QAチェック（Act2）\n* canon.json v1.0.4 に同期済み。  \n* 因果：出会い→孤独な戦いと修復→灯籠再点灯→劇的変身→光を奪われ敗北。  \n* 年齢統一：メイリン13歳、シュエン15歳。  \n"
+	},
+	"Act3": {
+	  "raw_text": "[[REF]]\nconstants: meirin_constants.yml\nSoT: symbolism=meirin_symbolism_themes.txt; battle_rule=meirin_battle_style.txt; world=meirin_worldbuilding.txt; battlefields=meirin_worldbuilding_battlefields.txt; visual_rules=meirin_visual_design_notes.txt; checklist=meirin_master_checklist.txt; plot=meirin_plot.txt\n[[/REF]]\n\n# Act3 Detailed（覚醒と決着）\n\n<!-- @anchor:act3-resolution -->\n## 内的解決\n* 母の手紙＋仲間の声 → 「一人じゃない」と理解。  \n* 弱さを抱えたまま立つ誓い（OATH AGAIN）。  \n\n<!-- @anchor:act3-climax -->\n## クライマックス\n* 光のリボンが麒麟へ統合（光麟一体）。  \n* 破壊ではなく浄化を選ぶ。  \n* 町全体が再生、茶館と茶器（金継ぎ）が復活。  \n\n<!-- @anchor:act3-outro -->\n## 結末（余韻）\n* メイリンは「皆で守る居場所」の責任を受け入れ、未来に向けた運営宣言。  \n* リンは相棒として寄り添う。  \n\n---\n\n## QAチェック（Act3）\n* 覚醒語彙 → **第二形態の覚醒解放（外見維持・演出強化）** に統一。  \n* 象徴 → [[meirin_symbolism_themes#◆物語の中心テーマ]]  \n* 世界観・敵定義 → [[meirin_worldbuilding#◆敵「影」について]]  \n* 年齢は13歳で統一。  \n"
+	},
+	"Full": {
+	  "raw_text": "[[REF]]\nconstants: meirin_constants.yml\nSoT: canon=meirin_canon.json; act1=meirin_act1_detailed.txt; act2=meirin_act2_detailed.txt; act3=meirin_act3_detailed.txt; symbolism=meirin_symbolism_themes.txt; world=meirin_worldbuilding.txt; battle=meirin_battle_style.txt; visual=meirin_visual_design_notes.txt; prompts=meirin_visual_prompts.txt; checklist=meirin_master_checklist.txt; plot=meirin_plot.txt\n[[/REF]]\n\n# meirin_full_detailed.txt（完全統合・同期版 v1.0.4）\n\n本ファイルは **Act1〜Act3 の詳細要点**を一冊化した統合稿です。SoTは `meirin_canon.json`。\n\n---\n\n## ◆ メタ\n- ログライン：母の茶館を失った13歳のメイリンが「OATH AGAIN（再起の誓い）」を通じて影を浄化し、居場所を再生する。  \n- ページ配分：Act1 p1–25 / Act2 p26–65 / Act3 p66–90  \n- テーマ原則：弱さを認め、もう一度立つ／破壊ではなく浄化と再生／居場所＝人と人のつながり  \n- 象徴：灯籠／茶器（金継ぎ）／リボン／鈴音  \n\n---\n\n## Act1（v1.0.4c 改稿マージ）\n\n# meirin_act1_detailed（v1.0.4c 追記版）\n\n## 導入（修正）\n- 不自然な独白は削除。日常の音・灯り・動作で不安の“予感”を示す。\n\n## 触発（茶館崩壊）\n- 影（カゲロウ）が侵入、通路遮断、茶器が粉砕。残留はメイリンと瓦礫と鈴の余韻。\n\n## 初同調（合体）＝変身（新規詳述）\n- トリガー：呼吸同期／鈴音センタリング。\n- 演出：青白い縁取りの髪、白＋金の衣装、リボン浮遊、音の可視化。\n- 説明：リンが即時に「盾＝受け」「鞭＝打撃」「光＝浄化」を伝える。\n- 最初の一手テンプレ：『受け→鞭』で至近1体をほどく。\n- 基本連携：『受け→鞭→絡めて落とす』。\n\n## 余韻\n- 破片の冷たさ→掌の温度で少し和らぐ。次の一歩を前に向ける。\n# Act2（成長と試練）\n\n### 冒頭（片付けと出会い）\n- 瓦礫片付け。**シュエン**（陶器修復師の娘、15）が登場し、砕けた茶器の欠片を共に集める。  \n- 彼女の傍らには幻獣 **フオニアン（鳳凰）**。適性者にのみ視認可。  \n- 「壊れても直せる」価値観を提示し、金継ぎへの布石。\n\n### 試練（孤独な戦いと修復の並行）\n- 実際の戦闘は、メイリンが **基本ひとり** で布とリボンを操り小型影を浄化。  \n- その合間、シュエンは茶器を少しずつ修復（変身はしない）。  \n- 戦いと修復が並行し、メイリンは「居場所＝人のつながり」を理解していく。\n\n### 中間点（灯籠再点灯）\n- 町の協力で灯籠が再点灯。再生の兆し。  \n\n### 第二転換（逆転と喪失・詳細）\n- 巨大な影の前で、灯籠の光と **シュエンの思い** がメイリンに収束。  \n- 劇的に **第二形態の覚醒解放**。背後に麒麟の光像、髪とリボンが炎のように輝く。  \n- しかしそれは敵の狙い。卑劣な一撃が胸を穿ち、空中で仰け反るメイリン。  \n- 第二形態の光が **吸収** され、リボンは解け、**鈴音が消える**。  \n- 最後の叫びと閃光ののち、光は四散、町は闇で覆われる。  \n- **変身解除 → 落下・失神 → リン消失**。\n\n**参照**：[[meirin_act2_detailed#Act2-Detailed（成長と試練・同期版）]]\n\n---\n\n# Act3（覚醒と決着）\n\n### 誓い直し（内的解決）\n- 金継ぎ茶器に **母の言葉** が現れ、仲間の声と共鳴。「一人じゃない」と悟り **誓い直し**。  \n\n### クライマックス\n- **光麟一体** を選び、破壊ではなく **浄化** の決着。  \n\n### 結末（余韻）\n- 町の再生。茶館と茶器（金継ぎ）完成。運営宣言。  \n\n**参照**：[[meirin_act3_detailed#本編詳細]]\n\n---\n\n## ビジュアル/戦闘ルール（横断）\n- 色彩：Hero＝白/金/青白い発光、Enemy＝墨色。  \n- 逆光・リムライト・光粒子・音の可視化。  \n- 戦闘テンポ＝防御→観察→連携→誓い→浄化。  \n- 敗北演出：リボン解ける／鈴音消失。勝利演出：灯籠再点灯／金継ぎ粒子。\n\n---\n\n## QA チェック（統合）\n- SoT：`meirin_canon_v1.0.4.json` に準拠。  \n- 用語統一：「第二形態の覚醒解放」。  \n- 因果：Act1「喪失」→ Act2「並行の成長と逆転」→ Act3「誓い直しと浄化」。  \n- 年齢統一：メイリン13歳／シュエン15歳。  \n- 象徴：灯籠・茶器（金継ぎ）・リボン・鈴音を転換点で機能させる。  \n"
+	},
+	"Plot": {
+	  "raw_text": "[[REF]]\nconstants: meirin_constants.yml\nSoT: act1=meirin_act1_detailed.txt; act2=meirin_act2_detailed.txt; act3=meirin_act3_detailed.txt; symbolism=meirin_symbolism_themes.txt; world=meirin_worldbuilding.txt; battle=meirin_battle_style.txt; visual=meirin_visual_design_notes.txt; checklist=meirin_master_checklist.txt\n[[/REF]]\n\n# meirin_plot.txt（同期版）\n\n## ログライン\n母の茶館を失った13歳のメイリンが「OATH AGAIN（再起の誓い）」を通じて影を浄化し、居場所を再生する。\n\n---\n\n## ページ配分\n- Act1：p1–25  \n- Act2：p26–65  \n- Act3：p66–90  \n\n---\n\n## 三幕ビート\n### Act1（導入と崩壊）\n- intro：日常提示（灯籠・ヒビのない茶器）  \n- inciting：影の奇襲→茶館崩壊→茶器が粉砕される  \n- turn1：初変身。小型影を退けるが守れず敗北感。内面独白。ラストは砕けた茶器と瓦礫、呆然と立つメイリンを遠景大ゴマで描写。  \n\n### Act2（成長と試練）\n- opening：瓦礫片付け。シュエン登場、茶器の欠片を集める。フオニアンの炎粒子が「壊れても直せる」未来を暗示。  \n- trials：【並行】メイリンは基本ひとりで小型影と戦い浄化。シュエンは砕けた茶器を少しずつ修復。戦いと修復が並行して進み、メイリンの成長と「居場所＝人のつながり」理解が芽生える。  \n- midpoint：灯籠再点灯。町の協力により光が戻る。  \n- reversal：町の光とシュエンの思いを胸に、第二形態の覚醒解放。しかし大型影は待ち構えており、卑劣な一撃で胸を貫く。光が吸収され、リボンは解け、鈴音が消える。最後の叫びと閃光の後、光は四散し町は闇に覆われる。変身解除、落下、失神、リン消失。  \n\n### Act3（覚醒と決着）\n- re_oath：金継ぎ茶器に母の言葉＋仲間の声。誓い直し。  \n- climax：光麟一体で浄化を選択。  \n- finale：町と茶館の再生。茶器（金継ぎ）完成。運営宣言。  \n\n---\n\n## QAチェック（プロット）\n- 三幕因果が連鎖しているか。  \n- テーマ「OATH AGAIN」が各幕で顕在化しているか。  \n- 象徴（灯籠／茶器／リボン／鈴音）が適切に転換点で使われているか。  \n- 用語「第二形態の覚醒解放」を統一使用。  \n- 敵名は影（カゲロウ）で統一。  \n"
+	},
+	"Personality": {
+	  "raw_text": "[[REF]]\nconstants: meirin_constants.yml\nSoT: personality=meirin_personality_story.txt; symbolism=meirin_symbolism_themes.txt; battle=meirin_battle_style.txt; visual=meirin_visual_design_notes.txt; plot=meirin_plot.txt\n[[/REF]]\n\n# meirin_personality_story.txt\n## 基本プロフィール\n- 名前：メイリン（Meirin）\n- 年齢：**13歳**\n- 性別：女性\n- 役割：物語の主人公／霊獣リンの契約者\n- 外見：[[meirin_character_design_1#通常状態]] / [[meirin_character_design_2#第一形態]] / [[meirin_character_design_3#第二形態の覚醒解放（外見維持・演出強化）]]\n\n---\n\n## 性格\n- 基本的には **おとなしいが芯が強い**。\n- 他者を優先しがちで自己犠牲的になりやすい。\n- 「自分には守れない」という思い込みを抱えているが、物語を通じて **再起と誓い直し（OATH AGAIN）** を果たす。\n- 感情の振れ幅は大きく、普段は控えめだが追い詰められると強い意志を示す。\n\n---\n\n## 口調\n- 語尾は柔らかく、親しい人には素直に「～だよ」「～かな」などを用いる。\n- 年長者や仲間に対しては敬意を持ちつつ、過剰にかしこまらない。\n- 怒りや悲しみの場面では短い叫びや感情的な台詞が増える（例：「やめて！」「負けない！」）。\n\n---\n\n## バックストーリー\n- 幼い頃から母の茶館で育ち、「居場所」の温かさを知っていた。  \n- しかし **茶館を守れなかった喪失**が心の傷となり、「自分には力がない」と思い込む。  \n- 霊獣リンとの契約を通じて力を得るが、真価は **仲間とのつながりと誓い直し（OATH AGAIN）** にある。  \n- 物語の終盤で「居場所は一人で背負うものではなく、皆でつなぐもの」と理解し、再生の象徴となる。\n\n---\n\n## 関連参照\n- テーマと象徴 → [[meirin_symbolism_themes#◆物語の中心テーマ]]  \n- 戦闘スタイル → [[meirin_battle_style#◆-武器・基本スタイル]]  \n- 演出ルール → [[meirin_visual_design_notes#◆-色彩ルール]]  \n- プロット因果 → [[meirin_plot#three-act]]  \n\n---\n\n## QAチェック観点\n- [ ] 年齢は **13歳** で統一されているか。  \n- [ ] 口調が柔らかく、過剰に大人びていないか。  \n- [ ] 性格が「おとなしいが芯が強い」軸から外れていないか。  \n- [ ] 設定が他ファイル（plot / battle / symbolism）と矛盾していないか。  \n"
+	},
+	"Relationships": {
+	  "raw_text": "[[REF]]\nconstants: meirin_constants.yml\nSoT: relationships=meirin_relationships.txt; plot=meirin_plot.txt; personality=meirin_personality_story.txt; symbolism=meirin_symbolism_themes.txt\n[[/REF]]\n\n# meirin_relationships.txt\n## 主人公と主要キャラクターの関係性\n\n### メイリン（主人公）\n- 年齢：13歳\n- 基本性格：[[meirin_personality_story#性格]]\n- 関係性の中心：**「居場所をつなぐ」軸で全キャラを結ぶ**\n\n---\n\n### 霊獣リン\n- 立場：守護霊獣／契約パートナー\n- 関係：メイリンを精神的に支えつつ、自立を促す存在。\n- 役割：力の源でありながらも、物語後半では「外の力に依存しすぎる危うさ」を気づかせる。  \n- 参照：[[meirin_battle_style#◆-霊獣リンの共闘演出]]\n\n---\n\n### 仲間キャラクター（友人・市井の人々）\n- 関係：日常のつながり。メイリンに「居場所は人でできている」と教える。\n- 役割：戦闘力は低いが、物語の支え・再建の原動力。\n- 参照：[[meirin_worldbuilding#◆-日常生活の舞台]]\n\n---\n\n### 母（故人）\n- 関係：茶館の象徴的存在。死後も手紙や記憶を通じてメイリンを導く。\n- 役割：第三幕で「誓い直し（OATH AGAIN）」の決定的トリガーとなる。\n- 参照：[[meirin_plot#oath-again]]\n\n---\n\n### 敵対存在：影（カゲロウ）\n- 関係：居場所を壊す外的脅威。  \n- 役割：破壊ではなく「浄化」の対象。メイリンの成長により、ただの敵から「影を抱えて生きる存在」へと意味づけが変化。  \n- 参照：[[meirin_worldbuilding#◆敵「影」について]]\n\n---\n\n## 補足メモ（関係の軸）\n- すべての関係は「居場所を共有・再生する」方向に収束。  \n- 敵でさえも浄化を通じて「共存」へ向かうため、単純な勝敗関係では描かない。  \n\n---\n\n## QAチェック観点\n- [ ] メイリンの年齢は **13歳** で統一されているか。  \n- [ ] 関係性がプロット（[[meirin_plot#three-act]]）と矛盾していないか。  \n- [ ] リンの役割が「依存ではなく自立の補助」に収束しているか。  \n- [ ] 母の存在が「OATH AGAIN」のトリガーとして描かれているか。  \n- [ ] 敵対存在（影）が「浄化対象」として一貫して扱われているか。  \n"
+	},
+	"Symbolism": {
+	  "raw_text": "[[REF]]\nconstants: meirin_constants.yml\nSoT: plot=meirin_plot.txt; world=meirin_worldbuilding.txt; battle=meirin_battle_style.txt; visual=meirin_visual_design_notes.txt; checklist=meirin_master_checklist.txt; personality=meirin_personality_story.txt\n[[/REF]]\n\n# meirin_symbolism_themes.txt\n\n<!-- @anchor:theme-core -->\n## ◆ 物語の中心テーマ（SoT）\n**OATH AGAIN（再起の誓い）**  \n- 一度「守れなかった」痛みを抱えたまま、**弱さを認め、もう一度立つ**。  \n- 解決は「破壊」ではなく **浄化と再生**。  \n- 「居場所」は建物ではなく **人とつながり（関係）で成立**する。  \n参照：[[meirin_plot#oath-again]] / [[meirin_plot#three-act]] / [[meirin_personality_story#性格]]\n\n---\n\n<!-- @anchor:symbols-master -->\n## ◆ 象徴的モチーフ（マスターリスト）\n各モチーフは **意味／画面記号／利用シーン** を定義。詳細な色や光は → [[meirin_visual_design_notes#◆-色彩ルール]]。\n\n### 1) 灯籠（光の器）\n- 意味：**居場所・関係の光**。点灯＝つながり、消灯＝孤立。  \n- 記号：柔らかい光粒子、暖色のグラデーション。  \n- 主なシーン：  \n  - Act1 日常提示（点灯）→ 襲撃で消灯  \n  - Act2 再建の兆し（再点灯）  \n  - Act3 浄化後の**一斉点灯**（町の再生）  \n- 参照：[[meirin_plot#pages]] / [[meirin_worldbuilding_battlefields#◆-主な舞台（プロット準拠）]]\n\n### 2) 茶器／金継ぎ\n- 意味：**傷を抱えた美／再生**。壊れても繋ぎ直せる。  \n- 記号：金の継ぎ目、割れの意匠を強調。  \n- 主なシーン：Act1 破損 → Act2 修繕開始 → Act3 完成。  \n- 参照：[[meirin_plot#pages]] / [[meirin_visual_design_notes#◆-小物のハイライト]]\n\n### 3) 布・リボン（光）\n- 意味：**関係の伸縮／包む・結ぶ**力。攻撃ではなく保護・拘束・導き。  \n- 記号：流線・輪／結びのシルエット、逆光で縁が光る。  \n- 主なシーン：戦闘一貫、特に救出や浄化。  \n- 参照：[[meirin_battle_style#◆-戦闘スタイル（全体原則）]]\n\n### 4) 鈴音（音）\n- 意味：**心の律動／つながりの証**。消える＝喪失、戻る＝再会。  \n- 記号：効果音の可視化（小さな輪／点滅）。  \n- 主なシーン：敗北→静寂、誓い直し→再鳴動。  \n- 参照：[[meirin_visual_design_notes#◆-音の可視化ガイド]]\n\n### 5) 手紙（母）\n- 意味：**過去からの光**。迷いを照らす指針。  \n- 記号：余白多めの紙面、淡光のにじみ。  \n- 主なシーン：Act1 崩壊時に残る → Act3 誓い直しのきっかけ。  \n- 参照：[[meirin_plot#oath-again]]\n\n### 6) 居場所（茶館／町）\n- 意味：**関係が形になる場所**。建物ではなく人のネットワーク。  \n- 記号：暖色の群像、視線線（アイライン）の交差。  \n- 主なシーン：全幕を通して変化（提示→喪失→再建→運営宣言）。  \n- 参照：[[meirin_worldbuilding#◆-居場所の定義]]\n\n---\n\n<!-- @anchor:theme-to-plot -->\n## ◆ テーマ→プロット接続表\n| プロット節 | テーマ機能 | モチーフ | ページ目安 |\n|---|---|---|---|\n| Act1 触発 | 喪失の提示 | 灯籠消灯／茶器破損 | p11–18 |\n| Act1 転換 | 再起の芽 | 微光の粒子／小さな結び | p19–25 |\n| Act2 中間点 | 関係の再確認 | 灯籠再点灯／修繕開始 | p46–52 |\n| Act2 逆転 | 依存の破綻 | 鈴音消失／リボン解ける | p61–65 |\n| Act3 誓い直し | OATH AGAIN 明示 | 手紙発光／静から音へ | p66–72 |\n| Act3 覚醒 | 浄化の選択 | 光麟一体／大結び | p73–78 |\n| 終幕 | 再生の証 | 一斉点灯／金継ぎ完成 | p79–90 |\n\n参照：[[meirin_plot#pages]] / [[meirin_battle_style#◆-第二形態の覚醒解放（外見維持・演出強化）]]\n\n---\n\n<!-- @anchor:director-notes -->\n## ◆ 演出ディレクション指針（Do / Don’t）\n**Do**  \n- モチーフは「因果の節目」で**出し惜しみせず明示**する（特に p66–72, p79–85）。  \n- 光は“当てる”より**受ける**（逆光・リムライト）方向で、粒子は流れを伴わせる。  \n- 金継ぎは「割れ線→繋ぎ線→輝線」の順で段階的に見せる。  \n\n**Don’t**  \n- モチーフの**同時多発**（灯籠＋手紙＋金継ぎ＋鈴音…など）で画面を飽和させない。  \n- 破壊的な止め絵（爆散）で決着を描かない→**浄化**に統一。  \n- リボンを刃物として表現しない（包む／結ぶが基本）。  \n\n色・光・音の細則は → [[meirin_visual_design_notes#◆-色彩ルール]] / [[meirin_visual_design_notes#◆-逆光・光源演出]] / [[meirin_visual_design_notes#◆-音の可視化ガイド]]\n\n---\n\n<!-- @anchor:consistency -->\n## ◆ 用語・整合ルール\n- 覚醒語彙：**「第二形態の覚醒解放（外見維持・演出強化）」** に統一。  \n- 決着語彙：**「浄化」**（殲滅／破壊は使用しない）。  \n- 年齢：**13歳** → [[meirin_personality_story#基本プロフィール]]\n\n---\n\n<!-- @anchor:qa -->\n## ◆ QAチェック（象徴・テーマ）\n- [ ] 各転換点で **モチーフが機能**しているか（上の接続表に合致）。  \n- [ ] 破壊表現ではなく **浄化**に収束しているか。  \n- [ ] 灯籠・金継ぎ・リボン・鈴音・手紙の**意味ブレ**が無いか。  \n- [ ] **色／光／音**の扱いが `visual_design_notes` に準拠しているか。  \n- [ ] テーマ **OATH AGAIN** が Act3 p66–72 で**明示的**に可視化されているか。  \n\n"
+	},
+	"Worldbuilding": {
+	  "raw_text": "# meirin_worldbuilding.txt\n<!-- Canonical-ID: worldbuilding -->\n<!-- @anchor:root -->\n\n## 🌏 ワールドビルディング（統合版）\n\n本ファイルは **世界観設定の SoT（Single Source of Truth）**。  \n「影（カゲロウ）の因果」「居場所の意味」「舞台の基調」を定義し、詳細演出は `battlefields`・`visual_design_notes` に委譲。\n\n---\n\n## ◆ 世界の根幹\n<!-- @anchor:core -->\n* 舞台：中華風の町。茶館＝メイリンの居場所の象徴。  \n* 現実世界に「影（カゲロウ）」がにじみ出す。影は人々の不安や孤独を糧とする。  \n* 影の被害＝建物破壊、灯籠消灯、人々の心が閉ざされる。  \n* 「光」は希望とつながりの象徴。灯籠／リボン光／茶器（金継ぎ）で表現。  \n\n---\n\n## ◆ 敵「影（カゲロウ）」について\n<!-- @anchor:enemies -->\n* 属性：墨色・にじみ・黒ベタ。  \n* 小型影：人々の日常に忍び込み、不安を煽る。  \n* 大型影：町全体を覆い、光を吸収する。  \n* 特徴：破壊ではなく「奪う」性質。光や声を奪い、居場所を壊す。  \n* 変化：町の感情が深く歪むと、影は巨大化・狂暴化する。  \n\n---\n\n## ◆ 居場所（テーマ接続）\n<!-- @anchor:home -->\n* 茶館：メイリンの母が営んでいた場所。灯籠と湯気が「居場所」の象徴。  \n* 灯籠：町の人々をつなぐ光。消灯＝孤独／再点灯＝再生。  \n* 金継ぎの茶器：壊れても修復し、美として残る＝人との絆。  \n* 「居場所」は場所そのものではなく、**人と人のつながり**によって成立。  \n\n---\n\n## ◆ 戦闘・舞台との関係\n<!-- @anchor:battlefields -->\n詳細な戦場・演出ルールは [[meirin_worldbuilding_battlefields#root]] を参照。  \n（市場・屋上・川辺などの具体ステージはそちらに集約）  \n\n---\n\n## ◆ ビジュアル接続\n<!-- @anchor:visual -->\n* 色彩ルール・逆光／墨演出 → [[meirin_visual_design_notes#root]]  \n* 戦闘技法・演出統一 → [[meirin_battle_style#root]]  \n* 象徴モチーフ → [[meirin_symbolism_themes#root]]  \n\n---\n\n## ◆ QAチェック\n<!-- @anchor:qacheck -->\n* 用語：「影」＝カゲロウで統一（怪物・闇等は使用しない）。  \n* 居場所＝人と人のつながりで成立、と明文化されているか。  \n* 敵は「奪う存在」として描写されているか。  \n* 背景演出は `battlefields` に一元化し、本ファイルは根幹定義に留める。  \n"
+	},
+	"Battlefields": {
+	  "raw_text": "# meirin_worldbuilding_battlefields.txt\n<!-- Canonical-ID: worldbuilding_battlefields -->\n<!-- @anchor:root -->\n\n## ⚔ 戦闘舞台・背景演出（SoT）\n\n本ファイルは **戦闘・演出舞台の SoT**。  \n町の複数ステージを定義し、演出ルールを `visual_design_notes`・`battle_style` とリンクする。  \n世界観の根幹は [[meirin_worldbuilding#core]] に集約。\n\n---\n\n## ◆ 舞台リスト\n<!-- @anchor:stages -->\n\n### 市場\n* 象徴：人のつながり／布とリボンの活用。  \n* 演出：色とりどりの布が風で舞い、影に絡みつく。  \n* 戦闘利用：リボン・布を武器化する導線。\n\n### 屋上（茶館跡地）\n* 象徴：崩壊と再建。  \n* 演出：瓦礫と灯籠の対比。  \n* 戦闘利用：影が建材を武器化。再建の兆し＝金継ぎ表現。  \n\n### 川辺\n* 象徴：流れと再生。  \n* 演出：灯籠流しと水面反射。  \n* 戦闘利用：光と水の融合技。  \n\n### 廃墟の広場\n* 象徴：人の不在／孤独。  \n* 演出：消えた灯籠、音の消失。  \n* 戦闘利用：音の演出（鈴音／沈黙）で強調。  \n\n---\n\n## ◆ 背景演出ルール\n<!-- @anchor:rules -->\n* **影の出現**：墨の滲みとして背景に侵入。建物・布・灯籠に影響。  \n* **光の回復**：浄化＝灯籠点灯／金継ぎ修復。  \n* **音の使い分け**：鈴音＝希望、沈黙＝影支配。  \n* **視覚トリガー**：逆光・光粒子・水面反射は [[meirin_visual_design_notes#root]] に準拠。  \n\n---\n\n## ◆ 象徴・テーマ接続\n<!-- @anchor:symbolism -->\n* 市場＝つながり／共闘。  \n* 屋上＝再建／「守れなかった」記憶の克服。  \n* 川辺＝流れと誓いの再生。  \n* 廃墟＝孤独と希望のコントラスト。  \n（詳細は [[meirin_symbolism_themes#root]] を参照）  \n\n---\n\n## ◆ QAチェック\n<!-- @anchor:qacheck -->\n* 舞台はすべて **居場所テーマ（つながり／再建／再生／孤独克服）**と接続されているか。  \n* 演出要素（光／影／音／布・リボン）が具体的に利用されているか。  \n* 世界観ファイル（[[meirin_worldbuilding#root]]）と矛盾がないか。  \n* ビジュアル演出は `visual_design_notes`、戦闘描写は `battle_style` にリンクされているか。  \n"
+	},
+	"BattleStyle": {
+	  "raw_text": "# meirin_battle_style\n\n> SoT: meirin_canon.json に準拠\n> 最終更新: 2025-08-27 15:56:00Z\n\n## 1) 基本理念\n- 解決手段は **浄化（purification）**。破壊・殲滅の演出は避け、黒を「薄めて還す」方向へ。\n- **圧より導き**。押し潰すのではなく、流れを受けて方向づける。\n- 武器は「布／リボン／光」。リボンは **媒介**（盾・鞭・拘束）。\n\n## 2) テンポ／意思決定\n- 最小テンポ：**受け → 躱し → 拘束 → 浄化**。\n- 迷ったら「受け」へ回帰。視界が狭い時は **鈴音で距離感リセット**（ワンチリン）。\n- 行動は「最小の力で最大の方向性」を意識。\n\n## 3) 同調（合体）／初変身（Act1〜）\n### トリガー\n- **呼吸同期**（吸って→吐いてのリズム合わせ）。\n- **鈴音センタリング**（心の中央に鈴を置くイメージ）。\n\n### 演出と効果\n- 髪：**青白い縁取り**。装束：**白＋金**（光粒子から編成）。\n- リボンが浮遊し、**感覚拡張**（音の可視化）。\n- リボン機能拡張：**盾（受け）／鞭（打撃）**。光は**浄化**。\n\n### 運用ガイド\n- **最初の一手**は **『受け → 鞭』**。近距離の一体を処理し、間合いを確保。\n- 基本連携は **『受け → 鞭 → 絡め落とす』** で安定化。\n\n## 4) リボン技リファレンス\n- **受け（Shield Wheel）**：前方に円を展開。衝撃を面で拡散。踏み込みは浅く、肘は緩める。\n- **鞭（Radiant Lash）**：手首の返しで一閃。黒を「裂く」よりも「ほどく」。SFXは一拍で鋭く。\n- **絡め落とす（Bind & Drop）**：布の輪で拘束→体軸回転で転倒→**浄化**へ連結。\n\n## 5) 連携テンプレ\n- **Act1 基本**：『受け → 鞭 → 絡め落とす』→小型影の浄化。\n- **Act2 防戦**：受け／鞭の反復で持久。拘束は短く、位置取りを最優先（息切れの表現を残す）。\n- **Act3 決着**：**導光路**を作ることを目的化（圧ではなく「帰る道」）。\n\n## 6) 光麟一体（フィニッシュの思想）\n- 目的は「断つ」ではなく **導く**。布の円を外周へ拡張し、**導光路**を形成。\n- 触手や黒の塊は「薄まり」「向きを与えられ」て**還る**。エフェクトは粒子の流動中心。\n\n## 7) カメラ／SFX 指針\n- **受け**：胸元寄りの半身、衝撃の面流れを見せる。\n- **鞭**：斜め後方から軌跡を拾う。粒子は最小限。\n- **導光路**：ローアングルの奥行き。音は鈴音＋微細な風音。\n\n## 8) 成功／失敗の可視キュー\n- **勝利ビジュアル**：灯籠の再点灯、浄化の光が環境へ拡散。\n- **失敗ビジュアル**：リボンがほどける、鈴音が消える、暗転（SoT準拠）。\n\n## 9) 禁則・留意\n- 大火力での爆裂・破壊演出は不可（テーマ違反）。\n- 鈴音の多用は避け、**要所のみ**鳴らす。\n- 敵ボス級（影の王）戦では「嘲笑→暗転→鋭利触手→光吸収」の順序に整合。\n\n"
+	},
+	"VisualDesign": {
+	  "raw_text": "# meirin_visual_design_notes.txt\n<!-- Canonical-ID: visual_design_notes -->\n<!-- @anchor:root -->\n\n## 🎨 ビジュアルデザインノート（統合版）\n\n本ファイルは **視覚ルールの SoT（Single Source of Truth）**。  \nキャラ立ち絵・戦闘シーン・背景色彩など、視覚要素はここを起点に参照。  \n詳細描写は各 Act 詳細に委譲し、重複要素はすべてここに集約。\n\n---\n\n## ◆ 色彩ルール\n<!-- @anchor:color-rules -->\n* **通常状態**：黒髪、地味な中華風衣装（青みがかった灰×白）。  \n* **第一形態（変身）**：白×金を基調、髪は青白く発光。角は小さく、リボン状の光が随伴。  \n* **第二形態（覚醒解放）**：白×金×青白。外套的装飾に麒麟モチーフ。リボンは麒麟の鬣のように広がる。  \n* **覚醒（光麟一体）**：金と白が基調、背後に巨大な麒麟幻影。全身は光で輪郭を包む。  \n* 敵（カゲロウ）：黒インク／墨色。吹き出しも黒ベタ、にじみ効果。  \n* 象徴物：灯籠＝橙、茶器＝白磁＋金継ぎ。  \n\n---\n\n## ◆ 構図・演出キーワード\n<!-- @anchor:composition -->\n* **灯籠**：温かさ・居場所。消灯→絶望、点灯→再生。  \n* **茶器（金継ぎ）**：壊れる→絶望／修復→希望。  \n* **リボン光**：メイリンの守りたい意思。変身・技に常に絡む。  \n* **光粒子**：母や仲間の記憶。涙や声と共鳴して出現。  \n* **逆光／シルエット**：変身・誓い直しの強調。  \n* **墨色背景**：絶望・孤独を視覚化。  \n\n---\n\n## ◆ 立ち絵・プロンプト参照\n<!-- @anchor:prompts -->\n立ち絵詳細は [[meirin_visual_prompts#root]] を参照。  \nシーンごとの衣装・髪色変化は `color-rules` を基準とする。  \n\n---\n\n## ◆ 戦闘・演出ルール参照\n<!-- @anchor:battle-style -->\n必殺技や動作の規範は [[meirin_battle_style#root]] に統合。  \nリボンの軌跡・麒麟幻影などはビジュアル的にここで保持し、モーション詳細は `battle_style` に委譲。  \n\n---\n\n## ◆ 世界観・背景演出参照\n<!-- @anchor:worldbuilding -->\n舞台・都市・戦場の配色／雰囲気は [[meirin_worldbuilding#root]] / [[meirin_worldbuilding_battlefields#root]] を参照。  \n重複説明は削除し、配色ルールのみ本ファイルに残す。  \n\n---\n\n## ◆ QAチェックポイント\n<!-- @anchor:qacheck -->\n* 用語：第二形態＝「覚醒解放」で統一（最終フォーム等は使用禁止）。  \n* 色彩：敵＝墨色／黒ベタ、味方＝白×金×青白。  \n* 象徴：灯籠・茶器（金継ぎ）・リボン光・光粒子が必ず画面に絡む。  \n* 参照ルール：詳細は act*_detailed / full_detailed 側からリンク確認。  \n"
+	},
+	"VisualPrompts": {
+	  "raw_text": "# meirin_visual_prompts.txt（更新版）\n\n本ファイルはキャラクター立ち絵・演出カットの生成用プロンプト集。  \nAct1〜Act3の既存要素に加え、Canon v1.0.4 に準拠し、**Act2 第二転換シーン（敗北ビジュアル）** を劇的かつ詳細に修正反映。\n\n---\n\n## 1. メイリン（通常立ち絵）\n14-year-old girl, black medium hair, plain and simple Chinese-inspired clothing, modest design.  \nExpression shy but warm, neutral pose, front view, white background, reference sheet.\n\n## 2. メイリン（第一形態変身後）\n14-year-old magical girl form, glowing white and gold costume with flowing ribbons.  \nHair glowing bluish-white, slim build, delicate.  \nAccessories: lantern motif on belt, ribbon trailing.  \nFull-body, dynamic neutral pose, white background, reference sheet.\n\n## 3. メイリン（第二形態の覚醒解放）\n14-year-old magical girl second awakened form, costume more radiant, ribbons larger, aura like a kirin.  \nHair shining, glowing white-blue, golden highlights.  \nBody surrounded by light particles, spiritual strength emphasized.  \nFront/side/back views, white background, reference sheet.\n\n## 4. 光麟一体（最終形態演出）\n14-year-old girl fused with Kirin beast, surrounded by light, ribbons merge with Kirin features.  \nDivine-like aura, holy purification form.  \nWhite/gold/blue color palette, glowing contrast, neutral pose and dynamic battle pose.  \nWhite background, full-body reference sheet.\n\n## 5. 幻獣リン（通常）\nSmall spirit beast, rabbit-like features with deer antlers, glowing lines.  \nSoft light blue and white color, calm and supportive expression.  \nFront/side/back views, white background.\n\n## 6. 敵「影（カゲロウ）」小型\nShadow creature, ink-smear texture, humanoid silhouette blurred, glowing eyes.  \nCreeping pose, multiple variations.  \nBlack and dark gray palette.\n\n## 7. 敵「影（カゲロウ）」大型\nMassive shadow creature, enveloping stage, dripping ink-like body.  \nDark monstrous aura, large body, wings/tendrils spreading to cover town.  \nBlack ink texture, glowing cracks.\n\n## 8. 舞台（茶館）\nChinese-style teahouse, lanterns, warm light, wooden furniture.  \nFull environment shot, interior/exterior, day and night variants.\n\n## 9. 舞台（市場）\nMarketplace with fabrics and ribbons, crowded stalls, busy people.  \nVivid colors, cultural atmosphere, perspective environment.\n\n## 10. 舞台（廃墟の広場）\nRuined plaza, collapsed buildings, broken lanterns.  \nAtmospheric, lonely, hopeful undertones.\n\n---\n\n## 11. シュエン（通常立ち絵）\n15-year-old girl, reddish-bronze long hair tied loosely, strands falling over shoulders.  \nSimple work clothes, muted gray and brown tones, small apron with subtle gold dust stains.  \nCarries a small pouch with brushes and lacquer tools for pottery repair.  \nExpression calm but determined, youthful, soft smile.  \nFull-body, neutral pose, white background, reference sheet.\n\n## 12. フオニアン（幻獣立ち絵）\nSmall phoenix-like spirit beast, body made of translucent flames.  \nWings spread, trailing glowing ember particles.  \nColor palette: orange, red, gold with faint white core.  \nExpression gentle, watchful, calm.  \nFront view, side view, back view, white background, reference sheet.\n\n---\n\n## 13. Act2 第二転換シーン（敗北ビジュアル・最終調整版）\n\n**Positive Prompt:**\n```\nmasterpiece, best quality, ultra-detailed, cinematic anime movie style, soft anime illustration, expressive character design, gentle shading,  \ndramatic low angle shot, extreme close-up, upper body fills ~95% of frame, from head to chest focus,  \n14-year-old girl, youthful proportions, childlike build (not mature), slim body,  \nhair: glowing bluish-white long hair with golden highlights, strands flying, luminous aura,  \noutfit: ornate white and gold Chinese battle dress with orange accents, semi-transparent fabric glowing, damaged and torn, scratches, dirt, frayed edges,  \nfeatures: small curved white horns, semi-transparent glowing wings collapsing and breaking into radiant fragments,  \nfour glowing ribbons unraveling from waist, bells faintly glowing, ribbons scattering particles of light,  \npose: chest thrust upward, torso stretched, spine bending like a bow, neck thrown fully back, mouth wide open screaming, jaw strained, eyes tightly shut,  \narms and legs fully extended, body straining violently,  \nenemy: multiple massive black tendrils only, ink-smear texture, clearly visible, wrapping torso, piercing directly through chest,  \nlight absorption effect: torrents of bluish-white and golden light violently ripped from her chest and body into tendrils,  \nvisual: countless radiant particles bursting outward from her body, scattering like starlight, while streams are violently sucked into the tendrils,  \nskin and clothing: glowing bluish-white, semi-transparent mystical radiance, damaged, torn, dirty, frayed, scratched, glowing from within,  \naura: fragile divine glow flickering and collapsing,  \nbackground: complete darkness, void stage, her fading holy glow illuminating the tendrils and scattering particles,  \nfocus: dramatic final strike, expression and chest absorption emphasized, cinematic anime realism, tragic atmosphere\n```\n\n**Negative Prompt:**\n```\nlowres, bad anatomy, distorted limbs, cropped too far, full body view, character too small,  \nadult proportions, mature body, sexualized body, cleavage focus, oversized enemy obscuring, vague undefined shapes,  \nflat harsh lighting, washed out glow, overexposed aura hiding details, excessive smoke obscuring, chaotic messy effects,  \nplastic skin, spotless skin, pristine outfit, stiff mechanical style, sketch only, monochrome,  \nchibi cartoon, text, logo, watermark, nsfw\n```\n\n---\n\n## QA\n* Canon v1.0.4 に準拠。  \n* 年齢 13歳で統一。  \n* 敵は「黒い触手のみ」。  \n* 表現は「第二形態・劇的敗北シーン」に焦点。  \n* 構図は寄り（upper body close-up, chest focus）。  \n* 光の翼崩壊・リボンの粒子化・発光体としての身体が明示されている。\n"
+	},
+	"Checklist": {
+	  "raw_text": "[[REF]]\nconstants: meirin_constants.yml\nSoT: symbolism=meirin_symbolism_themes.txt; world=meirin_worldbuilding.txt; battle=meirin_battle_style.txt; visual=meirin_visual_design_notes.txt; plot=meirin_plot.txt; act1=meirin_act1_detailed.txt; act2=meirin_act2_detailed.txt; act3=meirin_act3_detailed.txt; full=meirin_full_detailed.txt; personality=meirin_personality_story.txt; canon=meirin_canon_v1.0.4a.json\n[[/REF]]\n\n# meirin_master_checklist.txt（統合更新版 v2025-08-27）\n## ✅ メイリン設定 ― 横断統一ルールチェックリスト\n\nこのファイルは **QA用のチェックリスト**として機能し、重複記述は避けて全て参照リンク化している。  \n改稿・修正時には以下のチェック項目を必ず通過させること。\n\n---\n\n## 0. ナラティブ・語り口チェック（NEW）\n- [ ] 語り手：**メイリン（一人称）** → `canon.meta.narrative.pov == \"first_person\"` を確認。\n- [ ] 文体：**感情・情景描写を丁寧に**／**会話量を増やす** → `canon.meta.narrative.style` を参照。\n- [ ] 事実準拠：本文の事実は **canon.json（SoT）** の値に厳密準拠。語り口のみ演出指定。\n- [ ] 章ごとの独白と会話の比率：独白≦会話+動作描写 になるように調整（目安）。\n- [ ] NG：canonに未定義の事実追加、年齢/用語の逸脱。\n\n---\n\n## 1. 基本プロフィール\n- 年齢：13歳 → [[meirin_personality_story#基本プロフィール]]  \n- 口調・性格 → [[meirin_personality_story#口調]]  \n\n---\n\n## 2. 世界観・敵定義\n- 敵の定義：影（カゲロウ）→ [[meirin_worldbuilding#◆敵「影」について]]  \n- 舞台・居場所の意味 → [[meirin_worldbuilding#◆居場所の定義]]  \n- 戦闘舞台 → [[meirin_worldbuilding_battlefields#◆-主な舞台（プロット準拠）]]  \n\n---\n\n## 3. 戦闘スタイル・技\n- 武器：布／リボン／光 → [[meirin_battle_style#◆-武器・基本スタイル]]  \n- 必殺技／第二形態の覚醒解放 → [[meirin_battle_style#◆-第二形態の覚醒解放（外見維持・演出強化）]]  \n- 決着ルール（破壊ではなく浄化） → [[meirin_battle_style#◆-決着ルール]]  \n\n---\n\n## 4. ビジュアル・演出ルール\n- 色彩・光源 → [[meirin_visual_design_notes#◆-色彩ルール]]  \n- 構図・逆光・鈴音 → [[meirin_visual_design_notes#◆-逆光・光源演出]]  \n- キャラクタープロンプト → [[meirin_visual_prompts#1-正面立ち絵（通常状態）]]  \n\n---\n\n## 5. テーマ・象徴\n- 中心テーマ：OATH AGAIN（再起の誓い） → [[meirin_plot#oath-again]]  \n- 象徴的モチーフ（灯籠・金継ぎ・光粒子・音） → [[meirin_symbolism_themes#◆象徴的モチーフ]]  \n\n---\n\n## 6. 三幕の因果整合\n- 三幕骨格 → [[meirin_plot#three-act]]  \n- ページ配分 → [[meirin_plot#pages]]  \n- 各 Act 詳細  \n  - Act1 → [[meirin_act1_detailed#本編詳細]]  \n  - Act2 → [[meirin_act2_detailed#本編詳細]]  \n  - Act3 → [[meirin_act3_detailed#本編詳細]]  \n\n---\n\n## 7. QA通過観点（審査チェック）\n- [ ] 因果：各転換点に原因→結果が明確か  \n- [ ] テーマ：OATH AGAIN が各幕で顕在化しているか  \n- [ ] 年齢：13歳で統一されているか  \n- [ ] 用語：「第二形態の覚醒解放」に統一されているか  \n- [ ] 世界観：敵／舞台／居場所定義に矛盾がないか  \n- [ ] 戦闘：武器・技・決着ルールが準拠しているか  \n- [ ] ビジュアル：色彩・光源・構図ルールを守っているか  \n- [ ] 象徴：灯籠・金継ぎ・光粒子・鈴音が正しく反映されているか  \n\n---\n\n## 8. 補助キャラクター／幻獣\n- [ ] **シュエン**（15歳）の年齢／役割／金継ぎ修復要素が正しく反映されているか。 → [[meirin_canon_v1.0.4a.json#supporting_characters]]\n- [ ] 幻獣 **フオニアン（鳳凰）** が「適性者にのみ視認可」「再生象徴」で統一されているか。 → [[meirin_worldbuilding#ally_beasts]]\n- [ ] 二人の役割がAct2の因果強化に限定され、物語全体を侵食していないか。\n\n## 9. Act2 第二転換（逆転と喪失）\n- [ ] 「町の光＋シュエンの思い → 第二形態覚醒解放 → 敵の待ち伏せ攻撃 → 光吸収／リボン解ける／鈴音消失 → 暗転・リン消失」の流れが全ファイルで一致しているか。\n- [ ] 演出が「破壊」ではなく「光吸収／喪失」の表現で統一されているか。\n\n## 10. ビジュアル・プロンプトの更新反映\n- [ ] **シュエン立ち絵／フオニアン立ち絵／Act2敗北ビジュアル** が `meirin_visual_prompts.txt` に正しく追加されているか。\n- [ ] 用語「第二形態の覚醒解放」で統一。\n"
+	},
+	"Readme": {
+	  "raw_text": "# meirin_master_readme.txt（統合更新版 v2025-08-27）\n\n本ファイルは Meirin Project の運用ルール集。**SoT は `meirin_canon_v1.0.4a.json`**。\n\n---\n\n## 🗣 ナラティブ運用ルール（NEW）\n- 物語本文の語り手は **メイリン（一人称）** とする。  \n- 文体は **感情・情景描写を丁寧に**、かつ **会話量を増やす**。  \n- 事実の出典は **canon.json（SoT）** のみ。語り口の指示は `meta.narrative` に集約。  \n- 禁則：canon に存在しない事実の追加／年齢・用語の逸脱／敵や象徴の再定義。  \n\n### 生成パイプライン\n1. **canon 確認**（`meirin_canon_v1.0.4a.json`）  \n2. **ビュー台本**（各 Act detailed を参照ビューとして抽出）  \n3. **一人称小説** の出力（`meirin_novel_act*.txt` / `meirin_novel_full.txt`）  \n4. **QA**（`meirin_master_checklist_v20250827.txt` の #0 を含む全項目）  \n5. **ビジュアル更新**（`meirin_visual_prompts.txt` に反映）  \n\n### 参照先\n- `meta.narrative.pov = \"first_person\"` / `narrator = \"メイリン\"`  \n- `meta.narrative.style = [\"感情描写を丁寧に\",\"情景描写を丁寧に\",\"会話量を増やす\"]`\n\n---\n\n## ファイル役割（抜粋）\n- `meirin_canon_v1.0.4a.json` … SoT（世界・テーマ・用語・因果・ビジュアル原則）。  \n- `meirin_plot.txt` … 三幕ビートとページ配分。  \n- `meirin_act*_detailed.txt` … ビュー台本。本文は持たない。  \n- `meirin_novel_act*.txt` / `meirin_novel_full.txt` … **本文（小説）** の置き場。  \n- `meirin_visual_prompts.txt` … 立ち絵／敗北カット等の生成プロンプト集。  \n- `meirin_master_checklist_v20250827.txt` … QA の一次審査票。  \n\n---\n\n## 運用 Tips\n- 差分は必ず **canon 側から** 先に入れる → 参照ファイル（plot/act/visual/…）へ波及。  \n- ビジュアルの用語は `visual_design_notes` に寄せ、プロンプトは `visual_prompts` に一元化。  \n- 「第二形態」は **覚醒解放** で統一。決着ルールは **浄化**。  \n- 居場所＝**人と人のつながり**。茶器（金継ぎ）はその象徴。  \n\n---\n"
+	},
+	"Canon": {
+	  "raw_text": "{\n  \"meta\": {\n    \"project\": \"Meirin Project\",\n    \"version\": \"1.0.4c\",\n    \"language\": \"ja\",\n    \"note\": \"Act1導入の台詞調整と初同調（合体）＝変身のメカニクス可視化。最初の一手『受け→鞭』をSoTへ明記。Act2の1.0.4b（影の王／灯籠光の吸収／胸部貫通）を保持。\",\n    \"narrative\": {\n      \"pov\": \"first_person\",\n      \"narrator\": \"メイリン\",\n      \"style\": [\n        \"感情描写を丁寧に\",\n        \"情景描写を丁寧に\",\n        \"会話量を増やす\"\n      ]\n    }\n  },\n  \"theme\": {\n    \"id\": \"oath-again\",\n    \"title\": \"OATH AGAIN（再起の誓い）\",\n    \"principles\": [\n      \"居場所＝人と人のつながり\",\n      \"破壊ではなく浄化\"\n    ]\n  },\n  \"symbols\": [\n    {\n      \"id\": \"lantern\",\n      \"label\": \"灯籠\",\n      \"meaning\": \"居場所の光\"\n    },\n    {\n      \"id\": \"tea_set\",\n      \"label\": \"茶器（金継ぎ）\",\n      \"meaning\": \"壊れても直せる希望\"\n    },\n    {\n      \"id\": \"ribbon\",\n      \"label\": \"リボン\",\n      \"meaning\": \"意志・絆\"\n    },\n    {\n      \"id\": \"bell\",\n      \"label\": \"鈴音\",\n      \"meaning\": \"存在の証\"\n    },\n    {\n      \"id\": \"home\",\n      \"label\": \"居場所\",\n      \"meaning\": \"人のつながり\"\n    }\n  ],\n  \"world\": {\n    \"setting\": \"中華風の町と茶館跡\",\n    \"enemy\": {\n      \"id\": \"shadow\",\n      \"label\": \"影（カゲロウ）\",\n      \"traits\": [\n        \"墨のにじみのように広がる\",\n        \"光に反発する\",\n        \"嘲笑う声で言葉を発する\",\n        \"奪った灯籠の光を自身に吸収する\"\n      ],\n      \"classes\": [\n        \"minor\",\n        \"major\",\n        \"shadow_king\"\n      ]\n    },\n    \"ally_beasts\": [\n      {\n        \"id\": \"lin\",\n        \"name\": \"リン\",\n        \"motif\": \"小さな霊獣（兎＋角）\",\n        \"traits\": [\n          \"淡い光\",\n          \"鈴音\"\n        ],\n        \"visibility_rule\": \"適性者にのみ視認可\",\n        \"function\": \"支援・同調\"\n      },\n      {\n        \"id\": \"fuo\",\n        \"name\": \"フオニアン\",\n        \"motif\": \"小さな鳳凰\",\n        \"traits\": [\n          \"炎の粒子\",\n          \"再生の象徴\"\n        ],\n        \"visibility_rule\": \"適性者にのみ視認可\",\n        \"function\": \"導き\"\n      }\n    ],\n    \"laws\": {\n      \"resolution\": \"purification\",\n      \"home_definition\": \"居場所とは建物ではなく、人の手と心のつながり\"\n    }\n  },\n  \"forms\": [\n    {\n      \"id\": \"form1\",\n      \"name\": \"第一形態\"\n    },\n    {\n      \"id\": \"form2\",\n      \"name\": \"第二形態の覚醒解放\"\n    },\n    {\n      \"id\": \"fusion\",\n      \"name\": \"光麟一体\"\n    }\n  ],\n  \"forms_details\": {\n    \"form1\": {\n      \"aka\": \"初同調（初変身）\",\n      \"onboarding\": [\n        \"呼吸を合わせる\",\n        \"鈴音を中心に置く\",\n        \"光粒子が衣装／リボンを形成\"\n      ],\n      \"capabilities\": [\n        \"受け（盾円）\",\n        \"鞭（打撃）\",\n        \"絡め落とす（拘束→転倒）\"\n      ],\n      \"first_move_template\": \"受け→鞭\"\n    }\n  },\n  \"stages\": [\n    {\n      \"id\": \"market\",\n      \"label\": \"市場\",\n      \"symbol\": \"布とリボン\"\n    },\n    {\n      \"id\": \"rooftop\",\n      \"label\": \"屋上（茶館跡地）\",\n      \"symbol\": \"灯籠\"\n    },\n    {\n      \"id\": \"river\",\n      \"label\": \"川辺\",\n      \"symbol\": \"光粒子\"\n    },\n    {\n      \"id\": \"ruin_plaza\",\n      \"label\": \"廃墟の広場\",\n      \"symbol\": \"暗闇\"\n    }\n  ],\n  \"character_meirin\": {\n    \"name\": \"メイリン\",\n    \"age\": 14,\n    \"traits\": [\n      \"おとなしいが芯が強い\",\n      \"居場所への渇望\"\n    ],\n    \"speech\": [\n      \"一人称＝わたし\",\n      \"弱さを認めつつ前進\"\n    ],\n    \"role\": \"主人公\"\n  },\n  \"supporting_characters\": [\n    {\n      \"id\": \"shuen\",\n      \"name\": \"シュエン\",\n      \"age\": 15,\n      \"role\": \"陶器修復師の娘\",\n      \"traits\": [\n        \"落ち着き\",\n        \"芯の強さ\"\n      ],\n      \"skills\": [\n        \"金継ぎ（修復）\"\n      ],\n      \"visual_notes\": [\n        \"作業着\",\n        \"金粉の跡\"\n      ],\n      \"partner_beast_id\": \"fuo\",\n      \"visibility_rule\": \"適性者にのみ視認可\",\n      \"function_in_story\": \"希望の媒介（修復）\"\n    }\n  ],\n  \"battle\": {\n    \"weapons\": [\n      \"布\",\n      \"リボン\",\n      \"光\"\n    ],\n    \"tempo\": [\n      \"受け\",\n      \"躱し\",\n      \"拘束\",\n      \"浄化\"\n    ],\n    \"finisher\": {\n      \"id\": \"fusion_fin\",\n      \"name\": \"光麟一体\"\n    },\n    \"fail_visual\": [\n      \"リボン解ける\",\n      \"鈴音消える\",\n      \"暗転\"\n    ],\n    \"win_visual\": [\n      \"灯籠再点灯\",\n      \"浄化の光\"\n    ],\n    \"mechanics\": {\n      \"sync_transform\": {\n        \"name\": \"同調（合体）\",\n        \"trigger\": [\n          \"呼吸同期\",\n          \"鈴音のセンタリング（心の中央に置くイメージ）\"\n        ],\n        \"effects\": [\n          \"感覚拡張（音の可視化）\",\n          \"衣装：白＋金／髪の青白い縁取り\",\n          \"リボンの機能拡張（盾／鞭）\",\n          \"光の浄化\"\n        ]\n      }\n    },\n    \"combos\": [\n      \"受け→鞭\",\n      \"受け→鞭→絡め落とす\"\n    ]\n  },\n  \"visual\": {\n    \"palette\": {\n      \"hero\": [\n        \"白\",\n        \"金\",\n        \"青白い発光\"\n      ],\n      \"enemy\": [\n        \"墨色\",\n        \"赤黒い瞳\"\n      ],\n      \"symbols\": {\n        \"lantern\": \"橙\",\n        \"tea_set\": \"白＋金継ぎ\",\n        \"ribbon\": \"白金\"\n      }\n    },\n    \"directives\": [\n      \"逆光\",\n      \"光粒子\",\n      \"音の可視化\"\n    ]\n  },\n  \"plot\": {\n    \"logline\": \"壊れた居場所を巡る少女の再起。破壊ではなく浄化で世界を救う。\",\n    \"pages\": {\n      \"act1\": [\n        1,\n        25\n      ],\n      \"act2\": [\n        26,\n        65\n      ],\n      \"act3\": [\n        66,\n        90\n      ]\n    },\n    \"beats\": {\n      \"act1\": {\n        \"intro\": \"茶館の日常（不自然な独白なし）。\",\n        \"inciting\": \"影の侵入と茶器粉砕。\",\n        \"turn1\": \"初同調（合体）で第一形態。リンが『盾＝受け』『鞭＝打撃』『光＝浄化』を説明し、最初の一手『受け→鞭』で至近の影をほどく。\"\n      },\n      \"act2\": {\n        \"trials\": \"孤独な戦いと修復の並行、居場所理解の深化。\",\n        \"midpoint\": \"灯籠の再点灯、人々の協力。\",\n        \"reversal\": \"廃墟の広場に『影の王』が顕現。灯籠の光は敵へ吸い込まれていく。メイリンは第一形態のまま防戦（リボンで受け・鞭で反撃・拘束と解放の反復）し、膝を震わせ息も絶え絶えに苦戦。背後で『メイリン負けないで！』とシュエンが茶器を修復、茶器から金色の粒子があふれメイリンへ流入。これを契機に第二形態の覚醒解放。しかし影の王は『はははは、この時を待っていたぞ……』と嘲笑し、漆黒に沈む広場から一本の鋭利な触手を放ち、第二形態のメイリンの胸を強烈に貫通。胸の光は触手へ吸収され、リボンは解け、鈴音は消える。閃光後に暗転、変身解除・落下・リン消失へと至る。\"\n      },\n      \"act3\": {\n        \"re_oath\": \"母の言葉と皆の想いで誓い直し（OATH AGAIN）。\",\n        \"climax\": \"光麟一体で浄化を選び、暴力ではなく『導き』で黒を還す。\",\n        \"finale\": \"再建された居場所を皆で守る宣言。リン帰還。\"\n      }\n    },\n    \"storyboards\": {\n      \"act1\": {\n        \"transformation_sequence\": [\n          {\n            \"type\": \"breath\",\n            \"description\": \"灯籠の残光と湯気の記憶を胸に集め、呼吸同期\"\n          },\n          {\n            \"type\": \"chime\",\n            \"description\": \"鈴音を心の中心に置くイメージ\"\n          },\n          {\n            \"type\": \"manifest\",\n            \"description\": \"髪に青白い縁取り、白＋金の衣装、リボンが浮遊\"\n          },\n          {\n            \"type\": \"explain\",\n            \"description\": \"リンが盾／鞭／浄化を簡潔に説明\"\n          },\n          {\n            \"type\": \"first_move\",\n            \"description\": \"『受け→鞭』で至近の影をほどく\"\n          }\n        ]\n      },\n      \"act2\": {\n        \"opening_panel\": {\n          \"type\": \"wide\",\n          \"description\": \"瓦礫の片付け、シュエンと出会い\"\n        },\n        \"reversal_sequence\": [\n          {\n            \"type\": \"stage\",\n            \"description\": \"廃墟の広場。影の王が人型輪郭と複数触手で顕現。灯籠の光が敵に吸い込まれる。\"\n          },\n          {\n            \"type\": \"struggle\",\n            \"description\": \"第一形態のメイリンが防戦。盾→受け、鞭→反撃、拘束→解放の反復。疲弊と息切れ。\"\n          },\n          {\n            \"type\": \"prayer\",\n            \"description\": \"シュエンが茶器を修復し『負けないで！』。茶器から金粒子がメイリンへ流入。\"\n          },\n          {\n            \"type\": \"awaken\",\n            \"description\": \"第二形態の覚醒解放。麒麟の幻影、リボンの光量増。短い押し返し。\"\n          },\n          {\n            \"type\": \"taunt\",\n            \"description\": \"影の王『はははは、この時を待っていたぞ……』。全景が漆黒に。\"\n          },\n          {\n            \"type\": \"pierce\",\n            \"description\": \"巨大触手が胸を貫通。胸部の光が奔流となって吸収される。\"\n          },\n          {\n            \"type\": \"collapse\",\n            \"description\": \"リボン解け・鈴音消失・麒麟像崩壊。光が四散。\"\n          },\n          {\n            \"type\": \"fall\",\n            \"description\": \"変身解除→落下→リン消失→暗転。\"\n          }\n        ]\n      }\n    }\n  }\n}"
+	},
+	"Schema": {
+	  "raw_text": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"$id\": \"https://example.com/meirin_schema_v1.0.4.json\",\n  \"title\": \"Meirin Canon Schema v1.0.4\",\n  \"type\": \"object\",\n  \"required\": [\n    \"meta\",\n    \"theme\",\n    \"symbols\",\n    \"world\",\n    \"forms\",\n    \"stages\",\n    \"character_meirin\",\n    \"battle\",\n    \"visual\",\n    \"plot\",\n    \"qa\"\n  ],\n  \"properties\": {\n    \"meta\": {\n      \"type\": \"object\",\n      \"required\": [\n        \"project\",\n        \"version\",\n        \"language\"\n      ],\n      \"properties\": {\n        \"project\": {\n          \"type\": \"string\"\n        },\n        \"version\": {\n          \"type\": \"string\"\n        },\n        \"generated_at\": {\n          \"type\": \"string\"\n        },\n        \"language\": {\n          \"type\": \"string\"\n        },\n        \"note\": {\n          \"type\": \"string\"\n        }\n      },\n      \"additionalProperties\": true\n    },\n    \"files\": {\n      \"type\": \"object\",\n      \"description\": \"Reference file paths for auxiliary docs\",\n      \"additionalProperties\": {\n        \"type\": \"string\"\n      }\n    },\n    \"theme\": {\n      \"type\": \"object\",\n      \"required\": [\n        \"id\",\n        \"title\",\n        \"principles\"\n      ],\n      \"properties\": {\n        \"id\": {\n          \"type\": \"string\"\n        },\n        \"title\": {\n          \"type\": \"string\"\n        },\n        \"principles\": {\n          \"type\": \"array\",\n          \"items\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    },\n    \"symbols\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"required\": [\n          \"id\",\n          \"label\",\n          \"meaning\"\n        ],\n        \"properties\": {\n          \"id\": {\n            \"type\": \"string\"\n          },\n          \"label\": {\n            \"type\": \"string\"\n          },\n          \"meaning\": {\n            \"type\": \"string\"\n          },\n          \"scenes\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"string\"\n            }\n          }\n        }\n      }\n    },\n    \"world\": {\n      \"type\": \"object\",\n      \"required\": [\n        \"setting\",\n        \"enemy\",\n        \"laws\"\n      ],\n      \"properties\": {\n        \"setting\": {\n          \"type\": \"string\"\n        },\n        \"enemy\": {\n          \"type\": \"object\",\n          \"required\": [\n            \"id\",\n            \"label\",\n            \"traits\",\n            \"classes\"\n          ],\n          \"properties\": {\n            \"id\": {\n              \"type\": \"string\"\n            },\n            \"label\": {\n              \"type\": \"string\"\n            },\n            \"traits\": {\n              \"type\": \"array\",\n              \"items\": {\n                \"type\": \"string\"\n              }\n            },\n            \"classes\": {\n              \"type\": \"array\",\n              \"items\": {\n                \"type\": \"string\"\n              }\n            }\n          }\n        },\n        \"ally_beasts\": {\n          \"type\": \"array\",\n          \"description\": \"Non-enemy spirit beasts allied with protagonists or supporting characters\",\n          \"items\": {\n            \"type\": \"object\",\n            \"required\": [\n              \"id\",\n              \"name\",\n              \"motif\"\n            ],\n            \"properties\": {\n              \"id\": {\n                \"type\": \"string\"\n              },\n              \"name\": {\n                \"type\": \"string\"\n              },\n              \"motif\": {\n                \"type\": \"string\"\n              },\n              \"traits\": {\n                \"type\": \"array\",\n                \"items\": {\n                  \"type\": \"string\"\n                }\n              },\n              \"visibility_rule\": {\n                \"type\": \"string\"\n              },\n              \"function\": {\n                \"type\": \"string\"\n              }\n            }\n          }\n        },\n        \"laws\": {\n          \"type\": \"object\",\n          \"required\": [\n            \"resolution\",\n            \"home_definition\"\n          ],\n          \"properties\": {\n            \"resolution\": {\n              \"type\": \"string\",\n              \"enum\": [\n                \"purification\",\n                \"destruction\",\n                \"other\"\n              ]\n            },\n            \"home_definition\": {\n              \"type\": \"string\"\n            }\n          }\n        }\n      }\n    },\n    \"forms\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"required\": [\n          \"id\",\n          \"name\"\n        ],\n        \"properties\": {\n          \"id\": {\n            \"type\": \"string\"\n          },\n          \"name\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    },\n    \"stages\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"required\": [\n          \"id\",\n          \"label\"\n        ],\n        \"properties\": {\n          \"id\": {\n            \"type\": \"string\"\n          },\n          \"label\": {\n            \"type\": \"string\"\n          },\n          \"symbol\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    },\n    \"character_meirin\": {\n      \"type\": \"object\",\n      \"required\": [\n        \"name\",\n        \"age\",\n        \"traits\",\n        \"speech\",\n        \"role\"\n      ],\n      \"properties\": {\n        \"name\": {\n          \"type\": \"string\"\n        },\n        \"age\": {\n          \"type\": \"integer\"\n        },\n        \"traits\": {\n          \"type\": \"array\",\n          \"items\": {\n            \"type\": \"string\"\n          }\n        },\n        \"speech\": {\n          \"type\": \"array\",\n          \"items\": {\n            \"type\": \"string\"\n          }\n        },\n        \"role\": {\n          \"type\": \"string\"\n        }\n      }\n    },\n    \"supporting_characters\": {\n      \"type\": \"array\",\n      \"description\": \"Named supporting characters (e.g., Shuen)\",\n      \"items\": {\n        \"type\": \"object\",\n        \"required\": [\n          \"id\",\n          \"name\",\n          \"age\",\n          \"role\"\n        ],\n        \"properties\": {\n          \"id\": {\n            \"type\": \"string\"\n          },\n          \"name\": {\n            \"type\": \"string\"\n          },\n          \"age\": {\n            \"type\": \"integer\"\n          },\n          \"role\": {\n            \"type\": \"string\"\n          },\n          \"traits\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"string\"\n            }\n          },\n          \"skills\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"string\"\n            }\n          },\n          \"visual_notes\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"string\"\n            }\n          },\n          \"partner_beast_id\": {\n            \"type\": \"string\"\n          },\n          \"visibility_rule\": {\n            \"type\": \"string\"\n          },\n          \"function_in_story\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    },\n    \"battle\": {\n      \"type\": \"object\",\n      \"required\": [\n        \"weapons\",\n        \"tempo\",\n        \"finisher\"\n      ],\n      \"properties\": {\n        \"weapons\": {\n          \"type\": \"array\",\n          \"items\": {\n            \"type\": \"string\"\n          }\n        },\n        \"tempo\": {\n          \"type\": \"array\",\n          \"items\": {\n            \"type\": \"string\"\n          }\n        },\n        \"finisher\": {\n          \"type\": \"object\",\n          \"required\": [\n            \"id\",\n            \"name\"\n          ],\n          \"properties\": {\n            \"id\": {\n              \"type\": \"string\"\n            },\n            \"name\": {\n              \"type\": \"string\"\n            }\n          }\n        },\n        \"fail_visual\": {\n          \"type\": \"array\",\n          \"items\": {\n            \"type\": \"string\"\n          }\n        },\n        \"win_visual\": {\n          \"type\": \"array\",\n          \"items\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    },\n    \"visual\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"palette\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"hero\": {\n              \"type\": \"array\",\n              \"items\": {\n                \"type\": \"string\"\n              }\n            },\n            \"enemy\": {\n              \"type\": \"array\",\n              \"items\": {\n                \"type\": \"string\"\n              }\n            },\n            \"symbols\": {\n              \"type\": \"object\",\n              \"additionalProperties\": {\n                \"type\": \"string\"\n              }\n            }\n          }\n        },\n        \"directives\": {\n          \"type\": \"array\",\n          \"items\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    },\n    \"plot\": {\n      \"type\": \"object\",\n      \"required\": [\n        \"logline\",\n        \"pages\",\n        \"beats\"\n      ],\n      \"properties\": {\n        \"logline\": {\n          \"type\": \"string\"\n        },\n        \"pages\": {\n          \"type\": \"object\",\n          \"required\": [\n            \"act1\",\n            \"act2\",\n            \"act3\"\n          ],\n          \"properties\": {\n            \"act1\": {\n              \"type\": \"array\",\n              \"items\": {\n                \"type\": \"integer\"\n              },\n              \"minItems\": 2,\n              \"maxItems\": 2\n            },\n            \"act2\": {\n              \"type\": \"array\",\n              \"items\": {\n                \"type\": \"integer\"\n              },\n              \"minItems\": 2,\n              \"maxItems\": 2\n            },\n            \"act3\": {\n              \"type\": \"array\",\n              \"items\": {\n                \"type\": \"integer\"\n              },\n              \"minItems\": 2,\n              \"maxItems\": 2\n            }\n          }\n        },\n        \"beats\": {\n          \"type\": \"object\",\n          \"required\": [\n            \"act1\",\n            \"act2\",\n            \"act3\"\n          ],\n          \"properties\": {\n            \"act1\": {\n              \"type\": \"object\",\n              \"required\": [\n                \"intro\",\n                \"inciting\",\n                \"turn1\"\n              ],\n              \"properties\": {\n                \"intro\": {\n                  \"type\": \"string\"\n                },\n                \"inciting\": {\n                  \"type\": \"string\"\n                },\n                \"turn1\": {\n                  \"type\": \"string\"\n                }\n              }\n            },\n            \"act2\": {\n              \"type\": \"object\",\n              \"required\": [\n                \"trials\",\n                \"midpoint\",\n                \"reversal\"\n              ],\n              \"properties\": {\n                \"trials\": {\n                  \"type\": \"string\"\n                },\n                \"midpoint\": {\n                  \"type\": \"string\"\n                },\n                \"reversal\": {\n                  \"type\": \"string\"\n                }\n              }\n            },\n            \"act3\": {\n              \"type\": \"object\",\n              \"required\": [\n                \"re_oath\",\n                \"climax\",\n                \"finale\"\n              ],\n              \"properties\": {\n                \"re_oath\": {\n                  \"type\": \"string\"\n                },\n                \"climax\": {\n                  \"type\": \"string\"\n                },\n                \"finale\": {\n                  \"type\": \"string\"\n                }\n              }\n            }\n          }\n        },\n        \"storyboards\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"act1\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"final_panel\": {\n                  \"type\": \"object\",\n                  \"required\": [\n                    \"type\",\n                    \"description\"\n                  ],\n                  \"properties\": {\n                    \"type\": {\n                      \"type\": \"string\"\n                    },\n                    \"description\": {\n                      \"type\": \"string\"\n                    }\n                  }\n                }\n              }\n            },\n            \"act2\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"opening_panel\": {\n                  \"type\": \"object\",\n                  \"required\": [\n                    \"type\",\n                    \"description\"\n                  ],\n                  \"properties\": {\n                    \"type\": {\n                      \"type\": \"string\"\n                    },\n                    \"description\": {\n                      \"type\": \"string\"\n                    }\n                  }\n                },\n                \"reversal_sequence\": {\n                  \"type\": \"array\",\n                  \"description\": \"Ordered sequence describing the dramatic reversal (gathering light → awaken → ambush → blackout)\",\n                  \"items\": {\n                    \"type\": \"object\",\n                    \"required\": [\n                      \"type\",\n                      \"description\"\n                    ],\n                    \"properties\": {\n                      \"type\": {\n                        \"type\": \"string\"\n                      },\n                      \"description\": {\n                        \"type\": \"string\"\n                      }\n                    }\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"qa\": {\n      \"type\": \"object\",\n      \"required\": [\n        \"must\",\n        \"checklists\"\n      ],\n      \"properties\": {\n        \"must\": {\n          \"type\": \"array\",\n          \"items\": {\n            \"type\": \"string\"\n          }\n        },\n        \"checklists\": {\n          \"type\": \"object\",\n          \"additionalProperties\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"string\"\n            }\n          }\n        }\n      }\n    }\n  },\n  \"additionalProperties\": false\n}"
+	},
+	"VisualDesignRules": [
+	  "瞳は戦闘時にリング状発光",
+	  "感情表現は『歯を食いしばり立ち上がる』が基本（涙は一時的にのみ）",
+	  "リボン・尾・光エフェクトは常に揺れ、画面に動きを与える",
+	  "日常演出＝温かいオレンジや木目／戦闘＝影の灰色や紫／覚醒＝白・金・青の光に満ちる",
+      "麒麟モチーフ：角＝段階ごとに成長、尾＝第1は装飾的／第2は光を放つ、翼＝第1小型／第2大型"
+	],
+	"QA": {
+	  "age_consistency": "メイリン＝13歳で統一（Core/Notes/Personality/Relationships/Plotを確認）",
+	  "form1_visual_rule": "forms_details.form1 を唯一の参照とする（他所への二重記載を禁止）"
+	}
+  },
+  "Index": {
+	"catalog": [
+	  {
+		"id": "id_da39a3ee5e6b",
+		"path": "$",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_8d546a6dea9f",
+		"path": "Meta",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_52f6fbcd9dc0",
+		"path": "Meta.bundle_name",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_924fcf5d891f",
+		"path": "Meta.bundle_version",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_fd903ca76483",
+		"path": "Meta.generated_at",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_3a86c8896867",
+		"path": "Meta.includes_files",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_5fa66d076fad",
+		"path": "Meta.includes_files[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_e28553b9caeb",
+		"path": "Meta.includes_files[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_83b6c231ef91",
+		"path": "Meta.includes_files[2]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_43318f88a7e4",
+		"path": "Meta.includes_files[3]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_c989b7f8c920",
+		"path": "Meta.includes_files[4]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_75bb1717782f",
+		"path": "Meta.includes_files[5]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_fd4ca7769f1e",
+		"path": "Meta.includes_files[6]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_59f136897d3d",
+		"path": "Meta.includes_files[7]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_3e3ce321eef0",
+		"path": "Meta.includes_files[8]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_990026026d3e",
+		"path": "Meta.includes_files[9]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_bb185f34bca2",
+		"path": "Meta.includes_files[10]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_fcd3a27a6503",
+		"path": "Meta.includes_files[11]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_49adcab0f775",
+		"path": "Meta.includes_files[12]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_5827b8a79279",
+		"path": "Meta.includes_files[13]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_7758b72a9ac5",
+		"path": "Meta.includes_files[14]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_2e80f8a69e4c",
+		"path": "Meta.includes_files[15]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_148b72f45733",
+		"path": "Meta.includes_files[16]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_68836c550ee2",
+		"path": "Core",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_5f6ab8ffe53d",
+		"path": "Core.meta",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_34b22638c6d2",
+		"path": "Core.meta.project",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_1bd869fac9ed",
+		"path": "Core.meta.version",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_6c62394b2b94",
+		"path": "Core.meta.language",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_95a3041ff5b8",
+		"path": "Core.meta.note",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_6c1ac6a6cea2",
+		"path": "Core.meta.narrative",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_10b53020bea5",
+		"path": "Core.meta.narrative.pov",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_91f16b1ce020",
+		"path": "Core.meta.narrative.narrator",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_7a05921221c9",
+		"path": "Core.meta.narrative.style",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_90fc1fd99ac4",
+		"path": "Core.meta.narrative.style[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_05a520a23df9",
+		"path": "Core.meta.narrative.style[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_4f148862a20f",
+		"path": "Core.meta.narrative.style[2]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_d5905e7c3861",
+		"path": "Core.theme",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_779f4311902f",
+		"path": "Core.theme.id",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_109d4160ec1a",
+		"path": "Core.theme.title",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_e82d24c9cf97",
+		"path": "Core.theme.principles",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_49517dc03f6b",
+		"path": "Core.theme.principles[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_6ca48e0f34cb",
+		"path": "Core.theme.principles[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_8f8c0b627cd1",
+		"path": "Core.symbols",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_47b8821c6b1f",
+		"path": "Core.symbols[0]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_2799b56d941c",
+		"path": "Core.symbols[0].id",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_4cd09205917a",
+		"path": "Core.symbols[0].label",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_bf997897953b",
+		"path": "Core.symbols[0].meaning",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_9f1735b05f6a",
+		"path": "Core.symbols[1]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_6cfe093c72b2",
+		"path": "Core.symbols[1].id",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_8a531d250d28",
+		"path": "Core.symbols[1].label",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_67937c85d575",
+		"path": "Core.symbols[1].meaning",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_70ad2c66ec35",
+		"path": "Core.symbols[2]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_4e9831fa19c7",
+		"path": "Core.symbols[2].id",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_9d858086418e",
+		"path": "Core.symbols[2].label",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_ac7be5da1c24",
+		"path": "Core.symbols[2].meaning",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_a3518446df20",
+		"path": "Core.symbols[3]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_5b2e5925cf39",
+		"path": "Core.symbols[3].id",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_481a8fa5932a",
+		"path": "Core.symbols[3].label",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_8643cf2c1c30",
+		"path": "Core.symbols[3].meaning",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_d321f0e4f564",
+		"path": "Core.symbols[4]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_031bf40f064b",
+		"path": "Core.symbols[4].id",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_871df51a72eb",
+		"path": "Core.symbols[4].label",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_7fe4efe1bc76",
+		"path": "Core.symbols[4].meaning",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_e548727a2249",
+		"path": "Core.world",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_a6c344852523",
+		"path": "Core.world.setting",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_62463723c497",
+		"path": "Core.world.enemy",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_c2e84c93effe",
+		"path": "Core.world.enemy.id",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_a34d7db359aa",
+		"path": "Core.world.enemy.label",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_dcd0288663d5",
+		"path": "Core.world.enemy.traits",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_c23873d81586",
+		"path": "Core.world.enemy.traits[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_08848244f7f2",
+		"path": "Core.world.enemy.traits[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_c256420ade51",
+		"path": "Core.world.enemy.traits[2]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_7996b2f10e23",
+		"path": "Core.world.enemy.traits[3]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_1c41a50e7fad",
+		"path": "Core.world.enemy.classes",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_0aa307727474",
+		"path": "Core.world.enemy.classes[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_f2cc67fe188c",
+		"path": "Core.world.enemy.classes[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_31e08167198f",
+		"path": "Core.world.enemy.classes[2]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_0051a76cabb8",
+		"path": "Core.world.ally_beasts",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_59d17408f6b9",
+		"path": "Core.world.ally_beasts[0]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_23f87a83b76b",
+		"path": "Core.world.ally_beasts[0].id",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_a80d86bd11eb",
+		"path": "Core.world.ally_beasts[0].name",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_49d8af86b06d",
+		"path": "Core.world.ally_beasts[0].motif",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_fe68af52d45f",
+		"path": "Core.world.ally_beasts[0].traits",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_29d8791b7ce6",
+		"path": "Core.world.ally_beasts[0].traits[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_ca2dec7ba8d2",
+		"path": "Core.world.ally_beasts[0].traits[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_83998410ca8f",
+		"path": "Core.world.ally_beasts[0].visibility_rule",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_f3c29f751751",
+		"path": "Core.world.ally_beasts[0].function",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_2bc8dcbf9d02",
+		"path": "Core.world.ally_beasts[1]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_73fd70425396",
+		"path": "Core.world.ally_beasts[1].id",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_e2ca2878adfc",
+		"path": "Core.world.ally_beasts[1].name",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_de54bb8fd79c",
+		"path": "Core.world.ally_beasts[1].motif",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_409e81d1bd8c",
+		"path": "Core.world.ally_beasts[1].traits",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_fed9d5bf15f5",
+		"path": "Core.world.ally_beasts[1].traits[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_7f1b8f7416d8",
+		"path": "Core.world.ally_beasts[1].traits[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_75efb5b44b04",
+		"path": "Core.world.ally_beasts[1].visibility_rule",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_8b1218f5b27c",
+		"path": "Core.world.ally_beasts[1].function",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_10598c7d64c7",
+		"path": "Core.world.laws",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_1717d678d8a7",
+		"path": "Core.world.laws.resolution",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_9c2c519eb157",
+		"path": "Core.world.laws.home_definition",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_c91b45b95e6e",
+		"path": "Core.forms",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_5a8d3ca48696",
+		"path": "Core.forms[0]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_892d734a9958",
+		"path": "Core.forms[0].id",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_2d90bddaa040",
+		"path": "Core.forms[0].name",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_244ba8b210e4",
+		"path": "Core.forms[1]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_aca28035b615",
+		"path": "Core.forms[1].id",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_d7e7f71087ba",
+		"path": "Core.forms[1].name",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_874dc80146d7",
+		"path": "Core.forms[2]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_d33c41f64d0e",
+		"path": "Core.forms[2].id",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_914c56c080a9",
+		"path": "Core.forms[2].name",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_9a5fce5da4a5",
+		"path": "Core.forms_details",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_da6be5e59cd4",
+		"path": "Core.forms_details.form1",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_8b964a239a2c",
+		"path": "Core.forms_details.form1.aka",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_d30f41404d84",
+		"path": "Core.forms_details.form1.onboarding",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_3a433e798204",
+		"path": "Core.forms_details.form1.onboarding[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_986fa8cb995f",
+		"path": "Core.forms_details.form1.onboarding[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_5bd0e6f4ef78",
+		"path": "Core.forms_details.form1.onboarding[2]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_66279c15030a",
+		"path": "Core.forms_details.form1.capabilities",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_8d818f7bd4a2",
+		"path": "Core.forms_details.form1.capabilities[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_e38d2a2570b7",
+		"path": "Core.forms_details.form1.capabilities[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_b061f222ba69",
+		"path": "Core.forms_details.form1.capabilities[2]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_3a4293d61d7e",
+		"path": "Core.forms_details.form1.first_move_template",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_970ba35e48f0",
+		"path": "Core.forms_details.form1.visual_details",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_d8566a70da5f",
+		"path": "Core.forms_details.form1.visual_details.aka",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_4beb3082f0b4",
+		"path": "Core.forms_details.form1.visual_details.hair",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_7a3e680df5df",
+		"path": "Core.forms_details.form1.visual_details.hair.base",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_f66dd7f353c9",
+		"path": "Core.forms_details.form1.visual_details.hair.effect",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_434ca0e6769c",
+		"path": "Core.forms_details.form1.visual_details.hair.style",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_1cf0656fe79c",
+		"path": "Core.forms_details.form1.visual_details.hair.fringe",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_ff0aa73ed3aa",
+		"path": "Core.forms_details.form1.visual_details.horn",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_667ed1bc5339",
+		"path": "Core.forms_details.form1.visual_details.horn.size",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_b95b54ec85ac",
+		"path": "Core.forms_details.form1.visual_details.horn.color",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_dee0b298a1a8",
+		"path": "Core.forms_details.form1.visual_details.horn.note",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_d3398c140af3",
+		"path": "Core.forms_details.form1.visual_details.horn.appears_only_when_transformed",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_bb1845653448",
+		"path": "Core.forms_details.form1.visual_details.outfit",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_5be21898bcc9",
+		"path": "Core.forms_details.form1.visual_details.outfit.base_colors",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_66d79aab760b",
+		"path": "Core.forms_details.form1.visual_details.outfit.base_colors[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_5590f1e3e47a",
+		"path": "Core.forms_details.form1.visual_details.outfit.base_colors[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_fc19dd29c754",
+		"path": "Core.forms_details.form1.visual_details.outfit.base_colors[2]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_12f6088563c3",
+		"path": "Core.forms_details.form1.visual_details.outfit.design",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_68e1ae6362f6",
+		"path": "Core.forms_details.form1.visual_details.outfit.sleeves_shoulders",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_d280ac30e762",
+		"path": "Core.forms_details.form1.visual_details.outfit.ribbons",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_30275d05606f",
+		"path": "Core.forms_details.form1.visual_details.outfit.tail",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_baef813a6d5d",
+		"path": "Core.forms_details.form1.visual_details.outfit.patterns",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_a37751b7fcbd",
+		"path": "Core.forms_details.form1.visual_details.outfit.shoes",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_b059e66f88e0",
+		"path": "Core.forms_details.form1.visual_details.outfit.wings",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_9f56ef9dd395",
+		"path": "Core.forms_details.form1.visual_details.outfit.wings_metrics",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_8307983383ce",
+		"path": "Core.forms_details.form1.visual_details.outfit.wings_metrics.length_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_7b537ab9e25e",
+		"path": "Core.forms_details.form1.visual_details.outfit.wings_metrics.width_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_69b23a5d3b01",
+		"path": "Core.forms_details.form1.visual_details.outfit.wings_metrics.glow_intensity_ratio",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_a7008abbf202",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_d06ae6659371",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.dress_length_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_afd122ecffc4",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.slit_length_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_e81d55c8e04a",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.collar_height_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_9dfd2faf45ed",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.shoulder_exposed",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_18053c665d1b",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.sleeves",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_0008df61e1da",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.waist_ribbons",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_3434d211a17a",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.waist_ribbons.count",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_e746d3610452",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.waist_ribbons.length_cm_each",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_0532a5027802",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.waist_ribbons.width_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_b24437f68b10",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.waist_ribbons.sway_angle_max_deg",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_9f0627b6aa2c",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.waist_ribbons.bell_diameter_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_c91c249c7100",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.waist_ornaments",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_b65f8f046da5",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.waist_ornaments.lantern_diameter_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_7c2013a2afa6",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.waist_ornaments.undeveloped_tail_length_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_c5cde87190ee",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.shoes",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_02ebc6cc5496",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.shoes.heel_height_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_a4167e9c81e2",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.shoes.color",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_4a5cf5a26d3d",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.pattern_spots",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_bc03ed569c34",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.pattern_spots.arm_light_rings_per_arm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_b69eb1dcd2e4",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.pattern_spots.leg_light_rings_per_leg",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_da2cab045153",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.pattern_spots.ring_diameter_cm",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_7fbb95e506c2",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.pattern_spots.ring_diameter_cm[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_52bfd35bfd44",
+		"path": "Core.forms_details.form1.visual_details.outfit.metrics.pattern_spots.ring_diameter_cm[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_4abaa263f7a8",
+		"path": "Core.forms_details.form1.visual_details.motifs",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_81685cdb1544",
+		"path": "Core.forms_details.form1.visual_details.motifs.lantern",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_2f703f8ce10b",
+		"path": "Core.forms_details.form1.visual_details.motifs.tea_set",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_401df1341b24",
+		"path": "Core.forms_details.form1.visual_details.motifs.kirin",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_7f14fe8ccd16",
+		"path": "Core.forms_details.form1.visual_details.palette_notes",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_fb94bcb11614",
+		"path": "Core.forms_details.form1.visual_details.palette_notes.primary",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_855672af793e",
+		"path": "Core.forms_details.form1.visual_details.palette_notes.secondary",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_6516bbb4ca63",
+		"path": "Core.forms_details.form1.visual_details.palette_notes.accent",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_856afe7d01bc",
+		"path": "Core.forms_details.form1.visual_details.palette_notes.hair_glow",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_c0324a53b137",
+		"path": "Core.forms_details.form1.visual_details.palette_notes.background_suggestion",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_8f8326d80da5",
+		"path": "Core.forms_details.form1.visual_details.metrics",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_8896b7470c31",
+		"path": "Core.forms_details.form1.visual_details.metrics.height_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_04575eb8dede",
+		"path": "Core.forms_details.form1.visual_details.metrics.apparent_height_gain_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_a767b27727ad",
+		"path": "Core.forms_details.form1.visual_details.metrics.hair_length_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_ae494438f3b0",
+		"path": "Core.forms_details.form1.visual_details.metrics.hair_spread_angle_deg",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_cef5fd9436d5",
+		"path": "Core.forms_details.form1.visual_details.metrics.horn",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_cafa0887f770",
+		"path": "Core.forms_details.form1.visual_details.metrics.horn.length_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_8bf500c1eacc",
+		"path": "Core.forms_details.form1.visual_details.metrics.horn.base_diameter_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_645eb2305a1a",
+		"path": "Core.forms_details.form1.visual_details.metrics.horn.tip_diameter_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_db49100ee7d5",
+		"path": "Core.forms_details.form1.visual_details.metrics.horn.tilt_deg",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_3bc23db07734",
+		"path": "Core.forms_details.form1.visual_details.metrics.color_ratio",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_91b4c2a8e2b1",
+		"path": "Core.forms_details.form1.visual_details.metrics.color_ratio.white",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_55e6af6224e4",
+		"path": "Core.forms_details.form1.visual_details.metrics.color_ratio.gold",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_6e27a5d71902",
+		"path": "Core.forms_details.form1.visual_details.metrics.color_ratio.orange_accent",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_06748dd260da",
+		"path": "Core.forms_details.form1.visual_details.metrics.glow_intensity",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_0f2c746acf7a",
+		"path": "Core.forms_details.form1.visual_details.metrics.glow_intensity.hair_glow_vs_white",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_a49678a26454",
+		"path": "Core.forms_details.normal",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_0cc36d9b5f0a",
+		"path": "Core.forms_details.normal.visual_details",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_10fefc1cee0d",
+		"path": "Core.forms_details.normal.visual_details.aka",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_977caa6bab5b",
+		"path": "Core.forms_details.normal.visual_details.outfit",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_3b22518c37e6",
+		"path": "Core.forms_details.normal.visual_details.outfit.design",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_11d4d4520ff8",
+		"path": "Core.forms_details.normal.visual_details.outfit.shoes",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_48e8404f7dd8",
+		"path": "Core.forms_details.normal.visual_details.outfit.metrics",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_7dacb13e70b1",
+		"path": "Core.forms_details.normal.visual_details.outfit.metrics.height_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_072db801b04b",
+		"path": "Core.forms_details.normal.visual_details.outfit.metrics.hair_length_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_c804bd145904",
+		"path": "Core.forms_details.normal.visual_details.outfit.metrics.fringe_length_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_14f3a9ac9fe5",
+		"path": "Core.forms_details.normal.visual_details.outfit.metrics.fringe_transparency_ratio",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_554728b3492a",
+		"path": "Core.forms_details.normal.visual_details.outfit.metrics.dress_length_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_92ed3dc1d295",
+		"path": "Core.forms_details.normal.visual_details.outfit.metrics.slit_above_knee_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_700fffda8c80",
+		"path": "Core.forms_details.normal.visual_details.outfit.metrics.sleeve_length_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_c7b2ff73239f",
+		"path": "Core.forms_details.normal.visual_details.outfit.metrics.sleeve_width_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_83359e14700e",
+		"path": "Core.forms_details.normal.visual_details.outfit.metrics.collar_height_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_29b8201556a3",
+		"path": "Core.forms_details.normal.visual_details.outfit.metrics.shoes_length_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_0886b664d8c5",
+		"path": "Core.forms_details.normal.visual_details.outfit.metrics.color_ratio",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_18b646791391",
+		"path": "Core.forms_details.normal.visual_details.outfit.metrics.color_ratio.navy",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_471db4a6d479",
+		"path": "Core.forms_details.normal.visual_details.outfit.metrics.color_ratio.gray",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_01054e2d433b",
+		"path": "Core.forms_details.form2",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_d2b42d753ff4",
+		"path": "Core.forms_details.form2.visual_details",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_a2001b17beb9",
+		"path": "Core.forms_details.form2.visual_details.aka",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_0b343798ab08",
+		"path": "Core.forms_details.form2.visual_details.hair",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_b17bd4ed31fb",
+		"path": "Core.forms_details.form2.visual_details.hair.base",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_9a8d49883d07",
+		"path": "Core.forms_details.form2.visual_details.hair.effect",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_99c4b1feaec5",
+		"path": "Core.forms_details.form2.visual_details.horn",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_344f3b66a397",
+		"path": "Core.forms_details.form2.visual_details.horn.size",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_8b974408a750",
+		"path": "Core.forms_details.form2.visual_details.horn.color",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_66be916ff1fb",
+		"path": "Core.forms_details.form2.visual_details.horn.note",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_0b0680b9a3c0",
+		"path": "Core.forms_details.form2.visual_details.outfit",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_7110e869c04a",
+		"path": "Core.forms_details.form2.visual_details.outfit.base_colors",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_0f902af9caae",
+		"path": "Core.forms_details.form2.visual_details.outfit.base_colors[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_63058c6a45ef",
+		"path": "Core.forms_details.form2.visual_details.outfit.base_colors[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_092830388471",
+		"path": "Core.forms_details.form2.visual_details.outfit.base_colors[2]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_1713122f7328",
+		"path": "Core.forms_details.form2.visual_details.outfit.design",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_166659ee6577",
+		"path": "Core.forms_details.form2.visual_details.outfit.ornaments",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_2acf5e3a0700",
+		"path": "Core.forms_details.form2.visual_details.outfit.ribbons",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_2408026856a5",
+		"path": "Core.forms_details.form2.visual_details.outfit.wings",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_2e6b5bd3a277",
+		"path": "Core.forms_details.form2.visual_details.outfit.wings_metrics",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_cfc0d982f0db",
+		"path": "Core.forms_details.form2.visual_details.outfit.wings_metrics.length_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_d726e542b99e",
+		"path": "Core.forms_details.form2.visual_details.outfit.wings_metrics.width_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_f66173496caa",
+		"path": "Core.forms_details.form2.visual_details.outfit.wings_metrics.glow_intensity_ratio",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_2bb81b4903a9",
+		"path": "Core.forms_details.form2.visual_details.outfit.tail",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_fd503c0f74b3",
+		"path": "Core.forms_details.form2.visual_details.outfit.patterns",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_441363a7e1cc",
+		"path": "Core.forms_details.form2.visual_details.outfit.shoes",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_4f3efdaccb95",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_ea7feb516cc8",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.dress_length_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_68fabe9654fd",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.train_length_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_d6925f719ea3",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.collar_height_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_2e5414c2fd97",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.sleeve_length_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_e15c34d33dbb",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.sleeve_cuff_width_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_8c362ff4dad5",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.waist_cloth",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_a057e221c555",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.waist_cloth.width_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_934f4b49f8f2",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.waist_cloth.layers",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_238243c3357b",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.waist_ribbons",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_7b71647ddddc",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.waist_ribbons.count",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_e0921cd11fe5",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.waist_ribbons.length_cm_each",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_9ef70405c3cd",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.waist_ribbons.width_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_c56b63bb8de0",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.waist_ribbons.glow_multiplier_vs_form1",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_0658e5b9222c",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.tail_effect",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_2323bbcb1be5",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.tail_effect.length_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_c40430c14fed",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.tail_effect.thickness_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_80a8bfd0bd0e",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.shoes",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_d13aa8770d61",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.shoes.heel_height_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_212efae979a4",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.shoes.color",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_74c643647b52",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.patterns",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_4d8a0cc6d0c8",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.patterns.abdomen_thigh_scale_height_cm",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_d3f44d757f5f",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.patterns.abdomen_thigh_scale_height_cm[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_95abd1eb470a",
+		"path": "Core.forms_details.form2.visual_details.outfit.metrics.patterns.abdomen_thigh_scale_height_cm[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_74702881e0c7",
+		"path": "Core.forms_details.form2.visual_details.weapon_expression",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_9f12ef79d3cc",
+		"path": "Core.forms_details.form2.visual_details.metrics",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_df1f2ffb0b4d",
+		"path": "Core.forms_details.form2.visual_details.metrics.height_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_59bc671bcc95",
+		"path": "Core.forms_details.form2.visual_details.metrics.apparent_height_gain_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_62c0286a1056",
+		"path": "Core.forms_details.form2.visual_details.metrics.hair_length_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_a8d6de22c4c2",
+		"path": "Core.forms_details.form2.visual_details.metrics.hair_spread_angle_deg",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_049bdda0f0c5",
+		"path": "Core.forms_details.form2.visual_details.metrics.horn",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_9d044b1d4584",
+		"path": "Core.forms_details.form2.visual_details.metrics.horn.length_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_459ce9ce0e00",
+		"path": "Core.forms_details.form2.visual_details.metrics.horn.base_diameter_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_b03251a0a8a7",
+		"path": "Core.forms_details.form2.visual_details.metrics.horn.tip_diameter_cm",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_8b7188ef5197",
+		"path": "Core.forms_details.form2.visual_details.metrics.horn.tilt_deg",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_a039b26b4099",
+		"path": "Core.forms_details.form2.visual_details.metrics.color_ratio",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_59cf1677b746",
+		"path": "Core.forms_details.form2.visual_details.metrics.color_ratio.white",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_51202550ecd7",
+		"path": "Core.forms_details.form2.visual_details.metrics.color_ratio.gold",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_ad4a4a10d666",
+		"path": "Core.forms_details.form2.visual_details.metrics.color_ratio.bluewhite_glow",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_a9b33dc8d490",
+		"path": "Core.forms_details.form2.visual_details.metrics.glow_intensity",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_7052536e60fa",
+		"path": "Core.forms_details.form2.visual_details.metrics.glow_intensity.hair_ribbon_vs_bg_black",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_d2ef71518bd2",
+		"path": "Core.forms_details.form2.visual_details.metrics.glow_intensity.particle_density_multiplier_vs_form1",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_babda425bed2",
+		"path": "Core.stages",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_04ff5e449a05",
+		"path": "Core.stages[0]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_b08791f2d2f9",
+		"path": "Core.stages[0].id",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_b0c462cde6d1",
+		"path": "Core.stages[0].label",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_6230726b9461",
+		"path": "Core.stages[0].symbol",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_784bb38d8816",
+		"path": "Core.stages[1]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_3ac9efc4b5c3",
+		"path": "Core.stages[1].id",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_77c41cb1ffc9",
+		"path": "Core.stages[1].label",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_9cf8249261a6",
+		"path": "Core.stages[1].symbol",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_bdd72728435e",
+		"path": "Core.stages[2]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_9c709538cfad",
+		"path": "Core.stages[2].id",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_e5a602b8e979",
+		"path": "Core.stages[2].label",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_b6333bf0381a",
+		"path": "Core.stages[2].symbol",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_511c73edb90a",
+		"path": "Core.stages[3]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_911a9f769e48",
+		"path": "Core.stages[3].id",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_8cc733af9a0c",
+		"path": "Core.stages[3].label",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_06d0a291a22f",
+		"path": "Core.stages[3].symbol",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_ecc2b16dee41",
+		"path": "Core.character_meirin",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_6fe3f040f2de",
+		"path": "Core.character_meirin.name",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_02caaeadf6fa",
+		"path": "Core.character_meirin.age",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_d39d86bf78d0",
+		"path": "Core.character_meirin.traits",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_94f933bf422e",
+		"path": "Core.character_meirin.traits[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_712c1ca3e6be",
+		"path": "Core.character_meirin.traits[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_5c07e813923a",
+		"path": "Core.character_meirin.speech",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_c4e042b1e64e",
+		"path": "Core.character_meirin.speech[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_0f34899b665a",
+		"path": "Core.character_meirin.speech[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_9651298e34a3",
+		"path": "Core.character_meirin.role",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_a8d113b18f08",
+		"path": "Core.supporting_characters",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_578a5f72c563",
+		"path": "Core.supporting_characters[0]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_80b8b64f7907",
+		"path": "Core.supporting_characters[0].id",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_6793ca186d58",
+		"path": "Core.supporting_characters[0].name",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_6049500bf7f5",
+		"path": "Core.supporting_characters[0].age",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_47fb3f58bcec",
+		"path": "Core.supporting_characters[0].role",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_be5e17c280e8",
+		"path": "Core.supporting_characters[0].traits",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_a4bf239e9a62",
+		"path": "Core.supporting_characters[0].traits[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_34db92f76a9b",
+		"path": "Core.supporting_characters[0].traits[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_61d2f756700c",
+		"path": "Core.supporting_characters[0].skills",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_aa1551a7c4e3",
+		"path": "Core.supporting_characters[0].skills[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_d81c32e466eb",
+		"path": "Core.supporting_characters[0].visual_notes",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_868d9100887c",
+		"path": "Core.supporting_characters[0].visual_notes[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_8354b39bb12e",
+		"path": "Core.supporting_characters[0].visual_notes[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_42d01cc24f23",
+		"path": "Core.supporting_characters[0].partner_beast_id",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_14bf9b0d679f",
+		"path": "Core.supporting_characters[0].visibility_rule",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_cdce939a4c4f",
+		"path": "Core.supporting_characters[0].function_in_story",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_1b5380aff748",
+		"path": "Core.battle",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_f4e1a95331d1",
+		"path": "Core.battle.weapons",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_c6f7e215ede5",
+		"path": "Core.battle.weapons[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_04a548cc90a4",
+		"path": "Core.battle.weapons[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_3d2708717137",
+		"path": "Core.battle.weapons[2]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_cf56d607cf3c",
+		"path": "Core.battle.tempo",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_8f7c66303ce1",
+		"path": "Core.battle.tempo[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_a497f6c8c094",
+		"path": "Core.battle.tempo[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_b9b287ee44a5",
+		"path": "Core.battle.tempo[2]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_80ce97985e6f",
+		"path": "Core.battle.tempo[3]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_22189933988b",
+		"path": "Core.battle.finisher",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_8b9193bd4372",
+		"path": "Core.battle.finisher.id",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_4e1486625232",
+		"path": "Core.battle.finisher.name",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_f86529877e0d",
+		"path": "Core.battle.fail_visual",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_0af8657b6b17",
+		"path": "Core.battle.fail_visual[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_39d4c8c9063f",
+		"path": "Core.battle.fail_visual[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_6a416d0fb563",
+		"path": "Core.battle.fail_visual[2]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_969b70e3d558",
+		"path": "Core.battle.win_visual",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_3a764a2fe162",
+		"path": "Core.battle.win_visual[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_fb0a6d0b778d",
+		"path": "Core.battle.win_visual[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_c37c6760fa22",
+		"path": "Core.battle.mechanics",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_53807cee80da",
+		"path": "Core.battle.mechanics.sync_transform",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_ff3cdcb3727c",
+		"path": "Core.battle.mechanics.sync_transform.name",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_edb28ff3dc32",
+		"path": "Core.battle.mechanics.sync_transform.trigger",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_30afcf51e170",
+		"path": "Core.battle.mechanics.sync_transform.trigger[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_4d2811b3e442",
+		"path": "Core.battle.mechanics.sync_transform.trigger[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_f24e7f439755",
+		"path": "Core.battle.mechanics.sync_transform.effects",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_579a628ad233",
+		"path": "Core.battle.mechanics.sync_transform.effects[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_6843872c623f",
+		"path": "Core.battle.mechanics.sync_transform.effects[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_c47b6c3857c7",
+		"path": "Core.battle.mechanics.sync_transform.effects[2]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_58fd67b98e20",
+		"path": "Core.battle.mechanics.sync_transform.effects[3]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_4933cf09d342",
+		"path": "Core.battle.combos",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_31854bf2b976",
+		"path": "Core.battle.combos[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_87f1981e3a31",
+		"path": "Core.battle.combos[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_bca5e916bf95",
+		"path": "Core.visual",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_d2b97e557bda",
+		"path": "Core.visual.palette",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_e0229dfdb151",
+		"path": "Core.visual.palette.hero",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_bc21813611fc",
+		"path": "Core.visual.palette.hero[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_63e96f966d12",
+		"path": "Core.visual.palette.hero[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_0234edb1b084",
+		"path": "Core.visual.palette.hero[2]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_e42f5c0b0d9e",
+		"path": "Core.visual.palette.enemy",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_a241f52830b6",
+		"path": "Core.visual.palette.enemy[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_c2be4d612675",
+		"path": "Core.visual.palette.enemy[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_b7f9a9a99293",
+		"path": "Core.visual.palette.symbols",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_c955e6b1dc51",
+		"path": "Core.visual.palette.symbols.lantern",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_fa408c452349",
+		"path": "Core.visual.palette.symbols.tea_set",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_d10fbac0b645",
+		"path": "Core.visual.palette.symbols.ribbon",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_6824e09fca8f",
+		"path": "Core.visual.directives",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_93c8fa11e9b8",
+		"path": "Core.visual.directives[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_3c8aea416eb4",
+		"path": "Core.visual.directives[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_b02b9b1e5ed4",
+		"path": "Core.visual.directives[2]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_5b86cbc30ead",
+		"path": "Core.plot",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_9906121be428",
+		"path": "Core.plot.logline",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_e61749613b44",
+		"path": "Core.plot.pages",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_20e629e134f8",
+		"path": "Core.plot.pages.act1",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_8829068fc538",
+		"path": "Core.plot.pages.act1[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_f158ea091389",
+		"path": "Core.plot.pages.act1[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_bde7f9e9f6a8",
+		"path": "Core.plot.pages.act2",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_c5ad3b5fd584",
+		"path": "Core.plot.pages.act2[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_1bbbb68440ad",
+		"path": "Core.plot.pages.act2[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_55cd92a5388e",
+		"path": "Core.plot.pages.act3",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_8301b3fb4455",
+		"path": "Core.plot.pages.act3[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_0e4c17456df3",
+		"path": "Core.plot.pages.act3[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_79c68ab891e4",
+		"path": "Core.plot.beats",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_d30b62c66ef7",
+		"path": "Core.plot.beats.act1",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_4160bbe409e2",
+		"path": "Core.plot.beats.act1.intro",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_961a8fe89cd2",
+		"path": "Core.plot.beats.act1.inciting",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_6d121f41628e",
+		"path": "Core.plot.beats.act1.turn1",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_4ea916572893",
+		"path": "Core.plot.beats.act2",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_b768387993a5",
+		"path": "Core.plot.beats.act2.trials",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_9bcbc432cbe2",
+		"path": "Core.plot.beats.act2.midpoint",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_b2bda4eb6141",
+		"path": "Core.plot.beats.act2.reversal",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_ed80c8694bf5",
+		"path": "Core.plot.beats.act3",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_b0a2d1b59a66",
+		"path": "Core.plot.beats.act3.re_oath",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_71cddf5fdeca",
+		"path": "Core.plot.beats.act3.climax",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_09b703356438",
+		"path": "Core.plot.beats.act3.finale",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_8629245f8e20",
+		"path": "Core.plot.storyboards",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_01765f3d1228",
+		"path": "Core.plot.storyboards.act1",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_37cec1d9154f",
+		"path": "Core.plot.storyboards.act1.transformation_sequence",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_d4ef42af36e1",
+		"path": "Core.plot.storyboards.act1.transformation_sequence[0]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_82dc07791eb4",
+		"path": "Core.plot.storyboards.act1.transformation_sequence[0].type",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_b6792d98b5d3",
+		"path": "Core.plot.storyboards.act1.transformation_sequence[0].description",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_1cb1d157e7f7",
+		"path": "Core.plot.storyboards.act1.transformation_sequence[1]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_958991bcb018",
+		"path": "Core.plot.storyboards.act1.transformation_sequence[1].type",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_a1f20c97ce9a",
+		"path": "Core.plot.storyboards.act1.transformation_sequence[1].description",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_a678f064ee71",
+		"path": "Core.plot.storyboards.act1.transformation_sequence[2]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_63e2e10e2912",
+		"path": "Core.plot.storyboards.act1.transformation_sequence[2].type",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_2b4aa6236acb",
+		"path": "Core.plot.storyboards.act1.transformation_sequence[2].description",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_98f3de3d39ea",
+		"path": "Core.plot.storyboards.act1.transformation_sequence[3]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_c392770fa5ba",
+		"path": "Core.plot.storyboards.act1.transformation_sequence[3].type",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_27c579d14e6e",
+		"path": "Core.plot.storyboards.act1.transformation_sequence[3].description",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_962ba943dacc",
+		"path": "Core.plot.storyboards.act1.transformation_sequence[4]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_8bf93f266350",
+		"path": "Core.plot.storyboards.act1.transformation_sequence[4].type",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_c92c6b08a7e3",
+		"path": "Core.plot.storyboards.act1.transformation_sequence[4].description",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_51862c797b19",
+		"path": "Core.plot.storyboards.act2",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_b785b9b408e6",
+		"path": "Core.plot.storyboards.act2.opening_panel",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_f6faa3e699cc",
+		"path": "Core.plot.storyboards.act2.opening_panel.type",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_2917732f4451",
+		"path": "Core.plot.storyboards.act2.opening_panel.description",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_6c434a7fb3e4",
+		"path": "Core.plot.storyboards.act2.reversal_sequence",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_90d1c0e65655",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[0]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_4f6997f7b014",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[0].type",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_f71de5312a56",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[0].description",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_aa12206dad36",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[1]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_2ff531d47381",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[1].type",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_36d8bb16a62f",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[1].description",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_f5724904b11c",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[2]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_bb3ea45e69a4",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[2].type",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_7ea5f3502842",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[2].description",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_2f1be2b0af94",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[3]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_5692b123a90e",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[3].type",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_649687200f58",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[3].description",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_b45611634101",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[4]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_7b331d7b2f18",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[4].type",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_d47526ab9713",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[4].description",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_38229b38d2ac",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[5]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_9df4e93b8ccc",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[5].type",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_de077b57d29e",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[5].description",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_e234ebbf5696",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[6]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_116a3218e7ee",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[6].type",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_f92ad1d012bb",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[6].description",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_7f97babdda25",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[7]",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_42e7430110e4",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[7].type",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_9cc9e800c666",
+		"path": "Core.plot.storyboards.act2.reversal_sequence[7].description",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_24be61285e09",
+		"path": "Views",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_70440046a3dc",
+		"path": "Notes",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_d745f837b0fb",
+		"path": "Notes.Act1",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_ce5a1c85aad1",
+		"path": "Notes.Act1.raw_text",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_2d44099aaf32",
+		"path": "Notes.Act2",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_943135038371",
+		"path": "Notes.Act2.raw_text",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_9f96bf435301",
+		"path": "Notes.Act3",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_f492a2fe2618",
+		"path": "Notes.Act3.raw_text",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_ce6461a274c3",
+		"path": "Notes.Full",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_a63eb6ff135d",
+		"path": "Notes.Full.raw_text",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_89a2a0b5dcdf",
+		"path": "Notes.Plot",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_a84655820d26",
+		"path": "Notes.Plot.raw_text",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_ea5e21ad0bb3",
+		"path": "Notes.Personality",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_e018279b9404",
+		"path": "Notes.Personality.raw_text",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_07229480ba4b",
+		"path": "Notes.Relationships",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_419ccbb7b4e1",
+		"path": "Notes.Relationships.raw_text",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_e13796836f36",
+		"path": "Notes.Symbolism",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_9933c005f344",
+		"path": "Notes.Symbolism.raw_text",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_1cc9f9075273",
+		"path": "Notes.Worldbuilding",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_98bb122c5f1c",
+		"path": "Notes.Worldbuilding.raw_text",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_3d6ff8a8592e",
+		"path": "Notes.Battlefields",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_4ddffd1e832b",
+		"path": "Notes.Battlefields.raw_text",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_cc2767e30994",
+		"path": "Notes.BattleStyle",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_133d19a8419f",
+		"path": "Notes.BattleStyle.raw_text",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_fc1d9794a0ed",
+		"path": "Notes.VisualDesign",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_d03d6a9e1040",
+		"path": "Notes.VisualDesign.raw_text",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_81c11ff1e9a2",
+		"path": "Notes.VisualPrompts",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_b171f01007db",
+		"path": "Notes.VisualPrompts.raw_text",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_aeb05705f576",
+		"path": "Notes.Checklist",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_06111d57acde",
+		"path": "Notes.Checklist.raw_text",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_ff56ea83f211",
+		"path": "Notes.Readme",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_29d23229d994",
+		"path": "Notes.Readme.raw_text",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_518a0142484a",
+		"path": "Notes.Canon",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_9e7e8ce204c0",
+		"path": "Notes.Canon.raw_text",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_9868f7c557cd",
+		"path": "Notes.Schema",
+		"node_type": "object"
+	  },
+	  {
+		"id": "id_c55c81264c44",
+		"path": "Notes.Schema.raw_text",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_4fad57f000a3",
+		"path": "Notes.VisualDesignRules",
+		"node_type": "array"
+	  },
+	  {
+		"id": "id_797022f1579d",
+		"path": "Notes.VisualDesignRules[0]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_9661a50b4190",
+		"path": "Notes.VisualDesignRules[1]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_6fe97fb4c393",
+		"path": "Notes.VisualDesignRules[2]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_07a6366e837c",
+		"path": "Notes.VisualDesignRules[3]",
+		"node_type": "scalar"
+	  },
+	  {
+		"id": "id_7885cd227dd5",
+		"path": "Notes.VisualDesignRules[4]",
+		"node_type": "scalar"
+	  }
+	]
+  },
+  "Refs": [],
+  "Models": {
+	"Characters": {},
+	"Forms": {},
+	"Locations": {},
+	"Props": {},
+	"Themes": {},
+	"Systems": {}
+  },
+  "Annex": {
+	"Meta": {
+	  "bundle_name": "Meirin Project OOP Bundle (Reconstructed)",
+	  "bundle_version": "2.1.0-oop",
+	  "generated_at": "2025-08-28T13:16:29.121831",
+	  "includes_files": [
+		"meirin_act1_detailed.txt",
+		"meirin_act2_detailed.txt",
+		"meirin_act3_detailed.txt",
+		"meirin_battle_style.txt",
+		"meirin_canon.json",
+		"meirin_full_detailed.txt",
+		"meirin_master_checklist.txt",
+		"meirin_master_readme.txt",
+		"meirin_personality_story.txt",
+		"meirin_plot.txt",
+		"meirin_relationships.txt",
+		"meirin_schema.json",
+		"meirin_symbolism_themes.txt",
+		"meirin_visual_design_notes.txt",
+		"meirin_visual_prompts.txt",
+		"meirin_worldbuilding.txt",
+        "meirin_worldbuilding_battlefields.txt"
+	  ]
+	}
+  },
+  "Meta": {
+	"bundle_version": "lin-vis-rev",
+	"generated_at": "2025-08-31T11:52:46.918919Z"
+  }
+}

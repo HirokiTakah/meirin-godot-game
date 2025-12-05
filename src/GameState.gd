@@ -134,6 +134,9 @@ func get_stage_intro_message() -> String:
 	return BattleText.get_stage_intro(game_stage)
 
 
+func get_stage_win_message() -> String:
+	return BattleText.get_stage_win_message(game_stage)
+
 # =========================
 # 背景画像パス
 # =========================
@@ -284,16 +287,25 @@ func player_attack(player_choice: int) -> Dictionary:
 # ティーピース獲得 → 次ステージへ
 # ================================
 
-func next_stage() -> void:
-	# 1〜4面クリア時にティーピース獲得
-	if game_stage <= 4:
-		tea_pieces += 1
+func next_stage() -> Dictionary:
+	var d: Dictionary = _get_stage_dict(game_stage)
+	var reward: Dictionary = d.get("reward", {})
 
-	# フォーム2解放
-	if tea_pieces >= 4:
+	var tea_add: int = 0
+	if typeof(reward) == TYPE_DICTIONARY:
+		tea_add = int(reward.get("tea_piece", 0))
+		if tea_add > 0:
+			tea_pieces += tea_add
+
+	var unlocked_form2 := false
+	if tea_pieces >= 4 and meirin_form < 2:
 		meirin_form = 2
+		unlocked_form2 = true
 
 	game_stage += 1
-
-	# 次のステージを初期化
 	init_stage()
+
+	return {
+		"tea_piece_add": tea_add,
+		"unlocked_form2": unlocked_form2,
+	}

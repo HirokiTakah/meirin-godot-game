@@ -21,11 +21,12 @@ static func make_round_text(result_msg: String, battle_msg: String) -> String:
 
 
 # ドラクエ風に1文字ずつ表示する
-static func typewriter_show(owner: Node, label: Label, text: String, speed: float) -> void:
+static func typewriter_show(scene: Node, label: Label, text: String, speed: float) -> void:
 	if label == null:
 		return
 
 	label.text = ""
+
 	for i in text.length():
 		label.text += text[i]
-		await owner.get_tree().create_timer(speed).timeout
+		await scene.get_tree().create_timer(speed).timeout

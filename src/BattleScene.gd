@@ -2,37 +2,39 @@ extends Node2D
 
 const BattleFlow = preload("res://src/BattleFlow.gd")
 const BattleEffects = preload("res://src/BattleEffects.gd")
+const UiText = preload("res://src/UiText.gd")
 
 # ========================================
 # UIノード
 # ========================================
+
 @onready var player_hp_bar: ProgressBar = $UI/UIRoot/PlayerHPBar
-@onready var enemy_hp_bar: ProgressBar  = $UI/UIRoot/EnemyHPBar
+@onready var enemy_hp_bar: ProgressBar = $UI/UIRoot/EnemyHPBar
 
-@onready var result_text: Label  = $UI/UIRoot/ResultLabel
-@onready var battle_text: Label  = $UI/UIRoot/MessagePanel/MessageLabel
+@onready var result_text: Label = $UI/UIRoot/ResultLabel
+@onready var battle_text: Label = $UI/UIRoot/MessagePanel/MessageLabel
 @onready var message_panel: Control = $UI/UIRoot/MessagePanel
-@onready var janken_buttons: Control = $UI/UIRoot/JankenButtons
 
-@onready var btn_rock: Button     = $UI/UIRoot/JankenButtons/BtnRock
+@onready var janken_buttons: Control = $UI/UIRoot/JankenButtons
+@onready var btn_rock: Button = $UI/UIRoot/JankenButtons/BtnRock
 @onready var btn_scissors: Button = $UI/UIRoot/JankenButtons/BtnScissors
-@onready var btn_paper: Button    = $UI/UIRoot/JankenButtons/BtnPaper
+@onready var btn_paper: Button = $UI/UIRoot/JankenButtons/BtnPaper
 
 @onready var move_name_label: Label = $UI/UIRoot/MoveNameLabel
 
-@onready var gameover_panel: Control      = $UI/UIRoot/GameOverPanel
-@onready var btn_continue: Button         = $UI/UIRoot/GameOverPanel/RetryButton
-@onready var gameover_label: Label        = $UI/UIRoot/GameOverPanel/GameOverLabel
+@onready var gameover_panel: Control = $UI/UIRoot/GameOverPanel
+@onready var btn_continue: Button = $UI/UIRoot/GameOverPanel/RetryButton
+@onready var gameover_label: Label = $UI/UIRoot/GameOverPanel/GameOverLabel
 
 # 立ち絵・敵・背景
 @onready var meirin_sprite: Sprite2D = $MeirinSprite
-@onready var enemy_sprite: Sprite2D  = $EnemySprite
-@onready var bg_sprite: Sprite2D     = $Background
+@onready var enemy_sprite: Sprite2D = $EnemySprite
+@onready var bg_sprite: Sprite2D = $Background
 @onready var gameover_bg_sprite: Sprite2D = $GameOverBG
 
 # 背景テクスチャパス
 const GAMEOVER_BG_PATH := "res://assets/backgrounds/game_over.png"
-const CLEAR_BG_PATH    := "res://assets/backgrounds/game_clear.png"
+const CLEAR_BG_PATH := "res://assets/backgrounds/game_clear.png"
 
 # ステージ6ドレイン用
 var drain_timer: Timer
@@ -51,6 +53,7 @@ const TYPEWRITER_SPEED := 0.01
 # ========================================
 # Ready
 # ========================================
+
 func _ready() -> void:
 	_setup_ui()
 	load_background()
@@ -59,7 +62,6 @@ func _ready() -> void:
 	# 立ち絵を現在フォームに合わせて初期化
 	played_form2_intro = false
 	update_meirin_idle()
-
 	draining = false
 
 	# ステージ導入テキスト（タイプライター）
@@ -69,6 +71,7 @@ func _ready() -> void:
 # ----------------------------------------
 # 初期 UI 設定
 # ----------------------------------------
+
 func _setup_ui() -> void:
 	# GameOver パネルは最初非表示
 	if gameover_panel:
@@ -87,10 +90,21 @@ func _setup_ui() -> void:
 	if battle_text:
 		battle_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 
-	# ボタンの表示名を「技名」にする
-	btn_rock.text = "灯籠シールド"
-	btn_scissors.text = "浄化のリボン"
-	btn_paper.text = "結び封じ"
+	# ボタンの表示名を JSON から設定
+	var name0 := UiText.get_move_name(0)
+	var name1 := UiText.get_move_name(1)
+	var name2 := UiText.get_move_name(2)
+
+	if name0 == "":
+		name0 = "灯籠シールド"
+	if name1 == "":
+		name1 = "浄化のリボン"
+	if name2 == "":
+		name2 = "結び封じ"
+
+	btn_rock.text = name0
+	btn_scissors.text = name1
+	btn_paper.text = name2
 
 	# 攻撃ボタン
 	btn_rock.pressed.connect(func(): on_player_choice(0))
@@ -108,7 +122,7 @@ func _setup_ui() -> void:
 
 # ステージ導入テキスト
 func _play_stage_intro() -> void:
-	set_attack_buttons_enabled(false)  # 導入中はボタン押せない
+	set_attack_buttons_enabled(false) # 導入中はボタン押せない
 	var intro_text := GameState.get_stage_intro_message()
 	await MessageHelper.typewriter_show(self, battle_text, intro_text, TYPEWRITER_SPEED)
 	set_attack_buttons_enabled(true)
@@ -117,6 +131,7 @@ func _play_stage_intro() -> void:
 # ========================================
 # 通常背景読み込み
 # ========================================
+
 func load_background() -> void:
 	var path := GameState.get_stage_background_path()
 	print("load_background:", path)
@@ -150,20 +165,21 @@ func _show_end_background(path: String) -> void:
 		var tex: Texture2D = load(path)
 		if tex:
 			gameover_bg_sprite.texture = tex
-
-	gameover_bg_sprite.scale = Vector2(1.2, 1.2)
-	gameover_bg_sprite.visible = true
+			gameover_bg_sprite.scale = Vector2(1.2, 1.2)
+			gameover_bg_sprite.visible = true
 
 
 # GAME OVER / CLEAR 時のUIマスク
 func apply_end_ui_mask(alpha: float = 0.4, hide_message: bool = true) -> void:
 	set_attack_buttons_enabled(false)
+
 	if janken_buttons:
 		janken_buttons.visible = false
 
 	player_hp_bar.visible = false
 	enemy_hp_bar.visible = false
 	result_text.visible = false
+
 	if message_panel and hide_message:
 		message_panel.visible = false
 
@@ -176,6 +192,7 @@ func apply_end_ui_mask(alpha: float = 0.4, hide_message: bool = true) -> void:
 # ========================================
 # HPバー更新
 # ========================================
+
 func update_hp_bars() -> void:
 	player_hp_bar.max_value = GameState.player_max_hp
 	player_hp_bar.value = GameState.player_hp
@@ -187,6 +204,7 @@ func update_hp_bars() -> void:
 # ========================================
 # メイリン立ち絵
 # ========================================
+
 func update_meirin_idle() -> void:
 	var path := GameState.get_meirin_texture_path("idle")
 	if ResourceLoader.exists(path):
@@ -212,6 +230,7 @@ func show_meirin_damage() -> void:
 # ----------------------------------------
 # ダウン演出
 # ----------------------------------------
+
 func play_defeat_sequence() -> void:
 	# 1) ダメージ演出＋ダメージ絵
 	await BattleEffects.play_player_hit_fx(meirin_sprite)
@@ -221,7 +240,10 @@ func play_defeat_sequence() -> void:
 	await get_tree().create_timer(1.2).timeout
 
 	if gameover_label:
-		gameover_label.text = "GAME OVER"
+		var label_text := UiText.get_game_over_label()
+		if label_text == "":
+			label_text = "GAME OVER"
+		gameover_label.text = label_text
 
 	show_gameover_background()
 	apply_end_ui_mask(0.4, true)
@@ -233,14 +255,25 @@ func play_defeat_sequence() -> void:
 # ========================================
 # クリア演出（最終戦勝利時）
 # ========================================
+
 func play_clear_sequence() -> void:
 	if gameover_label:
-		gameover_label.text = "GAME CLEAR\n\n……終わった。\n光が、ぜんぶ戻ってきたね。"
+		var label_text := UiText.get_clear_label()
+		if label_text == "":
+			label_text = "GAME CLEAR"
+		gameover_label.text = label_text
 
 	if result_text:
-		result_text.text = "クリア！"
+		var result_label := UiText.get_clear_result_label()
+		if result_label == "":
+			result_label = "クリア！"
+		result_text.text = result_label
+
 	if battle_text:
-		battle_text.text = "「……終わった。\n　光が、ぜんぶ戻ってきたね。」"
+		var clear_msg := UiText.get_clear_battle_message()
+		if clear_msg == "":
+			clear_msg = "「……終わった。\n 光が、ぜんぶ戻ってきたね。」"
+		battle_text.text = clear_msg
 
 	await get_tree().create_timer(1.0).timeout
 
@@ -254,6 +287,7 @@ func play_clear_sequence() -> void:
 # ========================================
 # フェイス2 アニメーション（登場時のみ）
 # ========================================
+
 func play_form2_intro_animation() -> void:
 	if GameState.meirin_form != 2:
 		return
@@ -263,14 +297,17 @@ func play_form2_intro_animation() -> void:
 
 	meirin_sprite.texture = tex1
 	await get_tree().create_timer(0.5).timeout
+
 	meirin_sprite.texture = tex2
 	await get_tree().create_timer(0.5).timeout
+
 	meirin_sprite.texture = tex1
 
 
 # ========================================
 # ステージ6ドレイン開始
 # ========================================
+
 func start_stage6_drain() -> void:
 	if draining:
 		return
@@ -285,7 +322,10 @@ func start_stage6_drain() -> void:
 	add_child(drain_timer)
 	drain_timer.start()
 
-	battle_text.text = "……力が吸い取られていく……！"
+	var msg := UiText.get_drain_start_message()
+	if msg == "":
+		msg = "……力が吸い取られていく……！"
+	battle_text.text = msg
 
 
 func _on_drain_tick() -> void:
@@ -301,9 +341,14 @@ func _on_drain_tick() -> void:
 	if GameState.player_hp <= 0:
 		drain_timer.stop()
 		show_meirin_down()
-		battle_text.text = "……もう…動けない……。"
+
+		var msg := UiText.get_drain_last_message()
+		if msg == "":
+			msg = "……もう…動けない……。"
+		battle_text.text = msg
 
 		await get_tree().create_timer(1.5).timeout
+
 		GameState.game_stage = 7
 		GameState.init_stage()
 		get_tree().reload_current_scene()
@@ -322,14 +367,17 @@ func set_attack_buttons_enabled(enable: bool) -> void:
 # ========================================
 # ラウンド結果＋セリフのテキストを組み立てる
 # ========================================
+
 func _make_round_text(result_msg: String, battle_msg: String) -> String:
 	var clean_battle := battle_msg.replace("\n", " ")
 	clean_battle = clean_battle.strip_edges()
 
 	if result_msg == "" and clean_battle == "":
 		return ""
+
 	if result_msg == "":
 		return clean_battle
+
 	if clean_battle == "":
 		return "▶%s" % result_msg
 
@@ -337,15 +385,13 @@ func _make_round_text(result_msg: String, battle_msg: String) -> String:
 	return "▶%s\n%s" % [result_msg, clean_battle]
 
 
-# 1文字ずつ表示するときの速さ（小さいほど速い）
-#const TYPEWRITER_SPEED := 0.01
-
 # ドラクエ風に1文字ずつ表示する
 func _typewriter_show(text: String) -> void:
 	if not battle_text:
 		return
 
 	battle_text.text = ""
+
 	for i in text.length():
 		battle_text.text += text[i]
 		await get_tree().create_timer(TYPEWRITER_SPEED).timeout
@@ -354,6 +400,7 @@ func _typewriter_show(text: String) -> void:
 # ========================================
 # プレイヤー攻撃入力
 # ========================================
+
 func on_player_choice(choice: int) -> void:
 	BattleFlow.process_turn(self, choice)
 
@@ -361,18 +408,24 @@ func on_player_choice(choice: int) -> void:
 # ========================================
 # Continue（復活／リトライ）
 # ========================================
+
 func on_continue_pressed() -> void:
 	var is_clear := false
 	if gameover_label:
 		is_clear = gameover_label.text.begins_with("GAME CLEAR")
 
 	if is_clear:
+		# クリア後は最初から
 		GameState.game_stage = 1
 		GameState.tea_pieces = 0
 		GameState.meirin_form = 1
+		GameState.player_hp = GameState.player_max_hp
+		GameState.init_stage()
+		GameState.is_gameover = false
+		get_tree().reload_current_scene()
+		return
 
-	GameState.player_hp = GameState.player_max_hp
-	GameState.init_stage()
+	# GAME OVER からのリトライの場合など
+	GameState.restore_full_hp()
 	GameState.is_gameover = false
-
 	get_tree().reload_current_scene()

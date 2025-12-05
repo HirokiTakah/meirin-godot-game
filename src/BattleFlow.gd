@@ -1,105 +1,102 @@
 extends Object
 
+const MessageHelper = preload("res://src/MessageHelper.gd")
 const BattleEffects = preload("res://src/BattleEffects.gd")
+# GameState は Autoload シングルトンをそのまま使う
 
-static func process_turn(scene: Node2D, choice: int) -> void:
-	# すでにターン処理中、またはドレイン中なら無視
+const TYPEWRITER_SPEED := 0.01
+
+
+# 1ターン分の処理
+static func process_turn(scene: Node, player_choice: int) -> void:
+	# すでに処理中なら無視（連打防止）
 	if scene.processing_turn:
-		return
-	if scene.draining:
 		return
 
 	scene.processing_turn = true
 	scene.set_attack_buttons_enabled(false)
 
-	# 1) 攻撃エフェクト（めちゃ速い踏み込み）
-	await BattleEffects.play_attack_effect(scene.meirin_sprite, choice)
+	# 数値計算は GameState（Autoload シングルトン）に任せる
+	var result: Dictionary = GameState.player_attack(player_choice)
 
-	# 「技名だけ」が出ている時間（今は 0.4秒キープ）
-	await scene.get_tree().create_timer(0.4).timeout
-
-	# 判定に入る前に技名を消す（今は使っていないが保険）
-	if scene.move_name_label:
-		scene.move_name_label.text = ""
-
-	# その間にゲームオーバーなどになっていたら何もしない
-	if GameState.is_gameover or scene.draining:
+	# 想定外だが念のため
+	if result.get("result", "") in ["gameover", "ended"]:
 		scene.processing_turn = false
 		scene.set_attack_buttons_enabled(true)
 		return
 
-	# 2) 攻撃前のHPを記録（ダメージ検出用）
-	var prev_player_hp: int = GameState.player_hp
-	var prev_enemy_hp: int = GameState.enemy_hp
-
-	# 3) 本番のじゃんけん判定
-	var result: Dictionary = GameState.player_attack(choice)
+	# HP バー更新
 	scene.update_hp_bars()
 
-	var result_msg := ""
-	var battle_msg := ""
+	# テキスト生成
+	var result_msg: String = result.get("result_msg", "")
+	var battle_msg: String = result.get("battle_msg", "")
+	var combined_text: String = scene._make_round_text(result_msg, battle_msg)
 
-	if result.has("result_msg"):
-		result_msg = String(result["result_msg"])
-	if result.has("battle_msg"):
-		battle_msg = String(result["battle_msg"])
+	# メッセージ表示（タイプライター）
+	if combined_text != "":
+		await MessageHelper.typewriter_show(scene, scene.battle_text, combined_text, TYPEWRITER_SPEED)
 
-	# 4) 判定直後に「ダメージを受けたか」を判定
-	var was_defeated: bool = (GameState.player_hp <= 0)
-	var took_damage: bool = (GameState.player_hp < prev_player_hp)
-	var enemy_defeated: bool = (GameState.enemy_hp <= 0)
-	var enemy_took_damage: bool = (GameState.enemy_hp < prev_enemy_hp)
+	# ラウンド後処理（演出＋分岐）
+	await _handle_post_round(scene, result)
+
+	scene.processing_turn = false
+
+
+# ラウンド後の分岐処理・演出
+static func _handle_post_round(scene: Node, result: Dictionary) -> void:
+	var start_drain: bool = result.get("start_drain", false)
 	var round_result: int = result.get("round_result", -1)
 
-	# ダメージ演出（ここで一気にやる）
-	if took_damage and not scene.draining:
-		# ダメージ絵に切り替え
-		scene.show_meirin_damage()
-		# 揺れ＋フラッシュ
-		await BattleEffects.play_player_hit_fx(scene.meirin_sprite)
-		# まだ生きていたら idle に戻す
-		if GameState.player_hp > 0 and not GameState.is_gameover and not scene.draining:
+	# --------------------------------------------------
+	# 勝ち／負けに応じたモーション
+	# --------------------------------------------------
+
+	if GameState.game_stage != 6:
+		# プレイヤーが勝ったターン → メイリン前進＋敵ヒット
+		if round_result == GameState.ROUND_WIN:
+			await BattleEffects.play_player_attack_fx(scene.meirin_sprite)
+			await BattleEffects.play_enemy_hit_fx(scene.enemy_sprite)
+
+		# プレイヤーが負けたターン（まだHPが残っている）
+		# → 敵前進＋メイリンダメージ
+		elif round_result == GameState.ROUND_LOSE and GameState.player_hp > 0:
+			await BattleEffects.play_enemy_attack_fx(scene.enemy_sprite)
+			scene.show_meirin_damage()
+			await BattleEffects.play_player_hit_fx(scene.meirin_sprite)
 			scene.update_meirin_idle()
 
-	if enemy_took_damage:
-		await BattleEffects.play_enemy_hit_fx(scene.enemy_sprite)
+	# --------------------------------------------------
+	# 特殊処理・勝敗判定
+	# --------------------------------------------------
 
-	if round_result == 0:
-		await BattleEffects.play_draw_effect(scene.meirin_sprite, scene.enemy_sprite)
-
-	# 5) 結果＋セリフをまとめて作り、タイプライター表示（高速）
-	var combined_text: String = scene._make_round_text(result_msg, battle_msg)
-	await scene._typewriter_show(combined_text)
-
-	# 6) ステージ6：この攻撃でドレイン開始したか？
-	var start_drain: bool = result.get("start_drain", false)
-
-	# 7) ステージ6：ドレイン開始
-	if start_drain:
-		scene.processing_turn = false
+	# ステージ6：HPドレイン開始
+	if GameState.game_stage == 6 and start_drain:
 		scene.start_stage6_drain()
 		return
 
-	# 8) 通常の敗北（ステージ6ドレインではない）
-	if was_defeated and not scene.draining:
+	# プレイヤー敗北（ステージ6以外）
+	if GameState.player_hp <= 0 and GameState.game_stage != 6:
 		await scene.play_defeat_sequence()
-		scene.processing_turn = false
 		return
 
-	# 9) 勝利 → 次ステージ or クリア演出
-	if enemy_defeated:
-		scene.update_meirin_idle()
-		await scene.get_tree().create_timer(1.0).timeout
-
-		if GameState.game_stage == 7:
-			await scene.play_clear_sequence()
-		else:
-			GameState.next_stage()
-			scene.get_tree().reload_current_scene()
-
-		scene.processing_turn = false
+	# 敵撃破
+	if GameState.enemy_hp <= 0:
+		await _handle_enemy_defeated(scene)
 		return
 
-	# 10) バトル続行 → ボタン再び有効化
+	# どちらも生きている → 次ターンへ
 	scene.set_attack_buttons_enabled(true)
-	scene.processing_turn = false
+	scene.update_meirin_idle()
+
+
+# 敵撃破時の処理（ステージ遷移／クリア）
+static func _handle_enemy_defeated(scene: Node) -> void:
+	# 最終ステージ以外 → 次のステージへ
+	if GameState.game_stage < 7:
+		GameState.next_stage()
+		scene.get_tree().reload_current_scene()
+		return
+
+	# 最終ステージ → クリア演出
+	await scene.play_clear_sequence()

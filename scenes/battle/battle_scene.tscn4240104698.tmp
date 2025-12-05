@@ -1,0 +1,158 @@
+[gd_scene load_steps=7 format=3 uid="uid://b5mt0mu64g48p"]
+
+[ext_resource type="Script" uid="uid://b0gs8rydisk1c" path="res://src/BattleScene.gd" id="1_3hov6"]
+[ext_resource type="Texture2D" uid="uid://cp385lc5ecjlu" path="res://assets/sprites/face1_idle.png" id="2_6iigb"]
+[ext_resource type="Texture2D" uid="uid://dhg3r65a1m68c" path="res://assets/sprites/enemy_idle.png" id="3_pu738"]
+[ext_resource type="Texture2D" uid="uid://btbw70isc3m53" path="res://assets/backgrounds/market.png" id="4_ugm31"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pu738"]
+bg_color = Color(0, 0, 0, 0.39215687)
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ugm31"]
+load_path = "res://.godot/imported/game_over.png-31096950501cbfaec3127b6920a4b657.ctex"
+
+[node name="BattleScene" type="Node2D"]
+script = ExtResource("1_3hov6")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="UIRoot" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="JankenButtons" type="HBoxContainer" parent="UI/UIRoot"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 400.0
+offset_right = 278.0
+offset_bottom = 440.0
+
+[node name="BtnRock" type="Button" parent="UI/UIRoot/JankenButtons"]
+layout_mode = 2
+text = "Rock"
+
+[node name="BtnScissors" type="Button" parent="UI/UIRoot/JankenButtons"]
+layout_mode = 2
+text = "Scissors"
+
+[node name="BtnPaper" type="Button" parent="UI/UIRoot/JankenButtons"]
+layout_mode = 2
+text = "Paper"
+
+[node name="EnemyHPBar" type="ProgressBar" parent="UI/UIRoot"]
+layout_mode = 0
+offset_left = 800.0
+offset_top = 30.0
+offset_right = 1000.0
+offset_bottom = 57.0
+max_value = 10.0
+value = 10.0
+
+[node name="PlayerHPBar" type="ProgressBar" parent="UI/UIRoot"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 30.0
+offset_right = 300.0
+offset_bottom = 57.0
+max_value = 10.0
+value = 10.0
+
+[node name="ResultLabel" type="Label" parent="UI/UIRoot"]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 230.0
+offset_right = 740.0
+offset_bottom = 272.0
+theme_override_font_sizes/font_size = 25
+
+[node name="MessagePanel" type="Panel" parent="UI/UIRoot"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 480.0
+offset_right = 1088.0
+offset_bottom = 624.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pu738")
+
+[node name="MessageLabel" type="Label" parent="UI/UIRoot/MessagePanel"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 1000.0
+offset_bottom = 132.0
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="GameOverPanel" type="Panel" parent="UI/UIRoot"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(28.848845, 16.321257)
+metadata/_edit_use_anchors_ = true
+
+[node name="GameOverLabel" type="Label" parent="UI/UIRoot/GameOverPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.6545773
+offset_top = -2.72192
+offset_right = 85.34542
+offset_bottom = 20.27808
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.13976145, 0.237058)
+text = "GAME OVER"
+
+[node name="RetryButton" type="Button" parent="UI/UIRoot/GameOverPanel"]
+layout_mode = 0
+offset_left = 17.609024
+offset_top = 23.40506
+offset_right = 67.609024
+offset_bottom = 54.40506
+scale = Vector2(0.09223731, 0.14014554)
+text = "Retry"
+
+[node name="MoveNameLabel" type="Label" parent="UI/UIRoot"]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 30.0
+offset_right = 340.0
+offset_bottom = 53.0
+scale = Vector2(2.2413006, 2.0655084)
+
+[node name="MeirinSprite" type="Sprite2D" parent="."]
+position = Vector2(200, 330)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("2_6iigb")
+
+[node name="EnemySprite" type="Sprite2D" parent="."]
+position = Vector2(900, 330)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("3_pu738")
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -10
+position = Vector2(576, 324)
+scale = Vector2(0.75, 0.8)
+texture = ExtResource("4_ugm31")
+
+[node name="GameOverBG" type="Sprite2D" parent="."]
+z_index = 10
+position = Vector2(591.00006, 284)
+scale = Vector2(1.6098266, 1.8164022)
+texture = SubResource("CompressedTexture2D_ugm31")

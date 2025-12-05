@@ -1,0 +1,20 @@
+{
+  "move_names": [
+	"灯籠シールド",
+	"浄化のリボン",
+    "結び封じ"
+  ],
+  "drain": {
+	"start_message": "……力が吸い取られていく……！",
+	"last_message": "……もう…動けない……。"
+  },
+  "game_over": {
+	"label": "GAME OVER",
+	"message": "……もう…動けない……。"
+  },
+  "clear": {
+	"label": "GAME CLEAR",
+	"result_label": "クリア！",
+	"battle_message": "「……終わった。\n 光が、ぜんぶ戻ってきたね。」"
+  }
+}

@@ -1,0 +1,69 @@
+
+---
+
+【作業サイクル】
+
+■ 1. 作業を終えたら毎回やること（「ローカル変更 → 履歴に保存 → GitHub に反映」まで完了）
+
+```bash
+
+cd /c/GodotProjects/meirin-battle-godot
+
+git add .
+git commit -m "fixed battle flow / updated json"   # メッセージはその時の内容に合わせて
+git push
+
+```
+
+
+---
+
+■ 2. ChatGPT 用の URL リストをつくる
+
+```bash
+
+cd /c/GodotProjects/meirin-battle-godot
+
+git ls-files '*.gd' '*.json' \
+  | sed 's|^|https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/|' \
+  > urls_raw.txt
+
+```
+
+
+---
+
+■ 3. ChatGPT で新しいチャットを始めるときのテンプレ
+
+
+---
+
+このGitHubリポジトリの最新ソースコードを、webツールを使って読み込んでください。
+[https://github.com/HirokiTakah/meirin-godot-game](https://github.com/HirokiTakah/meirin-godot-game)
+
+特に、次のファイルの「中身のテキスト」を必ず取得してほしいです。
+HTML画面ではなく、raw.githubusercontent.com か ?raw=1 付きの生テキストURLから読んでください。
+
+## 作品世界の正典（必ず読み込む）
+
+[https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/docs/meirin_oop_bundle.json](https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/docs/meirin_oop_bundle.json)
+
+## ゲームアダプター（必ず読み込む）
+
+[https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/meirin_oop_game_ref.json](https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/meirin_oop_game_ref.json)
+
+## ゲームの JSON & GDScript（urls_raw.txt の中身）
+
+＜ここに urls_raw.txt の必要部分を貼る＞
+
+まずこれらのファイルをすべて取得し、内容を把握したうえで
+「各ファイルの役割・依存関係・読み込み順」を整理してください。
+
+そのうえで、必要に応じて JSON / GDScript の改善案を提案してください。
+
+もし GitHub 側の制限などで raw テキストが取得できない場合は、
+「どのURLで、どんなエラーが出たか」を具体的に教えてください。
+
+--------------------------------
+
+

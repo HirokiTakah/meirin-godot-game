@@ -14,11 +14,11 @@ const ROUND_WIN := 1
 const ROUND_LOSE := 2
 
 # ダメージ関連のバランス定数
-const MISS_RATE := 0.10                # ミス率 10%（前は 15%）
-const CRITICAL_RATE := 0.20            # クリティカル率 20%（前は 15%）
+const MISS_RATE := 0.10        # ミス率 10%
+const CRITICAL_RATE := 0.20    # クリティカル率 20%
 const FORM2_DAMAGE_BONUS := 1
 const STAGE7_DAMAGE_BONUS := 1
-const STAGE6_NO_DAMAGE_THRESHOLD := 3  # ステージ6で「効かない攻撃」の回数
+const STAGE6_NO_DAMAGE_THRESHOLD := 3 # ステージ6で「効かない攻撃」の回数
 
 # メイリン立ち絵テクスチャ
 const MEIRIN_TEXTURES := {
@@ -54,7 +54,7 @@ var is_gameover := false
 var boss_no_damage_count: int = 0
 var boss_hp_drain_active: bool = false
 
-# JSON から読むステージ定義
+# JSON から読むステージ定義（1,2,3,... をキーにした Dictionary）
 var stage_data: Dictionary = {}
 
 
@@ -63,9 +63,6 @@ func _ready() -> void:
 	init_stage()
 
 
-# ========================
-# ステージ設定読み込み
-# ========================
 
 func load_stages() -> void:
 	stage_data.clear()
@@ -82,15 +79,42 @@ func load_stages() -> void:
 	var text := file.get_as_text()
 	file.close()
 
-	var parsed = JSON.parse_string(text)
-	if typeof(parsed) != TYPE_DICTIONARY:
-		push_error("stages.json の形式が不正です")
+	# JSON パース（Dictionary 型を明示する）
+	var parsed: Dictionary = JSON.parse_string(text)
+
+	if parsed.is_empty():
+		push_error("stages.json の JSON パースに失敗しました")
 		return
 
-	# キーを int に変換して保持
-	for k in parsed.keys():
-		var ik := int(k)
-		stage_data[ik] = parsed[k]
+	var dict: Dictionary = parsed
+
+	# 2パターンに対応させる：
+	# A) 新形式: { "meta": {...}, "order": [...], "stages": { "stg_xxx": {...} } }
+	# B) 旧形式: { "1": {...}, "2": {...}, ... }
+	if dict.has("stages"):
+		# 新形式
+		var stages_dict: Dictionary = dict.get("stages", {})
+		var order_array: Array = dict.get("order", [])
+
+		# order があればそれを優先。なければ stages_dict のキー順でソート
+		if order_array.is_empty():
+			order_array = stages_dict.keys()
+			order_array.sort()
+
+		var index := 1
+		for stage_id in order_array:
+			if stages_dict.has(stage_id):
+				stage_data[index] = stages_dict[stage_id]
+				index += 1
+	else:
+		# 旧形式（現在の stages.json はこちら）
+		var keys: Array = dict.keys()
+		keys.sort()
+		for k in keys:
+			var ik: int = int(k)
+			stage_data[ik] = dict[k]
+
+
 
 
 func _get_stage_dict(stage: int) -> Dictionary:
@@ -104,8 +128,10 @@ func _get_stage_dict(stage: int) -> Dictionary:
 func init_stage() -> void:
 	var d := _get_stage_dict(game_stage)
 
-	# enemyHP は JSON の "enemyHP" に合わせる
-	var enemy_hp_val: int = int(d.get("enemyHP", 5))
+	# enemy_hp は新旧どちらにも対応：
+	# 新: "enemy_hp"
+	# 旧: "enemyHP"（旧コメントとの互換用）
+	var enemy_hp_val: int = int(d.get("enemy_hp", d.get("enemyHP", 5)))
 	enemy_max_hp = enemy_hp_val
 	enemy_hp = enemy_max_hp
 
@@ -137,6 +163,7 @@ func get_stage_intro_message() -> String:
 func get_stage_win_message() -> String:
 	return BattleText.get_stage_win_message(game_stage)
 
+
 # =========================
 # 背景画像パス
 # =========================
@@ -144,10 +171,8 @@ func get_stage_win_message() -> String:
 func get_stage_background_path() -> String:
 	var d := _get_stage_dict(game_stage)
 	var bg_name: String = String(d.get("background", ""))
-
 	if bg_name == "":
 		return ""
-
 	# 例: res://assets/backgrounds/market.png
 	return "res://assets/backgrounds/%s.png" % bg_name
 
@@ -187,9 +212,7 @@ func player_attack(player_choice: int) -> Dictionary:
 	var enemy_choice := randi() % 3
 	var round_result: int = (3 + player_choice - enemy_choice) % 3
 
-	# ここで「あいこ」を減らす工夫：
-	# 一度あいこになったら、もう一度だけ敵の手を振り直して、
-	# それでもあいこならそのまま。
+	# あいこ軽減のための振り直し
 	if round_result == ROUND_DRAW:
 		var second_enemy_choice := randi() % 3
 		var second_result: int = (3 + player_choice - second_enemy_choice) % 3
@@ -214,7 +237,6 @@ func player_attack(player_choice: int) -> Dictionary:
 			ineffective = true
 			damage = 0
 			boss_no_damage_count += 1
-
 			if boss_no_damage_count >= STAGE6_NO_DAMAGE_THRESHOLD:
 				# 規定回数効かない攻撃 → HPドレイン開始フラグON
 				boss_hp_drain_active = true
@@ -293,9 +315,12 @@ func next_stage() -> Dictionary:
 
 	var tea_add: int = 0
 	if typeof(reward) == TYPE_DICTIONARY:
-		tea_add = int(reward.get("tea_piece", 0))
-		if tea_add > 0:
-			tea_pieces += tea_add
+		# 旧: "tea_piece"
+		# 新: "tea_pieces"
+		tea_add = int(reward.get("tea_piece", reward.get("tea_pieces", 0)))
+
+	if tea_add > 0:
+		tea_pieces += tea_add
 
 	var unlocked_form2 := false
 	if tea_pieces >= 4 and meirin_form < 2:

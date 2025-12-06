@@ -1,0 +1,141 @@
+{
+  "meta": {
+	"format": "meirin_events",
+	"version": "0.1",
+	"language": "ja",
+	"note": "メインストーリー用イベント台詞の初稿。あとから自由に差し替え可能。"
+  },
+  "events": {
+	"evt_intro_01_teahouse_attack": {
+	  "lines": [
+		{ "speaker": "Narration", "text": "夕方の茶屋に、突然黒い影がなだれ込んできた。" },
+		{ "speaker": "Meirin", "text": "きゃっ……！？　なに、この黒いもや……！" },
+		{ "speaker": "Narration", "text": "棚から茶器が落ち、母から受け継いだ大事な茶碗が床で砕け散る。" },
+		{ "speaker": "Meirin", "text": "お母さんの……茶碗が……！" },
+		{ "speaker": "Shadow", "text": "光の器よ。その灯り、いただこう……" },
+		{ "speaker": "Narration", "text": "黒い牙のようなものがメイリンに迫った、その時——。" },
+		{ "speaker": "Lin", "text": "……まだ、消えていないよ。君の灯りは。" },
+		{ "speaker": "Narration", "text": "淡い麒麟の霊が現れ、砕けた茶器とメイリンの胸元を光でつなぐ。" },
+		{ "speaker": "Narration", "text": "光が全身を巡り、メイリンは初めての姿へと変わっていく。" },
+		{ "speaker": "Meirin", "text": "これが……わたしの、灯り……？　いくよ……！" }
+	  ],
+	  "choices": []
+	},
+
+	"evt_02_meet_xuen": {
+	  "lines": [
+		{ "speaker": "Narration", "text": "影との戦いのあと、メイリンは割れた茶碗の欠片を抱えて街外れを歩いていた。" },
+		{ "speaker": "Xuen", "text": "……その欠片、見せてもらってもいい？" },
+		{ "speaker": "Meirin", "text": "えっ？　これは、わたしの大事な茶碗で……" },
+		{ "speaker": "Xuen", "text": "ひどく砕けているけど、金継ぎなら、まだ間に合うかもしれない。" },
+		{ "speaker": "Xuen", "text": "全部の欠片が揃えば、ね。" },
+		{ "speaker": "Meirin", "text": "全部……？　じゃあ、この街のどこかに散らばってるの？" },
+		{ "speaker": "Xuen", "text": "影が通った道をたどれば、きっと見つかる。……わたしも一緒に探すよ。" },
+		{ "speaker": "Lin", "text": "君の灯りを、茶器が覚えている。きっと戻ってくるよ。" },
+		{ "speaker": "Meirin", "text": "うん……絶対、取り戻す。お母さんとの、大切な灯りだから。"
+		}
+	  ],
+	  "choices": []
+	},
+
+	"evt_03_meirin_doubt": {
+	  "lines": [
+		{ "speaker": "Narration", "text": "川辺で小休止しながら、メイリンは自分の手を見つめていた。" },
+		{ "speaker": "Meirin", "text": "さっきの影……また、手が震えちゃった……" },
+		{ "speaker": "Meirin", "text": "わたし、本当に街を守れるのかな……" },
+		{ "speaker": "Lin", "text": "怖がるのは、灯りが消えていない証拠だよ。" },
+		{ "speaker": "Lin", "text": "君はちゃんと、守りたいものを覚えている。" },
+		{ "speaker": "Xuen", "text": "震える手でもいい。欠片をひとつ拾うたびに、きっと強くなっていくから。" },
+		{ "speaker": "Meirin", "text": "……うん。欠片を集めて、茶碗を直して……それでもう一度、ちゃんと笑えるようにしたい。"
+		}
+	  ],
+	  "choices": []
+	},
+
+	"evt_04_midboss_appears": {
+	  "lines": [
+		{ "speaker": "Narration", "text": "ひび割れた門の前で、濃い影が立ちふさがる。" },
+		{ "speaker": "MidBoss", "text": "灯りの継承者よ。これ以上は通せない。" },
+		{ "speaker": "Meirin", "text": "また……影……！　ここにも欠片があるなら、絶対に引かない！" },
+		{ "speaker": "Xuen", "text": "メイリン、無理はしないで。でも、ここを越えないと次には進めない。" },
+		{ "speaker": "Lin", "text": "君の灯りを試す門番みたいなものだ。いこう。"
+		}
+	  ],
+	  "choices": []
+	},
+
+	"evt_05_tea_bowl_repaired": {
+	  "lines": [
+		{ "speaker": "Narration", "text": "集めた欠片を前に、シュエンが静かに息を吸い込む。" },
+		{ "speaker": "Xuen", "text": "これで、すべて揃った……あとは、つなぐだけ。" },
+		{ "speaker": "Narration", "text": "金色の筋がひとつひとつ、ひび割れをなぞるように走っていく。" },
+		{ "speaker": "Meirin", "text": "わぁ……きれい……壊れる前より、あったかく見える……" },
+		{ "speaker": "Lin", "text": "灯りは、一度砕けても、つなげば前より強くなる。" },
+		{ "speaker": "Narration", "text": "茶碗からあふれる光がメイリンを包み、姿が変わっていく。" },
+		{ "speaker": "Meirin", "text": "これが……フェイス2……。からだの奥まで、光が満ちていく……！" },
+		{ "speaker": "Xuen", "text": "行ってきて。今度は、もう負けないで。"
+		}
+	  ],
+	  "choices": []
+	},
+
+	"evt_06_king_ambush": {
+	  "lines": [
+		{ "speaker": "Narration", "text": "闇に沈んだ広場に、フェイス2のメイリンが降り立つ。" },
+		{ "speaker": "Meirin", "text": "ここが……影の中心……？" },
+		{ "speaker": "King", "text": "待っていたぞ。灯籠の光を継ぐ者よ。" },
+		{ "speaker": "King", "text": "その身に宿した灯り……本来は我がもの。" },
+		{ "speaker": "Lin", "text": "メイリン、気を付けて。この気配……さっきまでの影とは違う。" },
+		{ "speaker": "Meirin", "text": "わたしは渡さない……この光は、みんなのための灯りだから！"
+		}
+	  ],
+	  "choices": []
+	},
+
+	"evt_07_drain_collapse": {
+	  "lines": [
+		{ "speaker": "Narration", "text": "次の瞬間、影の王の牙のような腕がメイリンの胸元を貫いた。" },
+		{ "speaker": "Meirin", "text": "……っ！？　あ……あつ……い……" },
+		{ "speaker": "Narration", "text": "胸の奥で燃えていた灯りが、逆流するように吸い出されていく。" },
+		{ "speaker": "Lin", "text": "やめろ……それは、彼女の……！" },
+		{ "speaker": "Narration", "text": "リンの姿も薄れ、光の粒になって散っていく。" },
+		{ "speaker": "Meirin", "text": "リン……？　……みんなの声が……遠く……" },
+		{ "speaker": "Narration", "text": "フェイス2の姿がほどけ、メイリンはただの少女の姿に戻って崩れ落ちた。" },
+		{ "speaker": "King", "text": "ようやく手に入れたぞ。灯りのすべてを。" },
+		{ "speaker": "Narration", "text": "影の王の身体が、奪った光で不気味に輝き始める。究極の姿へと変貌していく。"
+		}
+	  ],
+	  "choices": []
+	},
+
+	"evt_08_people_prayers": {
+	  "lines": [
+		{ "speaker": "Narration", "text": "暗闇の中で、誰かの足音が聞こえた。" },
+		{ "speaker": "Xuen", "text": "メイリン……！　お願い、目を開けて……" },
+		{ "speaker": "Citizen1", "text": "あの子が、影を追い払ってくれてたんだ……" },
+		{ "speaker": "Citizen2", "text": "今度は、わたしたちの番だよ。" },
+		{ "speaker": "Narration", "text": "小さな灯りがいくつも、メイリンの周りに集まってくる。" },
+		{ "speaker": "Lin", "text": "……聞こえる？　君が守ろうとした声が、ここにある。" },
+		{ "speaker": "Meirin", "text": "……あたたかい……真っ暗じゃ、ない……" },
+		{ "speaker": "Xuen", "text": "あなたの灯りは、もうひとり分じゃない。みんなで、いっしょに持ってる灯りだよ。" },
+		{ "speaker": "Meirin", "text": "……うん。もう一度、立ち上がる……！" },
+		{ "speaker": "Narration", "text": "失われたはずの光が、メイリンの胸に再び灯る。リンの姿も、うっすらと戻ってきた。"
+		}
+	  ],
+	  "choices": []
+	},
+
+	"evt_09_ending": {
+	  "lines": [
+		{ "speaker": "Narration", "text": "戦いが終わり、広場には朝の光が差し込んでいた。" },
+		{ "speaker": "Xuen", "text": "ほら、見て。茶碗も、ちゃんと無事だよ。" },
+		{ "speaker": "Meirin", "text": "金の線が……まるで、みんなの灯りみたい……" },
+		{ "speaker": "Lin", "text": "砕けた灯りでも、つなげばここまで来られる。" },
+		{ "speaker": "Meirin", "text": "わたし、これからもこの灯りを守る。怖くなっても、何度でも立ち上がるよ。" },
+		{ "speaker": "Narration", "text": "小さな茶屋に、またひとつ、あたたかな灯りがともった。"
+		}
+	  ],
+	  "choices": []
+	}
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "meta": {
+	"format": "meirin_stages",
+	"version": "0.2",
+	"note": "string ID ベースの新ステージ定義。story_flow.json の stage_id から参照する想定。"
+  },
+  "order": [
+	"stg_01_first_shadow",
+	"stg_02_street_shadow",
+	"stg_03_field_shadow",
+	"stg_04_midboss",
+	"stg_05_form2_showcase",
+    "stg_06_final_boss"
+  ],
+  "stages": {
+	"stg_01_first_shadow": {
+	  "enemy_hp": 10,
+	  "background": "teahouse_broken",
+	  "meirin_form": 1,
+	  "tags": ["tutorial", "act1"],
+	  "reward": {
+		"tea_pieces": 0
+	  }
+	},
+	"stg_02_street_shadow": {
+	  "enemy_hp": 14,
+	  "background": "market",
+	  "meirin_form": 1,
+	  "tags": ["act1"],
+	  "reward": {
+		"tea_pieces": 1
+	  }
+	},
+	"stg_03_field_shadow": {
+	  "enemy_hp": 16,
+	  "background": "town_edge",
+	  "meirin_form": 1,
+	  "tags": ["act1"],
+	  "reward": {
+		"tea_pieces": 1
+	  }
+	},
+	"stg_04_midboss": {
+	  "enemy_hp": 20,
+	  "background": "ruins_gate",
+	  "meirin_form": 1,
+	  "tags": ["midboss", "act1"],
+	  "reward": {
+		"tea_pieces": 2
+	  }
+	},
+	"stg_05_form2_showcase": {
+	  "enemy_hp": 22,
+	  "background": "dark_plaza",
+	  "meirin_form": 2,
+	  "tags": ["form2_showcase", "act2"],
+	  "reward": {
+		"tea_pieces": 0
+	  }
+	},
+	"stg_06_final_boss": {
+	  "enemy_hp": 28,
+	  "background": "final_plaza_light",
+	  "meirin_form": 2,
+	  "tags": ["final", "act3"],
+	  "reward": {
+		"tea_pieces": 0
+	  }
+	}
+  }
+}

@@ -98,7 +98,7 @@ static func _handle_enemy_defeated(scene: Node) -> void:
 		scene.set_attack_buttons_enabled(false)
 
 		# 1) ステージ勝利メッセージ
-		var win_msg := GameState.get_stage_win_message()
+		var win_msg: String = GameState.get_stage_win_message()
 		if win_msg != "":
 			await MessageHelper.typewriter_show(
 				scene,
@@ -106,15 +106,16 @@ static func _handle_enemy_defeated(scene: Node) -> void:
 				win_msg,
 				TYPEWRITER_SPEED
 			)
-			# 少しだけ間をおく
-			await scene.get_tree().create_timer(0.8).timeout
+
+		# 少しだけ間をおく
+		await scene.get_tree().create_timer(0.8).timeout
 
 		# 2) 報酬（茶器）を反映して、その情報を受け取る
 		var reward_info: Dictionary = GameState.next_stage()
-
 		var tea_add: int = int(reward_info.get("tea_piece_add", 0))
+
 		if tea_add > 0:
-			var tea_msg := UiText.get_tea_piece_reward_message()
+			var tea_msg: String = UiText.get_tea_piece_reward_message()
 			if tea_msg != "":
 				await MessageHelper.typewriter_show(
 					scene,
@@ -122,12 +123,12 @@ static func _handle_enemy_defeated(scene: Node) -> void:
 					tea_msg,
 					TYPEWRITER_SPEED
 				)
-				await scene.get_tree().create_timer(0.8).timeout
+			await scene.get_tree().create_timer(0.8).timeout
 
 		# 3) このタイミングでフェイス2が解放された場合のメッセージ
-		var unlocked_form2 := bool(reward_info.get("unlocked_form2", false))
+		var unlocked_form2: bool = bool(reward_info.get("unlocked_form2", false))
 		if unlocked_form2:
-			var form_msg := UiText.get_form2_unlocked_message()
+			var form_msg: String = UiText.get_form2_unlocked_message()
 			if form_msg != "":
 				await MessageHelper.typewriter_show(
 					scene,
@@ -135,11 +136,26 @@ static func _handle_enemy_defeated(scene: Node) -> void:
 					form_msg,
 					TYPEWRITER_SPEED
 				)
-				await scene.get_tree().create_timer(0.8).timeout
+			await scene.get_tree().create_timer(0.8).timeout
 
-		# 4) 次のステージへ
+		# 4) ストーリーフローを進めて、次がイベントなら EventScene へ
+		StoryFlowDB.goto_next_node()
+		var next_is_event: bool = StoryFlowDB.is_current_event()
+
+		if next_is_event:
+			scene.get_tree().change_scene_to_file("res://scenes/event/EventScene.tscn")
+			return
+
+		# 次もバトル（または StoryFlowDB が未設定）の場合は従来通りバトルシーン
 		scene.get_tree().reload_current_scene()
 		return
 
-	# 最終ステージはクリア演出へ
+	# 最終ステージはクリア演出 → そのあとエピローグ用イベントへ
 	await scene.play_clear_sequence()
+
+	# クリア後、ストーリーフローを進めて event_09_ending へ移動する想定
+	StoryFlowDB.goto_next_node()
+	var has_ending_event: bool = StoryFlowDB.is_current_event()
+	if has_ending_event:
+		scene.get_tree().change_scene_to_file("res://scenes/event/EventScene.tscn")
+		return

@@ -1,0 +1,108 @@
+{
+  "meta": {
+	"format": "meirin_story_flow",
+	"version": "0.1",
+	"note": "Pattern C base: 初変身→欠片集め→中ボス→Form2→ドレイン絶望→再起→最終決戦"
+  },
+  "nodes": [
+	{
+	  "id": "event_intro_01_teahouse_attack",
+	  "type": "event",
+	  "script_id": "evt_intro_01_teahouse_attack",
+	  "background": "teahouse_broken",
+	  "next": "battle_01_first_shadow"
+	},
+	{
+	  "id": "battle_01_first_shadow",
+	  "type": "battle",
+	  "stage_id": "stg_01_first_shadow",
+	  "next": "event_02_meet_xuen"
+	},
+	{
+	  "id": "event_02_meet_xuen",
+	  "type": "event",
+	  "script_id": "evt_02_meet_xuen",
+	  "background": "town_edge",
+	  "next": "battle_02_street_shadow"
+	},
+	{
+	  "id": "battle_02_street_shadow",
+	  "type": "battle",
+	  "stage_id": "stg_02_street_shadow",
+	  "next": "event_03_meirin_doubt"
+	},
+	{
+	  "id": "event_03_meirin_doubt",
+	  "type": "event",
+	  "script_id": "evt_03_meirin_doubt",
+	  "background": "river",
+	  "next": "battle_03_field_shadow"
+	},
+	{
+	  "id": "battle_03_field_shadow",
+	  "type": "battle",
+	  "stage_id": "stg_03_field_shadow",
+	  "next": "event_04_midboss_appears"
+	},
+	{
+	  "id": "event_04_midboss_appears",
+	  "type": "event",
+	  "script_id": "evt_04_midboss_appears",
+	  "background": "ruins_gate",
+	  "next": "battle_04_midboss"
+	},
+	{
+	  "id": "battle_04_midboss",
+	  "type": "battle",
+	  "stage_id": "stg_04_midboss",
+	  "next": "event_05_tea_bowl_repaired"
+	},
+	{
+	  "id": "event_05_tea_bowl_repaired",
+	  "type": "event",
+	  "script_id": "evt_05_tea_bowl_repaired",
+	  "background": "teahouse_broken",
+	  "next": "battle_05_form2_showcase"
+	},
+	{
+	  "id": "battle_05_form2_showcase",
+	  "type": "battle",
+	  "stage_id": "stg_05_form2_showcase",
+	  "next": "event_06_king_ambush"
+	},
+	{
+	  "id": "event_06_king_ambush",
+	  "type": "event",
+	  "script_id": "evt_06_king_ambush",
+	  "background": "dark_plaza",
+	  "next": "event_07_drain_collapse"
+	},
+	{
+	  "id": "event_07_drain_collapse",
+	  "type": "event",
+	  "script_id": "evt_07_drain_collapse",
+	  "background": "dark_plaza",
+	  "next": "event_08_people_prayers"
+	},
+	{
+	  "id": "event_08_people_prayers",
+	  "type": "event",
+	  "script_id": "evt_08_people_prayers",
+	  "background": "dark_plaza",
+	  "next": "battle_06_final_boss"
+	},
+	{
+	  "id": "battle_06_final_boss",
+	  "type": "battle",
+	  "stage_id": "stg_06_final_boss",
+	  "next": "event_09_ending"
+	},
+	{
+	  "id": "event_09_ending",
+	  "type": "event",
+	  "script_id": "evt_09_ending",
+	  "background": "final_plaza_light",
+	  "next": null
+	}
+  ]
+}

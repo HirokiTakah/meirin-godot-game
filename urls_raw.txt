@@ -1,0 +1,14 @@
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/battle_texts.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/meirin_oop_game_ref.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/stages.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/ui_texts.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/docs/meirin_oop_bundle.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/src/BattleEffects.gd
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/src/BattleFlow.gd
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/src/BattleScene.gd
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/src/BattleText.gd
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/src/GameState.gd
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/src/MessageHelper.gd
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/src/StoryDB.gd
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/src/UiText.gd
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/src/UiTextDB.gd

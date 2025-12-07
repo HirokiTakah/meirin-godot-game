@@ -1,11 +1,10 @@
-# res://src/EventScene.gd
 extends Control
 
 const BATTLE_SCENE_PATH: String = "res://scenes/battle/battle_scene.tscn"
 
-@onready var speaker_label: Label = $UIRoot/SpeakerLabel
-@onready var text_label: Label = $UIRoot/TextLabel
-@onready var next_button: Button = $UIRoot/NextButton
+@onready var speaker_label: Label = $UI/UIRoot/SpeakerLabel
+@onready var text_label: Label = $UI/UIRoot/TextLabel
+@onready var next_button: Button = $UI/UIRoot/NextButton
 
 var _lines: Array = []
 var _line_index: int = 0
@@ -46,9 +45,18 @@ func _on_next_pressed() -> void:
 	else:
 		_show_current_line()
 
-
 func _go_next_node() -> void:
-	# 次のノードへ
+	# いま表示しているイベントノード
+	var node: Dictionary = StoryFlowDB.get_current_node()
+	var node_id: String = String(node.get("id", ""))
+
+	# 1) エンディングイベント（event_09_ending）のときは、
+	#    次のノードには進まず、そのまま ClearScene へ遷移する。
+	if node_id == "event_09_ending":
+		get_tree().change_scene_to_file("res://scenes/clear/clear_scene.tscn")
+		return
+
+	# 2) それ以外のイベントは、従来どおり「次のノード」に進む
 	StoryFlowDB.goto_next_node()
 
 	# 次がバトルなら、対応するステージ番号に合わせて BattleScene へ
@@ -63,7 +71,7 @@ func _go_next_node() -> void:
 		get_tree().change_scene_to_file(BATTLE_SCENE_PATH)
 		return
 
-	# 次もイベントなら、いったんシーンをリロード（将来の拡張用）
+	# 次もイベントなら、いったんシーンをリロード
 	if StoryFlowDB.is_current_event():
 		get_tree().reload_current_scene()
 		return

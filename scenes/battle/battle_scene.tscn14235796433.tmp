@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b0gs8rydisk1c" path="res://src/BattleScene.gd" id="1_3hov6"]
 [ext_resource type="Texture2D" uid="uid://cp385lc5ecjlu" path="res://assets/sprites/face1_idle.png" id="2_6iigb"]
 [ext_resource type="Texture2D" uid="uid://dhg3r65a1m68c" path="res://assets/sprites/enemy_idle.png" id="3_pu738"]
-[ext_resource type="Texture2D" uid="uid://csynxujsrysku" path="res://assets/backgrounds/game_clear.png" id="4_ugm31"]
+[ext_resource type="Texture2D" uid="uid://btbw70isc3m53" path="res://assets/backgrounds/market.png" id="4_ugm31"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pu738"]
 bg_color = Color(0, 0, 0, 0.39215687)
@@ -136,13 +136,11 @@ offset_bottom = 53.0
 scale = Vector2(2.2413006, 2.0655084)
 
 [node name="MeirinSprite" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(200, 330)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("2_6iigb")
 
 [node name="EnemySprite" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(900, 330)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_pu738")

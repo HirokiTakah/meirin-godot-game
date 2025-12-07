@@ -14,8 +14,9 @@ const ROUND_WIN := 1
 const ROUND_LOSE := 2
 
 # ダメージ関連のバランス定数
-const MISS_RATE := 0.10        # ミス率 10%
-const CRITICAL_RATE := 0.20    # クリティカル率 20%
+# ダメージ関連のバランス定数（デバッグ用・メイリン有利）
+const MISS_RATE := 0.05    # ミス率 5% に減らす
+const CRITICAL_RATE := 0.30 # クリティカル率 30% に上げる
 const FORM2_DAMAGE_BONUS := 1
 const STAGE7_DAMAGE_BONUS := 1
 const STAGE6_NO_DAMAGE_THRESHOLD := 3 # ステージ6で「効かない攻撃」の回数
@@ -49,6 +50,7 @@ var tea_pieces: int = 0
 var meirin_form: int = 1 # 1=FACE1 / 2=FACE2
 
 var is_gameover := false
+var is_cleared: bool = false   # ←追加：ゲームを全クリアしたかどうか
 
 # ステージ6ボス用
 var boss_no_damage_count: int = 0
@@ -62,6 +64,15 @@ func _ready() -> void:
 	load_stages()
 	init_stage()
 
+
+func _on_retry_pressed() -> void:
+	GameState.game_stage = 1
+	GameState.tea_pieces = 0
+	GameState.is_cleared = false
+	GameState.is_gameover = false
+	GameState.init_stage()
+	StoryFlowDB.reset_story()
+	get_tree().change_scene_to_file("res://scenes/event/EventScene.tscn")
 
 
 func load_stages() -> void:
@@ -144,6 +155,7 @@ func init_stage() -> void:
 		boss_hp_drain_active = false
 
 	is_gameover = false
+	is_cleared = false    # ←追加
 
 	# ティーピースが4つ以上ならフォーム2
 	if tea_pieces >= 4:
@@ -262,12 +274,15 @@ func player_attack(player_choice: int) -> Dictionary:
 			damage += STAGE7_DAMAGE_BONUS
 
 	# -------------------------------
-	# ダメージ適用
+	# ダメージ適用（デバッグ用にメイリン有利）
 	# -------------------------------
 	if round_result == ROUND_WIN and not ineffective:
-		enemy_hp -= damage
+		# プレイヤーが勝った時は敵へのダメージを 2 倍
+		enemy_hp -= damage * 2
 	elif round_result == ROUND_LOSE:
-		player_hp -= damage
+		# プレイヤーが負けた時は被ダメージを 1/2（端数切り上げ）
+		var dmg_to_player: int = int(ceil(float(damage) * 0.5))
+		player_hp -= dmg_to_player
 
 	if enemy_hp < 0:
 		enemy_hp = 0

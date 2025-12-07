@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwghvea5g80oi"]
+
+[ext_resource type="Texture2D" uid="uid://csynxujsrysku" path="res://assets/backgrounds/game_clear.png" id="1_amcjf"]
+
+[node name="ClearScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Background" type="TextureRect" parent="UI"]
+offset_right = 1536.0
+offset_bottom = 1024.0
+scale = Vector2(0.7461161, 0.6608659)
+texture = ExtResource("1_amcjf")
+
+[node name="Panel" type="Panel" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.596
+anchor_right = 0.5
+anchor_bottom = 0.596
+offset_left = -94.0
+offset_top = -98.20801
+offset_right = -94.0
+offset_bottom = -98.20801
+
+[node name="Label" type="Label" parent="UI/Panel"]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -41.0
+offset_right = 85.0
+offset_bottom = -18.0
+scale = Vector2(5.5953226, 5.0057774)
+text = "Fin"
+
+[node name="RetryButton" type="Button" parent="UI/Panel"]
+layout_mode = 0
+offset_left = 382.0
+offset_top = 237.0
+offset_right = 448.0
+offset_bottom = 268.0
+scale = Vector2(3.5169263, 2.9842675)
+text = "最初から"

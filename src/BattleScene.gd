@@ -53,19 +53,103 @@ const TYPEWRITER_SPEED := 0.01
 # ========================================
 # Ready
 # ========================================
-
 func _ready() -> void:
+	call_deferred("_post_ready")
+
+func _post_ready() -> void:
+	# 1) ゲーム起動直後：最初のイベントへ飛ばす
+	if StoryFlowDB.is_current_event() \
+			and GameState.game_stage == 1 \
+			and GameState.tea_pieces == 0 \
+			and not GameState.is_cleared:
+		get_tree().change_scene_to_file("res://scenes/event/EventScene.tscn")
+		return
+
+	# 共通UIセットアップ
 	_setup_ui()
+
+	# 2) クリア後に戻ってきた場合：
+	#    戦闘UIをすべて隠し、背景だけ final_plaza_light に差し替えて
+	#    そのままクリア演出へ
+	if GameState.is_cleared:
+		_set_clear_background()
+		_hide_battle_ui()
+		await play_clear_sequence()
+		return
+
+	# 3) 通常バトル開始
 	load_background()
 	update_hp_bars()
 
-	# 立ち絵を現在フォームに合わせて初期化
 	played_form2_intro = false
 	update_meirin_idle()
 	draining = false
+	
+	# ← ここでバトル UI を表示する
+	_show_battle_ui()
 
-	# ステージ導入テキスト（タイプライター）
 	await _play_stage_intro()
+
+
+func _show_battle_ui() -> void:
+	# ボタン
+	var janken_buttons := $UIRoot/JankenButtons
+	if janken_buttons:
+		janken_buttons.visible = true
+
+	# メッセージ枠
+	var msg_panel := $UIRoot/MessagePanel
+	if msg_panel:
+		msg_panel.visible = true
+
+	# HPバー
+	var enemy_bar := $UIRoot/EnemyHPBar
+	if enemy_bar:
+		enemy_bar.visible = true
+
+	var player_bar := $UIRoot/PlayerHPBar
+	if player_bar:
+		player_bar.visible = true
+
+	# 立ち絵
+	var meirin := $MeirinSprite
+	if meirin:
+		meirin.visible = true
+
+	var enemy := $EnemySprite
+	if enemy:
+		enemy.visible = true
+
+
+func _set_clear_background() -> void:
+	var bg := $Background as Sprite2D
+	if bg == null:
+		return
+
+	var tex: Texture2D = load("res://assets/backgrounds/final_plaza_light.png")
+	if tex != null:
+		bg.texture = tex
+
+func _hide_battle_ui() -> void:
+	# ボタン群
+	if $UIRoot/JankenButtons:
+		$UIRoot/JankenButtons.visible = false
+
+	# メッセージ枠
+	if $UIRoot/MessagePanel:
+		$UIRoot/MessagePanel.visible = false
+
+	# HPバー
+	if $UIRoot/EnemyHPBar:
+		$UIRoot/EnemyHPBar.visible = false
+	if $UIRoot/PlayerHPBar:
+		$UIRoot/PlayerHPBar.visible = false
+
+	# 立ち絵
+	if $MeirinSprite:
+		$MeirinSprite.visible = false
+	if $EnemySprite:
+		$EnemySprite.visible = false
 
 
 # ----------------------------------------
@@ -321,8 +405,11 @@ func _on_drain_tick() -> void:
 	# ドレイン中も軽くダメージ演出
 	await BattleEffects.play_player_hit_fx(meirin_sprite)
 
+	# HP が 0 になった → ここで「ステージ6の物語的敗北」
 	if GameState.player_hp <= 0:
 		drain_timer.stop()
+		draining = false
+
 		show_meirin_down()
 
 		var msg := UiText.get_drain_last_message()
@@ -332,13 +419,24 @@ func _on_drain_tick() -> void:
 
 		await get_tree().create_timer(1.5).timeout
 
-		GameState.game_stage = 7
-		GameState.init_stage()
+		# ★ステージを7に飛ばさず、ストーリーフローを進める
+		StoryFlowDB.debug_print_state("before goto_next_node (stage6_drain)")
+		StoryFlowDB.goto_next_node()
+		StoryFlowDB.debug_print_state("after goto_next_node (stage6_drain)")
+
+		# 次がイベント（event_07_drain_collapse のはず）なら EventScene へ
+		if StoryFlowDB.is_current_event():
+			get_tree().change_scene_to_file("res://scenes/event/EventScene.tscn")
+			return
+
+		# 想定外でイベントでなければ、とりあえずバトルシーンをリロード
 		get_tree().reload_current_scene()
 		return
 
+	# まだ HP が残っている場合は、ドレイン継続
 	if GameState.player_hp > 0 and draining:
 		update_meirin_idle()
+
 
 
 func set_attack_buttons_enabled(enable: bool) -> void:
@@ -398,14 +496,18 @@ func on_continue_pressed() -> void:
 		is_clear = gameover_label.text.begins_with("GAME CLEAR")
 
 	if is_clear:
-		# クリア後は最初から
+		# クリア後は最初から（イントロイベントから再開）
 		GameState.game_stage = 1
 		GameState.tea_pieces = 0
 		GameState.meirin_form = 1
 		GameState.player_hp = GameState.player_max_hp
-		GameState.init_stage()
 		GameState.is_gameover = false
-		get_tree().reload_current_scene()
+		GameState.is_cleared = false
+		GameState.init_stage()
+		StoryFlowDB.reset_story()
+
+		# 最初のイベントへ
+		get_tree().change_scene_to_file("res://scenes/event/EventScene.tscn")
 		return
 
 	# GAME OVER からのリトライの場合など

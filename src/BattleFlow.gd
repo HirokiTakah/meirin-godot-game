@@ -1,11 +1,12 @@
 extends Object
 
-const MessageHelper = preload("res://src/MessageHelper.gd")
-const BattleEffects = preload("res://src/BattleEffects.gd")
-const UiText = preload("res://src/UiText.gd")
-# GameState は Autoload シングルトンをそのまま使う
+# ここだけ別名で preload して使う（グローバルクラス名との衝突を避ける）
+const MessageHelperScript := preload("res://src/MessageHelper.gd")
+const BattleEffects := preload("res://src/BattleEffects.gd")
+const UiText := preload("res://src/UiText.gd")
+# GameState / StoryFlowDB は Autoload シングルトン
 
-const TYPEWRITER_SPEED := 0.01
+const TYPEWRITER_SPEED: float = 0.01
 
 
 # 1ターン分の処理
@@ -30,13 +31,18 @@ static func process_turn(scene: Node, player_choice: int) -> void:
 	scene.update_hp_bars()
 
 	# テキスト生成
-	var result_msg: String = result.get("result_msg", "")
-	var battle_msg: String = result.get("battle_msg", "")
+	var result_msg: String = String(result.get("result_msg", ""))
+	var battle_msg: String = String(result.get("battle_msg", ""))
 	var combined_text: String = scene._make_round_text(result_msg, battle_msg)
 
 	# メッセージ表示（タイプライター）
 	if combined_text != "":
-		await MessageHelper.typewriter_show(scene, scene.battle_text, combined_text, TYPEWRITER_SPEED)
+		await MessageHelperScript.typewriter_show(
+			scene,
+			scene.battle_text,
+			combined_text,
+			TYPEWRITER_SPEED
+		)
 
 	# ラウンド後処理（演出＋分岐）
 	await _handle_post_round(scene, result)
@@ -46,26 +52,25 @@ static func process_turn(scene: Node, player_choice: int) -> void:
 
 # ラウンド後の分岐処理・演出
 static func _handle_post_round(scene: Node, result: Dictionary) -> void:
-	var start_drain: bool = result.get("start_drain", false)
-	var round_result: int = result.get("round_result", -1)
+	var start_drain: bool = bool(result.get("start_drain", false))
+	var round_result: int = int(result.get("round_result", -1))
 
 	# --------------------------------------------------
-	# 勝ち／負けに応じたモーション
+	# 勝ち／負けに応じたモーション（ステージ6以外）
 	# --------------------------------------------------
 
-	if GameState.game_stage != 6:
-		# プレイヤーが勝ったターン → メイリン前進＋敵ヒット
-		if round_result == GameState.ROUND_WIN:
-			await BattleEffects.play_player_attack_fx(scene.meirin_sprite)
-			await BattleEffects.play_enemy_hit_fx(scene.enemy_sprite)
+	# プレイヤーが勝ったターン → メイリン前進＋敵ヒット
+	if round_result == GameState.ROUND_WIN:
+		await BattleEffects.play_player_attack_fx(scene.meirin_sprite)
+		await BattleEffects.play_enemy_hit_fx(scene.enemy_sprite)
 
-		# プレイヤーが負けたターン（まだHPが残っている）
-		# → 敵前進＋メイリンダメージ
-		elif round_result == GameState.ROUND_LOSE and GameState.player_hp > 0:
-			await BattleEffects.play_enemy_attack_fx(scene.enemy_sprite)
-			scene.show_meirin_damage()
-			await BattleEffects.play_player_hit_fx(scene.meirin_sprite)
-			scene.update_meirin_idle()
+	# プレイヤーが負けたターン（まだHPが残っている）
+	# → 敵前進＋メイリンダメージ
+	elif round_result == GameState.ROUND_LOSE and GameState.player_hp > 0:
+		await BattleEffects.play_enemy_attack_fx(scene.enemy_sprite)
+		scene.show_meirin_damage()
+		await BattleEffects.play_player_hit_fx(scene.meirin_sprite)
+		scene.update_meirin_idle()
 
 	# --------------------------------------------------
 	# 特殊処理・勝敗判定
@@ -76,9 +81,26 @@ static func _handle_post_round(scene: Node, result: Dictionary) -> void:
 		scene.start_stage6_drain()
 		return
 
-	# プレイヤー敗北（ステージ6以外）
-	if GameState.player_hp <= 0 and GameState.game_stage != 6:
+	# プレイヤー敗北
+	if GameState.player_hp <= 0:
+		# 共通の敗北演出
 		await scene.play_defeat_sequence()
+
+		# ステージ6だけは「演出上の敗北」→ 次のイベントへ進める
+		if GameState.game_stage == 6:
+			StoryFlowDB.debug_print_state("before goto_next_node (stage6 defeat)")
+			StoryFlowDB.goto_next_node()
+			StoryFlowDB.debug_print_state("after goto_next_node (stage6 defeat)")
+
+			if StoryFlowDB.is_current_event():
+				scene.get_tree().change_scene_to_file("res://scenes/event/EventScene.tscn")
+				return
+
+			# 想定外でイベントでない場合は、とりあえずバトルシーンをリロード
+			scene.get_tree().reload_current_scene()
+			return
+
+		# ステージ6以外は従来どおり（ここで処理終了。GameOverパネルは BattleScene 側の演出次第）
 		return
 
 	# 敵撃破
@@ -107,13 +129,11 @@ static func _handle_enemy_defeated(scene: Node) -> void:
 				TYPEWRITER_SPEED
 			)
 
-		# 少しだけ間をおく
 		await scene.get_tree().create_timer(0.8).timeout
 
-		# 2) 報酬（茶器）を反映して、その情報を受け取る
+		# 2) 報酬（茶器）
 		var reward_info: Dictionary = GameState.next_stage()
 		var tea_add: int = int(reward_info.get("tea_piece_add", 0))
-
 		if tea_add > 0:
 			var tea_msg: String = UiText.get_tea_piece_reward_message()
 			if tea_msg != "":
@@ -125,7 +145,7 @@ static func _handle_enemy_defeated(scene: Node) -> void:
 				)
 			await scene.get_tree().create_timer(0.8).timeout
 
-		# 3) このタイミングでフェイス2が解放された場合のメッセージ
+		# 3) フェイス2解放メッセージ
 		var unlocked_form2: bool = bool(reward_info.get("unlocked_form2", false))
 		if unlocked_form2:
 			var form_msg: String = UiText.get_form2_unlocked_message()
@@ -138,24 +158,30 @@ static func _handle_enemy_defeated(scene: Node) -> void:
 				)
 			await scene.get_tree().create_timer(0.8).timeout
 
-		# 4) ストーリーフローを進めて、次がイベントなら EventScene へ
+		# StoryFlowDB を進めて、次がイベントなら EventScene へ
+		StoryFlowDB.debug_print_state("before goto_next_node")
 		StoryFlowDB.goto_next_node()
-		var next_is_event: bool = StoryFlowDB.is_current_event()
+		StoryFlowDB.debug_print_state("after goto_next_node")
 
-		if next_is_event:
+		if StoryFlowDB.is_current_event():
 			scene.get_tree().change_scene_to_file("res://scenes/event/EventScene.tscn")
 			return
 
-		# 次もバトル（または StoryFlowDB が未設定）の場合は従来通りバトルシーン
+		# 次もバトルならバトルシーンを再読み込み
 		scene.get_tree().reload_current_scene()
 		return
 
-	# 最終ステージはクリア演出 → そのあとエピローグ用イベントへ
-	await scene.play_clear_sequence()
+	# -------------------------------
+	# ここから最終ステージ（7）撃破時
+	# -------------------------------
+	# 「ゲームクリアした」というフラグを立てる
+	GameState.is_cleared = true
 
-	# クリア後、ストーリーフローを進めて event_09_ending へ移動する想定
+	# battle_06_final_boss → event_09_ending に進める
+	StoryFlowDB.debug_print_state("before goto_next_node (final)")
 	StoryFlowDB.goto_next_node()
-	var has_ending_event: bool = StoryFlowDB.is_current_event()
-	if has_ending_event:
-		scene.get_tree().change_scene_to_file("res://scenes/event/EventScene.tscn")
-		return
+	StoryFlowDB.debug_print_state("after goto_next_node (final)")
+
+	# クリア演出はここでは行わず、event_09 を読み終えたあと
+	# ClearScene でまとめて表示する方針にする
+	scene.get_tree().change_scene_to_file("res://scenes/event/EventScene.tscn")

@@ -57,6 +57,7 @@
 	  "stage_id": "stg_04_midboss",
 	  "next": "event_05_tea_bowl_repaired"
 	},
+
 	{
 	  "id": "event_05_tea_bowl_repaired",
 	  "type": "event",
@@ -70,11 +71,18 @@
 	  "stage_id": "stg_05_form2_showcase",
 	  "next": "event_06_king_ambush"
 	},
+	
 	{
 	  "id": "event_06_king_ambush",
 	  "type": "event",
 	  "script_id": "evt_06_king_ambush",
 	  "background": "dark_plaza",
+	  "next": "battle_06_drain_battle"
+	},
+	{
+	  "id": "battle_06_drain_battle",
+	  "type": "battle",
+	  "stage_id": "stg_06_drain_battle",
 	  "next": "event_07_drain_collapse"
 	},
 	{
@@ -89,12 +97,12 @@
 	  "type": "event",
 	  "script_id": "evt_08_people_prayers",
 	  "background": "dark_plaza",
-	  "next": "battle_06_final_boss"
+	  "next": "battle_07_final_boss"
 	},
 	{
-	  "id": "battle_06_final_boss",
+	  "id": "battle_07_final_boss",
 	  "type": "battle",
-	  "stage_id": "stg_06_final_boss",
+	  "stage_id": "stg_07_final_boss",
 	  "next": "event_09_ending"
 	},
 	{
@@ -104,5 +112,7 @@
 	  "background": "final_plaza_light",
 	  "next": null
 	}
+
+	
   ]
 }

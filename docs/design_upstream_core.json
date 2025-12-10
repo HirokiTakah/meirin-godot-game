@@ -1,0 +1,355 @@
+{
+  "meta": {
+	"file_name": "design_upstream_core.json",
+	"version": "2025-12-10-01",
+	"project": "Meirin Project – Battle Story Game",
+	"language": "ja",
+	"description": "ゲーム上流工程（Vision〜Feature List）の設計データ",
+	"note": "ChatGPTが参照するための上流設計。docs/meirin_oop_bundle.json（正典）と矛盾しない範囲で利用する。"
+  },
+
+  "vision": {
+	"id": "vision.core",
+	"short": "変身・敗北・再起・浄化という劇的な変化を、メイリンの戦闘と物語を通してプレイヤーに体験させる感情駆動型アクションRPG。",
+	"long": [
+	  "プレイヤーは少女メイリンとして戦い、変身・敗北・再起・浄化という大きな感情の変化を、ゲームの操作と演出を通して体験する。",
+	  "戦闘システムと物語進行が密接に結びつき、感情の波（弱さ・迷い・限界・覚醒・再起）が、単なるテキストではなくプレイフィールとして伝わることを目指す。",
+      "最終的なメッセージは「弱くても、壊れても、それでも立ち上がる勇気」であり、そのテーマをアクションRPGとして成立させる。"
+	]
+  },
+
+  "game_pillars": [
+	{
+	  "id": "pillar.drama_change",
+	  "name": "変化のドラマ",
+	  "desc": "変身・敗北・再起・浄化といった“変化”そのものを物語とゲームプレイの中心に置く。Form1 → Rise（小覚醒）→ Form2（最終覚醒）→ 力の吸収 → Rebirth（再起）という流れが作品の背骨になる。"
+	},
+	{
+	  "id": "pillar.emotion_battle_link",
+	  "name": "感情と戦闘の連動",
+	  "desc": "怯む・心を奮い立たせる・限界といった感情行動を、単なる演出ではなくバトルメカニクスとして組み込み、メイリンの心の揺れが直接バトルに影響する。"
+	},
+	{
+	  "id": "pillar.story_battle_unity",
+	  "name": "物語とバトルの統合",
+	  "desc": "章構成・イベントとバトルの流れを一体として設計し、「この戦いに勝つ／負けること」がそのまま物語の意味になるように構成する。特にForm2解禁・敗北・再起・浄化は、物語上の山場とバトル上の山場が一致するようにする。"
+	},
+	{
+	  "id": "pillar.form_progression",
+	  "name": "フォーム進化の段階性",
+	  "desc": "Form1（通常）、Form1-Rise（小覚醒）、Form2（最終覚醒）、Rebirth（再起）の段階的な変化を設計し、それぞれに役割と感情的な意味を持たせる。単なるパワーアップではなく、心の変化と連動した進化として扱う。"
+	},
+	{
+	  "id": "pillar.purification_world",
+	  "name": "浄化をテーマにした世界観",
+	  "desc": "敵を「倒す」「破壊する」ことが目的ではなく、「浄化」や「元の場所へ還す」ことが最終的な解決となる世界観と物語の法則を維持する。影の王との決着も、攻撃ではなく浄化で締める。"
+	},
+	{
+	  "id": "pillar.presentation_mechanics_unity",
+	  "name": "演出とメカニクスの一致",
+	  "desc": "痛み・息づかい・光の変化・表情・倒れ方などの演出が、メカニクス（HP変化・ゲージ・フォーム・感情行動）と矛盾なく結びつくように設計する。見た目だけの演出ではなく、必ず何らかの状態変化や数値変化と連動させる。"
+	}
+  ],
+
+  "high_concept": {
+	"id": "high_concept.main",
+	"title_jp": "Meirin Project – 光麟の誓い（仮）",
+	"genre": "感情駆動型・アクションRPG（Story-Driven Action RPG）",
+	"tagline": "弱くても、壊れても、それでも立ち上がる勇気を、変身と戦闘に落とし込んだアクションRPG。",
+	"play_experience": [
+	  "プレイヤーは少女メイリンとして戦い、痛み・迷い・限界・覚醒・敗北・再起という感情の波を、ボタン操作と戦闘演出を通して追体験する。",
+      "メイリンの感情（怯み・奮い立つ）が行動として実装され、戦況・フォーム・物語の進行と連動することで、漫画的なクライマックスをプレイ体験として再現する。"
+	],
+	"story_outline": [
+	  "母の形見である茶器が砕け、町に影が溢れ始める。メイリンは茶器の欠片に宿る存在リンと同調し、影を浄化する力“光麟”を得る。",
+	  "影には“王”が存在し、その目的はメイリンの最終形態（Form2）の力を奪い、自身の完全な姿を取り戻すことにある。",
+	  "メイリンはForm1から小覚醒（Rise）を経て、終盤でForm2に覚醒するが、影の王の真の攻撃によって力を吸収され、暗転とともに敗北する。",
+	  "暗闇の中で、母の記憶・人々の想い・自分自身の“居場所を守りたい”という意志を頼りに誓い直し（Re-Oath）が起こり、メイリンは不完全ながらも再起（Rebirth）する。",
+      "最終的な決着は、攻撃ではなく「浄化」によってつけられる。影は消滅ではなく還元され、町と茶器は修復されていく。"
+	],
+	"structure": {
+	  "chapters": 5,
+	  "epilogue": true,
+	  "note": "5章＋エピローグ構成。中盤に灯籠の再点灯、終盤にForm2解禁→吸収敗北→再起→浄化というクライマックスを配置する。"
+	}
+  },
+
+  "core_loop": {
+	"id": "core_loop.main",
+	"chapter_loop": [
+	  {
+		"step_id": "ch.start",
+		"desc": "章の開始イベント。メイリンの状況・目標・感情の状態を提示する。"
+	  },
+	  {
+		"step_id": "ch.explore",
+		"desc": "簡易探索（町・市場・川辺など）。イベントトリガーや戦闘の入口として機能する。"
+	  },
+	  {
+		"step_id": "ch.event",
+		"desc": "会話イベント・茶器修復・灯籠・町の人の反応などを通して感情と世界の変化を描く。"
+	  },
+	  {
+		"step_id": "ch.battle_normal",
+		"desc": "通常戦闘。Form1を中心に、怯む・奮い立つ・Riseを体験させる。"
+	  },
+	  {
+		"step_id": "ch.mid_boss_optional",
+		"desc": "章によっては中ボス戦を配置し、Riseを使いこなして乗り越える小ピークを作る。"
+	  },
+	  {
+		"step_id": "ch.chapter_climax",
+		"desc": "章ごとのクライマックスイベント。茶器修復の進行や灯籠の再点灯、人々との連帯などを通して次章への動機づけを行う。"
+	  },
+	  {
+		"step_id": "ch.to_next",
+		"desc": "次の章へ移行。メイリンの感情・茶器の状態・町の様子を更新する。"
+	  }
+	],
+	"battle_loop": [
+	  {
+		"step_id": "bt.start",
+		"desc": "戦闘開始。メイリンと敵の状態初期化。フォームは通常Form1から開始。"
+	  },
+	  {
+		"step_id": "bt.player_phase",
+		"desc": "プレイヤー行動フェイズ。攻撃・技・防御・感情行動（怯む・奮い立つ）を選択する。"
+	  },
+	  {
+		"step_id": "bt.resolve",
+		"desc": "行動結果を反映し、ダメージ・ゲージ変化・状態変化・演出を処理する。"
+	  },
+	  {
+		"step_id": "bt.emotion_update",
+		"desc": "HP・心ゲージ・フォームゲージの状態に応じて、限界・Rise・Form2・Rebirthなどの条件を更新する。"
+	  },
+	  {
+		"step_id": "bt.enemy_phase",
+		"desc": "敵の行動フェイズ。行動パターン・AIに応じて攻撃や特殊行動を行う。"
+	  },
+	  {
+		"step_id": "bt.check_end",
+		"desc": "勝利・戦闘敗北・物語敗北（Form2吸収イベント）のいずれかが発生しているか判定する。"
+	  },
+	  {
+		"step_id": "bt.loop_or_end",
+		"desc": "終了条件に達していなければ bt.player_phase に戻り、達していれば戦闘終了処理へ移行する。"
+	  }
+	],
+	"boss_loop": [
+	  {
+		"phase_id": "boss.phase1_form1",
+		"desc": "Form1で戦うフェーズ。怯む・奮い立つ・Riseを総動員して戦う。通常より難度が高い。"
+	  },
+	  {
+		"phase_id": "boss.phase2_rise",
+		"desc": "Riseなどを活用し、プレイヤーに「頑張れば押し返せる」という手応えを与えるフェーズ。中盤の山場。"
+	  },
+	  {
+		"phase_id": "boss.phase3_form2_awaken",
+		"desc": "最終章のみ：イベントによりForm2が解禁・変身するフェーズ。演出重視の短いパート。"
+	  },
+	  {
+		"phase_id": "boss.phase4_absorb_defeat",
+		"desc": "ボスの真の攻撃によりForm2の力が吸収される。暗転・ダウン演出を経て物語敗北イベントへ移行する。"
+	  },
+	  {
+		"phase_id": "boss.phase5_rebirth",
+		"desc": "暗闇のイベント後、メイリンが再起（Rebirth）し、不完全な覚醒状態で戦いに戻るフェーズ。攻撃に浄化属性が付与される。"
+	  },
+	  {
+		"phase_id": "boss.phase6_purification_finish",
+		"desc": "敵HPが一定以下＋再起状態で「浄化」を選択すると決着。攻撃ではなく浄化としてゲーム的な勝利条件を満たす。"
+	  }
+	]
+  },
+
+  "mechanics": {
+	"resources": {
+	  "hp": {
+		"id": "res.hp",
+		"desc": "メイリンの体力。0になると敗北。Form1/Rise/Form2/Rebirthで最大値は共通とする。"
+	  },
+	  "spirit": {
+		"id": "res.spirit",
+		"desc": "心ゲージ。ダメージで減少し、奮い立つ（Inspire）で回復する。0近くで限界状態（Limit）へ移行する。"
+	  },
+	  "form": {
+		"id": "res.form",
+		"desc": "フォームゲージ。ダメージ・奮い立つ・ターン経過で蓄積し、Rise発動（一定以上）、Form2解禁（物語イベント）に利用される。"
+	  }
+	},
+	"basic_actions": [
+	  {
+		"id": "act.attack",
+		"name": "攻撃",
+		"desc": "軽い標準攻撃。RiseやForm2では威力や演出が少し向上する。"
+	  },
+	  {
+		"id": "act.skill",
+		"name": "技",
+		"desc": "フォームに応じて演出や性能が変わる技。受け流し系・鞭打ち系・掌打系など少数に絞る。"
+	  },
+	  {
+		"id": "act.guard",
+		"name": "防御",
+		"desc": "被ダメージと心ゲージ減少量を軽減する。リスク管理の行動。"
+	  }
+	],
+	"emotional_actions": [
+	  {
+		"id": "act.flinch",
+		"name": "怯む",
+		"desc": "大ダメージやHP/心ゲージが一定以下の時に使える。行動をキャンセルしてしまう代わりに、次ターンの奮い立つを強化する。"
+	  },
+	  {
+		"id": "act.inspire",
+		"name": "心を奮い立たせる",
+		"desc": "心ゲージを回復し、フォームゲージを増加させる。成功時はRise（小覚醒）への布石となる。"
+	  },
+	  {
+		"id": "state.limit",
+		"name": "限界状態",
+		"desc": "心ゲージが0近くになった際に自動的に移行する不利状態。被ダメージ増加・防御低下などが発生し、奮い立つによる突破が求められる。"
+	  }
+	],
+	"forms": [
+	  {
+		"id": "form.1",
+		"name": "Form1",
+		"desc": "基本フォーム。ゲーム全体のベース。感情行動と通常戦闘の中心。"
+	  },
+	  {
+		"id": "form.1_rise",
+		"name": "Form1-Rise（小覚醒）",
+		"desc": "奮い立つ＋フォームゲージ一定以上で短時間だけ移行。攻撃力・速度が上昇し、技に光の演出が追加される。終了時には軽い疲労として心ゲージが僅かに減る。"
+	  },
+	  {
+		"id": "form.2",
+		"name": "Form2（最終覚醒）",
+		"desc": "茶器4つの修復が完了し、物語イベントでのみ解禁される最終フォーム。攻撃・技演出が大きく変化し、光麟の力が最大限に発揮されるが、ボスに力を吸収されて失われる。"
+	  },
+	  {
+		"id": "form.rebirth",
+		"name": "Rebirth（再起）",
+		"desc": "Form2の力を失い、暗闇での誓い直しイベントを経て到達する不完全な覚醒状態。Form1より強くForm2より弱いが、攻撃に浄化属性が付与される。"
+	  }
+	],
+	"defeat_and_rebirth": {
+	  "normal_defeat": {
+		"id": "defeat.normal",
+		"desc": "通常戦闘においてHPが0になった場合の敗北。ゲームオーバーや再挑戦に接続する。"
+	  },
+	  "story_defeat": {
+		"id": "defeat.story_absorb",
+		"desc": "最終章ボス戦においてForm2の力を吸収される特殊敗北。暗転・ダウン演出を経て、ゲームオーバーではなく物語イベント（Re-Oath〜Rebirth）へ接続する。"
+	  },
+	  "rebirth": {
+		"id": "rebirth.main",
+		"desc": "物語敗北後に発生する再起。内部的にはフォーム状態をform.rebirthに更新し、一部ステータスを上げつつ、浄化による決着条件を解禁する。"
+	  }
+	},
+	"purification": {
+	  "id": "purification.final",
+	  "name": "浄化",
+	  "desc": "最終章ボス戦の決着手段。敵HPが一定以下、かつ再起状態でのみ使用可能な行動とし、これを選ぶことで勝利扱いとする。敵は破壊されず、光とともに還元・浄化される。"
+	}
+  },
+
+  "features": {
+	"moscow": {
+	  "must": [
+		"feat.battle.core_actions",
+		"feat.battle.emotional_actions",
+		"feat.forms.1_1rise_2_rebirth",
+		"feat.boss.absorb_story_defeat",
+		"feat.ending.purification",
+		"feat.story.5chapters",
+		"feat.json.events",
+		"feat.json.story_flow",
+		"feat.json.stages",
+		"feat.json.battle_texts",
+		"feat.json.ui_texts",
+		"feat.adapter.meirin_oop_game_ref",
+        "feat.engine.core_scenes"
+	  ],
+	  "should": [
+		"feat.battle.mid_boss_phase_change",
+		"feat.presentation.rise_effect",
+		"feat.presentation.form2_transform_effect",
+		"feat.presentation.absorb_darkout_effect",
+		"feat.presentation.rebirth_effect",
+		"feat.story.lantern_events",
+		"feat.story.shuen_progress",
+		"feat.ui.face_window",
+        "feat.audio.core_bgm"
+	  ],
+	  "could": [
+		"feat.story.sub_events_small",
+		"feat.enemies.additional_shadows",
+		"feat.ui.message_skin_variation",
+        "feat.input.gamepad_support"
+	  ],
+	  "wont": [
+		"feat.world.open_world",
+		"feat.party.multi_character_control",
+		"feat.story.multi_endings",
+        "feat.online.features"
+	  ]
+	},
+	"feature_defs": [
+	  {
+		"id": "feat.battle.core_actions",
+		"desc": "攻撃・技・防御の基本バトル行動。"
+	  },
+	  {
+		"id": "feat.battle.emotional_actions",
+		"desc": "怯む・奮い立つ・限界など感情行動の実装。"
+	  },
+	  {
+		"id": "feat.forms.1_1rise_2_rebirth",
+		"desc": "Form1、Form1-Rise、Form2、Rebirthの4状態の実装。"
+	  },
+	  {
+		"id": "feat.boss.absorb_story_defeat",
+		"desc": "Form2の力を吸収するボスの必殺技と、暗転を伴う物語敗北処理。"
+	  },
+	  {
+		"id": "feat.ending.purification",
+		"desc": "最終決着を攻撃ではなく浄化で行うための処理。"
+	  },
+	  {
+		"id": "feat.story.5chapters",
+		"desc": "5章＋エピローグの物語構成。"
+	  },
+	  {
+		"id": "feat.json.events",
+		"desc": "events.jsonを用いたイベント定義。"
+	  },
+	  {
+		"id": "feat.json.story_flow",
+		"desc": "story_flow.jsonを用いたストーリー進行管理。"
+	  },
+	  {
+		"id": "feat.json.stages",
+		"desc": "stages.jsonを用いた章・ステージ構造の定義。"
+	  },
+	  {
+		"id": "feat.json.battle_texts",
+		"desc": "battle_texts.jsonを用いた戦闘用テキスト管理。"
+	  },
+	  {
+		"id": "feat.json.ui_texts",
+		"desc": "ui_texts.jsonを用いたUI文言管理。"
+	  },
+	  {
+		"id": "feat.adapter.meirin_oop_game_ref",
+		"desc": "meirin_oop_bundle.json（正典）とゲーム用データを結ぶ meirin_oop_game_ref.json。"
+	  },
+	  {
+		"id": "feat.engine.core_scenes",
+		"desc": "Title → EventScene → BattleScene → ClearScene の一連のシーン構成。"
+	  }
+	]
+  }
+}

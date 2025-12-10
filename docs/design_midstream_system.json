@@ -1,0 +1,389 @@
+{
+  "meta": {
+	"version": "1.1",
+	"updated": "2025-12-11",
+	"scope": "Meirin Battle Story Game - JSON System Spec",
+	"note": "Midstream data schemas for game JSON files. Design-level spec, not runtime data. Must be consistent with design_upstream_core.json and design_story_world.json."
+  },
+
+  "common_rules": {
+	"encoding": "UTF-8",
+	"line_ending": "LF",
+	"root_structure": "single_object",
+	"id_style": "lower_snake_case",
+	"id_examples": {
+	  "event_id": "event_01_teahouse_intro",
+	  "node_id": "node_ch01_01_event",
+	  "stage_id": "stg_ch01_teahouse",
+	  "enemy_id": "enemy_shadow_small_01",
+	  "bg_id": "bg_teahouse_morning",
+	  "form_id": "form_1"
+	},
+	"text_language": "ja",
+	"ui_text_policy": "UI texts use english-like keys and japanese text values."
+  },
+
+  "files": {
+	"events": {
+	  "path": "data/events.json",
+	  "role": "Event lines for EventScene (dialogue, monologue, background changes, simple effects).",
+	  "root_key": "events",
+	  "id_pattern": "event_<chapter>_<short_desc>",
+	  "notes": [
+		"第1階層: event_id (例: event_01_teahouse_intro)",
+		"値: そのイベント内の台詞ライン配列",
+        "背景切り替えや表情差分は各行のフィールドで指定"
+	  ],
+	  "structure": {
+		"type": "object",
+		"properties": {
+		  "events": {
+			"type": "object",
+			"additionalProperties": {
+			  "type": "array",
+			  "items": {
+				"type": "object",
+				"properties": {
+				  "speaker": { "type": "string", "required": true },
+				  "face": { "type": ["string", "null"], "required": false },
+				  "bg_id": { "type": ["string", "null"], "required": false },
+				  "sfx_id": { "type": ["string", "null"], "required": false },
+				  "emotion_tag": {
+					"type": ["string", "null"],
+					"required": false,
+					"description": "fear, resolve, despair など、演出用の簡易タグ"
+				  },
+				  "text": { "type": "string", "required": true }
+				}
+			  }
+			}
+		  }
+		}
+	  },
+	  "loader_script": "StoryDB.gd"
+	},
+
+	"story_flow": {
+	  "path": "data/story_flow.json",
+	  "role": "Global story flow: order of events, battles, and clear/system nodes.",
+	  "root_keys": [
+		"start_node_id",
+        "nodes"
+	  ],
+	  "node_types": [
+		"event",
+		"battle",
+		"clear",
+        "system"
+	  ],
+	  "notes": [
+		"design_story_world.json の chapters と対応させること",
+		"プレイヤーの進行は node を順に辿ることで表現する",
+        "敗北分岐（通常GameOver / 物語敗北）を next_on_lose 等で制御する"
+	  ],
+	  "structure": {
+		"type": "object",
+		"properties": {
+		  "start_node_id": { "type": "string", "required": true },
+		  "nodes": {
+			"type": "array",
+			"required": true,
+			"items": {
+			  "type": "object",
+			  "properties": {
+				"id": { "type": "string", "required": true },
+				"type": { "type": "string", "required": true },
+				"chapter_id": {
+				  "type": "string",
+				  "required": false,
+				  "description": "design_story_world.json の chXX と対応 (例: ch01, ch02)"
+				},
+				"order_in_chapter": {
+				  "type": "integer",
+				  "required": false,
+				  "description": "章内での順序。UI表示などに使用可能。"
+				},
+
+				"event_id": {
+				  "type": "string",
+				  "required": false,
+				  "description": "type=event の場合のみ必須"
+				},
+				"stage_id": {
+				  "type": "string",
+				  "required": false,
+				  "description": "type=battle の場合のみ必須"
+				},
+
+				"next_id": {
+				  "type": ["string", "null"],
+				  "required": false,
+				  "description": "単一の直後ノード。分岐がない場合に使用。"
+				},
+				"next_on_win": {
+				  "type": "string",
+				  "required": false,
+				  "description": "type=battle の勝利時遷移先"
+				},
+				"next_on_lose": {
+				  "type": "string",
+				  "required": false,
+				  "description": "type=battle の敗北時遷移先（通常のGameOverか、物語敗北イベントか）"
+				},
+
+				"clear_type": {
+				  "type": "string",
+				  "required": false,
+				  "description": "type=clear の場合に使用。ending, chapter_clear など。"
+				},
+				"flags_set": {
+				  "type": "array",
+				  "required": false,
+				  "items": { "type": "string" },
+				  "description": "このノード到達時に立てるフラグ (例: form2_unlocked, rebirth_unlocked)"
+				},
+				"flags_required": {
+				  "type": "array",
+				  "required": false,
+				  "items": { "type": "string" },
+				  "description": "このノードに入るために必要なフラグ。将来の分岐拡張用。"
+				},
+				"is_story_defeat": {
+				  "type": "boolean",
+				  "required": false,
+				  "description": "true の場合、敗北してもGameOverではなく物語進行として扱う（Form2吸収など）。"
+				}
+			  }
+			}
+		  }
+		}
+	  },
+	  "loader_script": "StoryFlowDB.gd"
+	},
+
+	"stages": {
+	  "path": "data/stages.json",
+	  "role": "Battle stage definitions: player form, HP, enemy, background, reward.",
+	  "root_key": "stages",
+	  "id_pattern": "stg_<chapter>_<short_desc>",
+	  "notes": [
+		"chapter は design_story_world.json の chXX と対応させてもよいが、実装上は整数でも可",
+        "Form1 / Rise / Form2 / Rebirth のいずれかを player_form_id に指定"
+	  ],
+	  "structure": {
+		"type": "object",
+		"properties": {
+		  "stages": {
+			"type": "object",
+			"additionalProperties": {
+			  "type": "object",
+			  "properties": {
+				"chapter": { "type": "integer", "required": true },
+				"index": { "type": "integer", "required": true },
+				"name": { "type": "string", "required": false },
+
+				"player_form_id": {
+				  "type": "string",
+				  "required": true,
+				  "description": "form_1, form_rise, form_2, form_rebirth のいずれか"
+				},
+				"player_hp": { "type": "integer", "required": true },
+				"player_spirit": {
+				  "type": "integer",
+				  "required": false,
+				  "description": "心ゲージの初期値。未使用の場合は省略可能。"
+				},
+
+				"enemy_id": { "type": "string", "required": true },
+				"enemy_name": { "type": "string", "required": false },
+				"enemy_hp": { "type": "integer", "required": true },
+
+				"bg_id": { "type": "string", "required": true },
+				"battle_bgm_id": { "type": "string", "required": false },
+
+				"is_boss": {
+				  "type": "boolean",
+				  "required": false,
+				  "description": "中ボス / ラスボス戦などの場合 true"
+				},
+				"is_final_battle": {
+				  "type": "boolean",
+				  "required": false,
+				  "description": "最終浄化バトルなら true"
+				},
+
+				"reward": {
+				  "type": "object",
+				  "required": false,
+				  "properties": {
+					"tea_fragment": { "type": "integer", "required": false },
+					"flag_set": {
+					  "type": "string",
+					  "required": false,
+					  "description": "form2_unlocked など、ステージ勝利で立てるフラグ名"
+					}
+				  }
+				}
+			  }
+			}
+		  }
+		}
+	  },
+	  "loader_script": "GameState.gd"
+	},
+
+	"battle_texts": {
+	  "path": "data/battle_texts.json",
+	  "role": "Battle-only texts: skill names, round results, system messages.",
+	  "root_keys": [
+		"skills",
+		"round_result",
+        "system"
+	  ],
+	  "notes": [
+		"プレイヤー側スキル名はフォームごとに配列で管理",
+        "Rebirth 用のスキル名も別枠で用意（浄化属性の演出を分けるため）"
+	  ],
+	  "structure": {
+		"type": "object",
+		"properties": {
+		  "skills": {
+			"type": "object",
+			"properties": {
+			  "player": {
+				"type": "object",
+				"properties": {
+				  "form_1": {
+					"type": "array",
+					"items": { "type": "string" }
+				  },
+				  "form_rise": {
+					"type": "array",
+					"items": { "type": "string" }
+				  },
+				  "form_2": {
+					"type": "array",
+					"items": { "type": "string" }
+				  },
+				  "form_rebirth": {
+					"type": "array",
+					"items": { "type": "string" }
+				  }
+				}
+			  },
+			  "enemy": {
+				"type": "object",
+				"additionalProperties": {
+				  "type": "array",
+				  "items": { "type": "string" }
+				}
+			  }
+			}
+		  },
+		  "round_result": {
+			"type": "object",
+			"properties": {
+			  "player_win": { "type": "string", "required": true },
+			  "enemy_win": { "type": "string", "required": true },
+			  "draw": { "type": "string", "required": true }
+			}
+		  },
+		  "system": {
+			"type": "object",
+			"additionalProperties": {
+			  "type": "string"
+			}
+		  }
+		}
+	  },
+	  "loader_script": "BattleText.gd"
+	},
+
+	"ui_texts": {
+	  "path": "data/ui_texts.json",
+	  "role": "UI texts: button labels, HP labels, system prompts, clear messages.",
+	  "root_is_nested_object": true,
+	  "structure": {
+		"type": "object",
+		"description": "First-level keys are categories (battle, system, clear, title, config, etc.). Second-level keys are text IDs. Values are japanese strings.",
+		"additionalProperties": {
+		  "type": "object",
+		  "additionalProperties": {
+			"type": "string"
+		  }
+		}
+	  },
+	  "access_pattern": "UiText.get(\"battle.attack_button_1_label\")",
+	  "loader_script": "UiTextDB.gd"
+	},
+
+	"meirin_oop_game_ref": {
+	  "path": "data/meirin_oop_game_ref.json",
+	  "role": "Adapter layer: mapping between canonical IDs (meirin_oop_bundle.json / design_story_world.json) and game IDs (forms, stages, characters).",
+	  "root_keys": [
+		"forms",
+		"stages",
+        "characters"
+	  ],
+	  "notes": [
+		"上流正典側のID（canonical_xxx）とゲーム実装側のIDを結びつけるテーブル",
+        "ツールやエディタスクリプトから参照し、game JSON の自動生成・整合性チェックに利用する"
+	  ],
+	  "structure": {
+		"type": "object",
+		"properties": {
+		  "forms": {
+			"type": "object",
+			"description": "key: game_form_id (form_1 など)",
+			"additionalProperties": {
+			  "type": "object",
+			  "properties": {
+				"canonical_id": {
+				  "type": "string",
+				  "required": true,
+				  "description": "meirin_oop_bundle.json / design_story_world.json の forms 内のID"
+				},
+				"display_name": { "type": "string", "required": true }
+			  }
+			}
+		  },
+		  "stages": {
+			"type": "object",
+			"description": "key: stage_id (stg_ch01_teahouse など)",
+			"additionalProperties": {
+			  "type": "object",
+			  "properties": {
+				"canonical_stage_id": {
+				  "type": "string",
+				  "required": true,
+				  "description": "design_story_world.json の chapters[].stages 内で用いる識別子"
+				},
+				"chapter_id": {
+				  "type": "string",
+				  "required": false,
+				  "description": "ch01, ch02 など。ない場合は data/stages.json の chapter を参照。"
+				}
+			  }
+			}
+		  },
+		  "characters": {
+			"type": "object",
+			"description": "key: game_character_id (meirin, xuen, shadow_king など)",
+			"additionalProperties": {
+			  "type": "object",
+			  "properties": {
+				"canonical_id": {
+				  "type": "string",
+				  "required": true,
+				  "description": "meirin_oop_bundle.json / design_story_world.json の characters 内のID"
+				}
+			  }
+			}
+		  }
+		}
+	  },
+	  "loader_script": "none_runtime",
+	  "usage": "Used by tools or editor scripts to generate/validate game JSON from canonical data."
+	}
+  }
+}

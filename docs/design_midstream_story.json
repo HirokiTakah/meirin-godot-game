@@ -1,0 +1,213 @@
+{
+  "meta": {
+	"version": "2.0",
+	"updated": "2025-12-10",
+	"scope": "Meirin Battle Story Game – World & Story Spec",
+	"canonical_source": "meirin_oop_bundle.json",
+	"note": "上流工程（Vision / Pillars / Core Loop / Mechanics / Feature List）を反映した、章構成・キャラ設定・世界設定の正式版。"
+  },
+
+  "world": {
+	"theme": "光は守るためにあるのではなく、浄化するためにある。",
+	"core_conflict": "影の王が“光を喰らう力”で世界を覆おうとし、メイリンの Form2 の光を狙う。",
+	"setting": {
+	  "town": "山間の小さな町。茶屋と陶芸の文化が生活の中心。影災の発生により、各地で人々が怯えている。",
+	  "shadow": "人の恐れに反応して現れる存在。倒すことは可能だが、根本的には“浄化”が必要。",
+	  "teacup_relic": "代々受け継がれた茶器。砕けると四つの欠片となり、光の力を分散してしまう。"
+	}
+  },
+
+  "chapters": [
+	{
+	  "id": "ch01",
+	  "title": "壊れた茶屋と、最初の目覚め",
+	  "tagline": "Form1 覚醒",
+	  "phase": "form_1",
+	  "purpose": "メイリンが「戦う理由」と「光とのつながり」を得る。",
+	  "summary": [
+		"静かな朝、影の獣が茶屋を襲う。",
+		"茶器が四つに砕け、光が解放される。",
+		"メイリンは初めて Form1 に覚醒し、ぎこちないまま戦う。",
+		"友人シュエンが現れ、“欠片は集め直せば直せる”と言う。",
+        "メイリンは欠片集めを決意し、小さな旅が始まる。"
+	  ],
+	  "emotion_curve": ["平穏","恐怖","必死","安堵","小さな勇気"],
+	  "event_ids": [
+		"event_01_teahouse_intro",
+		"event_01_shadow_attack",
+		"event_01_teacup_break",
+		"event_01_form1_awake",
+		"event_01_battle_after",
+		"event_01_xuen_repair_intro",
+        "event_01_decision"
+	  ],
+	  "stages": ["stg_teahouse"]
+	},
+	{
+	  "id": "ch02",
+	  "title": "町を包む影と、小さな決意",
+	  "tagline": "Rise の萌芽",
+	  "phase": "rise_pre",
+	  "purpose": "メイリンが“守る”ではなく“自分の意思で進む”段階に入る。",
+	  "summary": [
+		"町に影が増加し、人々が怯えている。",
+		"メイリンは感謝される経験を通して“自分の存在価値”を感じる。",
+		"影の王の部下が活動を開始し、緊張感が高まる。",
+        "戦闘を重ね、心に熱が芽生え、Rise の前兆が表れる。"
+	  ],
+	  "emotion_curve": ["戸惑い","責任感","小さな誇り","不安と期待"],
+	  "event_ids": [
+		"event_02_patrol",
+		"event_02_citizen_thanks",
+		"event_02_shadow_activity",
+		"event_02_inner_heat",
+        "event_02_will_to_fight"
+	  ],
+	  "stages": ["stg_town_edge"]
+	},
+	{
+	  "id": "ch03",
+	  "title": "茶器修復と、光と影の均衡",
+	  "tagline": "Form2 覚醒",
+	  "phase": "form_2",
+	  "purpose": "力と代償を理解したうえで、Form2 に到達する。",
+	  "summary": [
+		"欠片が集まり、茶器の修復が進む。",
+		"戦いの中で力の本質と“代償”の気配を感じる。",
+		"中ボスが現れ、メイリンの心を揺さぶる。",
+		"激闘の末、欠片が揃い、シュエンが最終修復を行う。",
+        "茶器が光を放ち、メイリンは Form2 に覚醒する。"
+	  ],
+	  "emotion_curve": ["期待","葛藤","決意","高揚"],
+	  "event_ids": [
+		"event_03_frag_progress",
+		"event_03_inner_conflict",
+		"event_03_midboss_intro",
+		"event_03_midboss_battle_after",
+		"event_03_teacup_final",
+        "event_03_form2_awake"
+	  ],
+	  "stages": ["stg_midboss"]
+	},
+	{
+	  "id": "ch04",
+	  "title": "吸収と暗黒、完全敗北",
+	  "tagline": "Fall（敗北）",
+	  "phase": "fall",
+	  "purpose": "物語最大の転換点。力を奪われ、絶望の淵に沈む。",
+	  "summary": [
+		"中ボス討伐直後、影の王が介入。",
+		"Form2 の光が吸収され、世界が暗転する。",
+		"想像を超える力の差でメイリンは敗北。",
+		"シュエンと町の人々が彼女を守り逃がす。",
+        "メイリンは“守れなかった自分”を痛感する。"
+	  ],
+	  "emotion_curve": ["手応え","驚愕","恐怖","絶望","無力感"],
+	  "event_ids": [
+		"event_04_shadow_king_arrival",
+		"event_04_absorption",
+		"event_04_darkness_fall",
+		"event_04_total_defeat",
+        "event_04_escape"
+	  ],
+	  "stages": ["stg_shadow_king_first"]
+	},
+	{
+	  "id": "ch05",
+	  "title": "再起と浄化、光の帰還",
+	  "tagline": "Rebirth（浄化）",
+	  "phase": "rebirth",
+	  "purpose": "弱さを受け入れた先にある“浄化の光”で物語を閉じる。",
+	  "summary": [
+		"静かな闇の中、メイリンは自分の弱さと向き合う。",
+		"受容の先に、優しい光が再び芽生える。",
+		"Rebirth 形態に到達し、最終決戦へ。",
+		"影を倒すのではなく“浄化”によって終わらせる。",
+        "修復された茶器とともに、茶屋に平穏が戻る。"
+	  ],
+	  "emotion_curve": ["静かな絶望","受容","静かな意志","浄化","安堵"],
+	  "event_ids": [
+		"event_05_silent_world",
+		"event_05_acceptance",
+		"event_05_rebirth_awake",
+		"event_05_final_battle_after",
+        "event_05_peace"
+	  ],
+	  "stages": ["stg_shadow_king_final"]
+	}
+  ],
+
+  "characters": {
+	"meirin": {
+	  "id": "meirin",
+	  "role": "protagonist",
+	  "description": "茶屋の少女。砕けた茶器の光に呼応し、影を浄化する力に目覚める。",
+	  "forms": ["form_1","form_rise","form_2","form_rebirth"],
+	  "core_emotions": {
+		"fear": "最初の影災に怯え、何もできない自分に苦しむ。",
+		"duty": "人々に感謝されることで、自分の意思で戦う選択をする。",
+		"conflict": "力と代償の狭間で揺れる。",
+		"despair": "力を奪われ、完全敗北し、自分を責める。",
+		"rebirth": "弱さを受け入れ、浄化の光として立ち上がる。"
+	  }
+	},
+	"xuen": {
+	  "id": "xuen",
+	  "role": "craftsman_apprentice",
+	  "description": "茶器職人の見習い。砕けた茶器を修復し、メイリンの成長と変化を見守る。",
+	  "personality": "穏やか・慎重・芯が強い。戦えないが、支える力がある。",
+	  "story_function": [
+		"茶器修復の技術的要（キー）",
+		"Form2 覚醒の前提条件",
+		"敗北後、メイリンを庇って逃がす存在",
+        "物語後半で“光の意味”をメイリンに思い出させる"
+	  ]
+	},
+	"midboss": {
+	  "id": "midboss",
+	  "role": "shadow_king_servant",
+	  "description": "影の王の忠実な配下。嘲笑と挑発を武器に、メイリンの心を揺らす。",
+	  "story_function": [
+		"Form2 覚醒前の試練",
+        "影の王の“目的の明確化（Form2 の力を奪う）”を示す存在"
+	  ]
+	},
+	"shadow_king": {
+	  "id": "shadow_king",
+	  "role": "final_boss",
+	  "description": "光を喰らう影の王。世界を覆う闇を完成させるため、メイリンの Form2 の光を狙っている。",
+	  "motivation": "世界の“恐れ”を糧とする完全な闇を作るため、光を否定したい。",
+	  "story_function": [
+		"第4章でメイリンを完全敗北させる",
+        "最終章で浄化の対象となる"
+	  ]
+	}
+  },
+
+  "forms": {
+	"form_1": {
+	  "id": "form_1",
+	  "label": "フォーム1",
+	  "theme": "初覚醒",
+	  "note": "まだ不安も多いが、戦いの最初の姿。"
+	},
+	"form_rise": {
+	  "id": "form_rise",
+	  "label": "Rise",
+	  "theme": "意志の萌芽",
+	  "note": "守るためではなく、自分の意思で進む段階の心的状態。"
+	},
+	"form_2": {
+	  "id": "form_2",
+	  "label": "フォーム2",
+	  "theme": "強さと代償",
+	  "note": "茶器の修復とともに得られる強化フォーム。影の王が最も狙う力。"
+	},
+	"form_rebirth": {
+	  "id": "form_rebirth",
+	  "label": "Rebirth",
+	  "theme": "浄化",
+	  "note": "敗北を受け入れ、弱さを抱えたまま立ち上がる浄化の姿。"
+	}
+  }
+}

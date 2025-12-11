@@ -1,67 +1,149 @@
 
+────────────────────────
+
+# ★ メイリンゲーム開発サイクル
+
+────────────────────────
+
+# STEP 1. 開発（ローカル作業）
+
+Godot / JSON / GDScript / docs の作業を進める。
+
 ---
 
-# ★ 改訂版：メイリンゲーム開発サイクル
-
-## STEP 1. 開発
-
-Godot / JSON / GDScript / docs の作業をする。
-
----
-
-## STEP 2. Git に保存して GitHub と同期
+# STEP 2. Git に保存して GitHub と同期
 
 ```bash
 cd /c/GodotProjects/meirin-battle-godot
 
 git add .
-git commit -m "update: <具体的な内容>" 
+git commit -m "update: <具体的な内容>"
 git push
 ```
 
 ---
 
-## STEP 3. ChatGPT 用 “URL 一括リスト” を生成
+# STEP 3. ChatGPT 用 URL リストを生成（3分類）
 
 ```bash
-git ls-files '*.gd' '*.json' \
+git ls-files 'docs/*.json' \
   | sed 's|^|https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/|' \
-  > urls_raw.txt
+  > urls_docs_json.txt
+
+git ls-files 'data/*.json' \
+  | sed 's|^|https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/|' \
+  > urls_data_json.txt
+
+git ls-files 'src/*.gd' \
+  | sed 's|^|https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/|' \
+  > urls_gd.txt
 ```
+
+* urls_docs_json.txt … 設計JSON
+* urls_data_json.txt … ゲームデータJSON
+* urls_gd.txt … GDScript（必要時）
 
 ---
 
-## STEP 4. ChatGPT に読み込ませる
+# STEP 4. ChatGPT に読み込ませる（初期化：docs → data）
+
+新しいチャット開始時に、まず ChatGPT に **「工程表に沿って開発を進めること」** を理解させる。
+
+### （チャット開始テンプレ）
+
+```
 
 web ツールを使用して、下記の GitHub リポジトリを読み込んでください。
 HTML ではなく、必ず raw.githubusercontent.com の生データを取得してください。
 
 https://github.com/HirokiTakah/meirin-godot-game
 
-まず最初に、以下の設計JSONを必ず読み込んでください（仕様書の正として扱う）。
-1) docs/design_upstream_core.json
-2) docs/design_midstream_story.json
-3) docs/design_midstream_system.json
-4) docs/meirin_oop_bundle.json
-5) data/meirin_oop_game_ref.json
+このプロジェクトの作業は、必ず docs/dev_plan_pipeline.json（工程表）に沿って進めます。
+以降、わたしは工程表の進捗に応じてタスクを指定します。
+あなたは、そのタスクを進めるために必要な .gd を判断し、必要なファイル名を求めてください。
 
-次に、開発工程表（正規ロードマップ）として
-docs/dev_plan_pipeline.json
-も raw で読み込んでください。
+このメッセージの下に、docs/*.json（設計ファイル）の raw URL 一覧を貼ります。
+それらをすべて読み込み、設計JSON（仕様の正）として扱ってください。
 
-その後、わたしが手動で貼り付ける「raw リンク一覧（urls_raw 手動版）」に含まれる
-すべての JSON / GDScript を順番に読み込んでください。
-（自動で urls_raw.txt を取りに行かないこと。必ずこちらが提示するリンクだけ読み込むこと）
+読み込み後のルールは次の通りです。
 
-読み込み後は、次のルールに従います。
+・docs 配下の JSON（設計5種＋工程表）を実装より優先して参照すること
+・設計JSONとコードが矛盾する場合は、設計を優先した修正案を提示すること
+・開発は docs/dev_plan_pipeline.json のフェーズとタスクに沿って進めること
+・作業が進んだら、工程表にもとづいて次タスクを指示すること
 
-・上記 6 つの JSON（設計5種＋工程表）を、実装より優先して参照すること  
-・旧じゃんけんロジック（GDevelop / 旧Godotの三すくみ判定）は使用しないこと  
-・バトルは RPGターン制（HP / 心ゲージ / フォームゲージ）で実装すること  
-・設計JSONとコードが矛盾する場合は、設計に合わせて修正案を提示すること  
-・docs/dev_plan_pipeline.json の工程に沿って開発を進めること  
-（作業フェーズとタスクIDを明確にした上で回答する）
-
-準備が整ったら、
-「設計JSON5種・工程表JSONを読み込みました。次に raw リンクを提示してください。」
+上記の docs/*.json をすべて読み込んだら、
+「docs の設計JSONを読み込みました。次に data の json raw リンクを提示してください。」
 とだけ返答してください。
+
+
+```
+
+→ **このテンプレの下に、urls_docs_json.txt の内容を貼る**
+
+ChatGPT が docs JSON を読み込んだら
+
+「docs の設計JSONを読み込みました。次に data の JSON を提示してください。」
+
+と返す。
+
+---
+
+# STEP 5. data JSON を読み込ませる（初期化：第2段階）
+
+ChatGPT が要求したら、urls_data_json.txt の中身をそのまま貼るだけ。
+
+読み込み完了後 ChatGPT は：
+
+「data JSON を読み込みました。
+工程表に沿って次の作業を指示してください。」
+
+と返答する。
+
+これで **プロジェクトの初期化が完了**。
+
+---
+
+# STEP 6. 工程表に沿ってタスクを指示（.gd は必要時のみ）
+
+初期化が終わったら、あなたがやることは **これだけ**：
+
+### ★（シンプル依頼テンプレ）
+
+```
+工程表の「○○」まで進みました。
+次は「○○」の作業をします。
+
+この作業に必要な .gd があればファイル名を教えてください。
+必要に応じて raw URL を貼ります。
+```
+
+ChatGPT は：
+
+* 工程表を参照し
+* 次タスクに必要な `.gd` を判断し
+* raw URL を要求する
+
+あなたは urls_gd.txt を見て必要な URL を貼るだけ。
+
+---
+
+────────────────────────
+
+# ● 全体の流れ（完成版）
+
+```
+STEP1  開発（ローカルで Godot / JSON 編集）
+STEP2  GitHub へ push
+STEP3  URLリスト生成（docs/data/gd の3種）
+STEP4  新チャット：docs → data 読み込み（初期化）
+STEP5  初期化完了
+STEP6  工程表に沿ってタスク指示
+        → ChatGPT が必要な .gd を要求
+        → raw URL を貼る
+        → 修正/実装案を受け取る
+```
+
+とてもシンプルで再現性が高い形になりました。
+
+---

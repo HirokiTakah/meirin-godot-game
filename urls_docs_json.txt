@@ -1,0 +1,5 @@
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/docs/design_midstream_story.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/docs/design_midstream_system.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/docs/design_upstream_core.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/docs/dev_plan_pipeline.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/docs/meirin_oop_bundle.json

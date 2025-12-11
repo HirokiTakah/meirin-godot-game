@@ -1,0 +1,7 @@
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/battle_texts.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/events.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/meirin_oop_game_ref.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/stages.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/stages_new.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/story_flow.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/ui_texts.json

@@ -1,47 +1,137 @@
 {
-	
- "1": {
-  "enemy_hp": 5,
-  "background": "market",
-  "reward": { "tea_piece": 1 },
-  "meirin_form": 1
-},
-"2": {
-  "enemy_hp": 6,
-  "background": "river",
-  "reward": { "tea_piece": 1 },
-  "meirin_form": 1
-},
-"3": {
-  "enemy_hp": 7,
-  "background": "town_edge",
-  "reward": { "tea_piece": 1 },
-  "meirin_form": 1
-},
-"4": {
-  "enemy_hp": 10,
-  "background": "ruins_gate",
-  "reward": { "tea_piece": 1 },
-  "note": "mid_boss_a",
-  "meirin_form": 1
-},
-"5": {
-  "enemy_hp": 12,
-  "background": "ruins_gate",
-  "note": "tea_complete_form2",
-  "meirin_form": 2
-},
-"6": {
-  "enemy_hp": 999,
-  "background": "dark_plaza",
-  "forced_event": "special",
-  "meirin_form": 2
-},
-"7": {
-  "enemy_hp": 15,
-  "background": "final_plaza_light",
-  "note": "final_boss",
-  "meirin_form": 2
-}
-
+  "stages": {
+	"stg_01_first_shadow": {
+	  "chapter": 1,
+	  "index": 1,
+	  "name": "壊れた茶屋の最初の影",
+	  "player_form_id": "form_1",
+	  "player_hp": 100,
+	  "player_spirit": 0,
+	  "enemy_id": "shadow_small_01",
+	  "enemy_name": "小さな影",
+	  "enemy_hp": 60,
+	  "bg_id": "teahouse_broken",
+	  "battle_bgm_id": null,
+	  "is_boss": false,
+	  "is_final_battle": false,
+	  "reward": {
+		"tea_fragment": 0,
+		"flag_set": null
+	  }
+	},
+	"stg_02_street_shadow": {
+	  "chapter": 1,
+	  "index": 2,
+	  "name": "市場通りの影",
+	  "player_form_id": "form_1",
+	  "player_hp": 100,
+	  "player_spirit": 0,
+	  "enemy_id": "shadow_small_02",
+	  "enemy_name": "市場の影",
+	  "enemy_hp": 90,
+	  "bg_id": "market",
+	  "battle_bgm_id": null,
+	  "is_boss": false,
+	  "is_final_battle": false,
+	  "reward": {
+		"tea_fragment": 1,
+		"flag_set": null
+	  }
+	},
+	"stg_03_field_shadow": {
+	  "chapter": 2,
+	  "index": 1,
+	  "name": "町外れの影",
+	  "player_form_id": "form_1",
+	  "player_hp": 100,
+	  "player_spirit": 0,
+	  "enemy_id": "shadow_field_01",
+	  "enemy_name": "町外れの影",
+	  "enemy_hp": 120,
+	  "bg_id": "town_edge",
+	  "battle_bgm_id": null,
+	  "is_boss": false,
+	  "is_final_battle": false,
+	  "reward": {
+		"tea_fragment": 1,
+		"flag_set": null
+	  }
+	},
+	"stg_04_midboss": {
+	  "chapter": 3,
+	  "index": 1,
+	  "name": "廃墟門の中ボス",
+	  "player_form_id": "form_1",
+	  "player_hp": 100,
+	  "player_spirit": 0,
+	  "enemy_id": "midboss",
+	  "enemy_name": "影の配下",
+	  "enemy_hp": 150,
+	  "bg_id": "ruins_gate",
+	  "battle_bgm_id": null,
+	  "is_boss": true,
+	  "is_final_battle": false,
+	  "reward": {
+		"tea_fragment": 2,
+		"flag_set": null
+	  }
+	},
+	"stg_05_form2_showcase": {
+	  "chapter": 3,
+	  "index": 2,
+	  "name": "Form2 お披露目バトル",
+	  "player_form_id": "form_2",
+	  "player_hp": 120,
+	  "player_spirit": 0,
+	  "enemy_id": "shadow_elite_01",
+	  "enemy_name": "強い影",
+	  "enemy_hp": 180,
+	  "bg_id": "dark_plaza",
+	  "battle_bgm_id": null,
+	  "is_boss": false,
+	  "is_final_battle": false,
+	  "reward": {
+		"tea_fragment": 0,
+		"flag_set": "form2_unlocked"
+	  }
+	},
+	"stg_06_drain_battle": {
+	  "chapter": 4,
+	  "index": 1,
+	  "name": "光を奪われる絶望戦",
+	  "player_form_id": "form_2",
+	  "player_hp": 120,
+	  "player_spirit": 0,
+	  "enemy_id": "shadow_king_first",
+	  "enemy_name": "影の王（第一次対峙）",
+	  "enemy_hp": 999,
+	  "bg_id": "dark_plaza",
+	  "battle_bgm_id": null,
+	  "is_boss": true,
+	  "is_final_battle": false,
+	  "reward": {
+		"tea_fragment": 0,
+		"flag_set": null
+	  }
+	},
+	"stg_07_final_boss": {
+	  "chapter": 5,
+	  "index": 1,
+	  "name": "最終浄化バトル",
+	  "player_form_id": "form_rebirth",
+	  "player_hp": 140,
+	  "player_spirit": 0,
+	  "enemy_id": "shadow_king_final",
+	  "enemy_name": "影の王（最終形態）",
+	  "enemy_hp": 220,
+	  "bg_id": "final_plaza_light",
+	  "battle_bgm_id": null,
+	  "is_boss": true,
+	  "is_final_battle": true,
+	  "reward": {
+		"tea_fragment": 0,
+		"flag_set": "game_cleared"
+	  }
+	}
+  }
 }

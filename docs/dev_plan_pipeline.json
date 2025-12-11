@@ -1,0 +1,358 @@
+{
+  "meta": {
+	"project": "Meirin Project – Battle Story Game",
+	"file_name": "dev_plan_pipeline.json",
+	"version": "2025-12-11-01",
+	"language": "ja",
+	"description": "Meirin Battle Story Game の開発工程計画（上流〜リリースまで）。Vertical Slice（1章完成）用の詳細工程と、ゲーム全体完成までのロードマップを統合したもの。",
+	"note": "docs/design_upstream_core.json / docs/design_midstream_story.json / docs/design_midstream_system.json / docs/meirin_oop_bundle.json / data/meirin_oop_game_ref.json を仕様書の正として扱う。旧じゃんけんシステムは採用しない。"
+  },
+  "guidelines": {
+	"spec_truth": [
+	  "docs/design_upstream_core.json",
+	  "docs/design_midstream_story.json",
+	  "docs/design_midstream_system.json",
+	  "docs/meirin_oop_bundle.json",
+      "data/meirin_oop_game_ref.json"
+	],
+	"banned_legacy": [
+	  "グー・チョキ・パーによるじゃんけん判定",
+      "三すくみベースの BattleFlow.gd ロジック"
+	],
+	"battle_system": "RPG型ターン制。HP / 心ゲージ / フォームゲージ と Form1→Rise→Form2→Rebirth を前提にする。",
+	"use_case": "ChatGPT の新しいチャットでこの JSON を読み込み、どのフェーズのどのタスクをやるかを共有する。工程の順番を崩さず進めるための基準書。"
+  },
+  "phases": [
+	{
+	  "id": "P0_SPEC_FREEZE",
+	  "name": "仕様確定（前提）",
+	  "scope": "全体",
+	  "milestone_type": "precondition",
+	  "status": "done",
+	  "summary": "ゲームの Vision / Pillars / Core Loop / Mechanics / 5章ストーリー / JSON スキーマが、設計JSON群として確定している状態。旧じゃんけん仕様には戻らない。",
+	  "tasks": [
+		{
+		  "id": "P0_T1",
+		  "title": "仕様書ファイルの固定",
+		  "detail": "design_upstream_core / design_midstream_story / design_midstream_system / meirin_oop_bundle / meirin_oop_game_ref を仕様書の正とする。",
+		  "status": "done"
+		},
+		{
+		  "id": "P0_T2",
+		  "title": "旧じゃんけん仕様の廃止宣言",
+		  "detail": "GDevelop / 旧 Godot 実装のじゃんけんロジックを \"過去のプロトタイプ\" として扱い、今後の設計・実装では参照しない前提にする。",
+		  "status": "done"
+		}
+	  ]
+	},
+	{
+	  "id": "P1_DATA_FOUNDATION",
+	  "name": "データ基盤の完成（JSON 正規化）",
+	  "scope": "core",
+	  "milestone_type": "data",
+	  "status": "in_progress",
+	  "summary": "設計されたスキーマ通りに JSON を整理し、StoryFlow / Battle / UI から安心して参照できる状態にするフェーズ。特に stages / story_flow / events / battle_texts / ui_texts を整える。",
+	  "tasks": [
+		{
+		  "id": "P1_T1_STAGES_UNIFY",
+		  "title": "stages.json と stages_new.json の統合方針決定",
+		  "detail": "data/stages.json と data/stages_new.json の内容を比較し、新仕様に近い方をベースとする。最終的に data/stages.json を一本化して使う方針を決める。",
+		  "status": "todo"
+		},
+		{
+		  "id": "P1_T2_STAGES_NORMALIZE",
+		  "title": "stages.json のスキーマ正規化",
+		  "detail": "design_midstream_system.json のステージスキーマに合わせ、各ステージに stage_id / chapter / index / name / player_form_id / player_hp / player_spirit / enemy_id / enemy_name / enemy_hp / bg_id / bgm_id / is_boss / is_final_battle / reward などのフィールドを揃える。1章〜最終章まで、使用予定ステージがすべて定義されている状態にする。",
+		  "status": "todo"
+		},
+		{
+		  "id": "P1_T3_STORY_FLOW_NORMALIZE",
+		  "title": "story_flow.json のノード整備",
+		  "detail": "各ノードに id / type(event/battle/clear) / chapter_id / event_id or stage_id / next_id / next_on_win / next_on_lose / flags_set / flags_required / is_story_defeat などを付与し、ゲーム全体の流れが途切れないようにする。特に1章の開始から最終章の終端まで、論理的に連結していることを確認する。",
+		  "status": "todo"
+		},
+		{
+		  "id": "P1_T4_EVENTS_SYNC",
+		  "title": "events.json と story_flow の同期",
+		  "detail": "story_flow.json に登場するすべての event_id を抽出し、events.json 側に同じキーの配列が存在するか確認。不足する event_id はダミー行を含めて追加し、少なくとも1章分はプレイ可能なテキストを入れておく。",
+		  "status": "todo"
+		},
+		{
+		  "id": "P1_T5_BATTLE_TEXTS_REDESIGN",
+		  "title": "battle_texts.json の新メカニクス対応",
+		  "detail": "旧じゃんけん前提の構造が残っていれば整理し、skills.player.form_1 / form_2 / form_rebirth などフォーム別スキル配列と、skills.enemy[enemy_id]、round_result、system メッセージを定義する。1章の敵とプレイヤーフォーム分の技名を最低限揃える。",
+		  "status": "todo"
+		},
+		{
+		  "id": "P1_T6_UI_TEXTS_ORGANIZE",
+		  "title": "ui_texts.json のカテゴリ整理",
+		  "detail": "battle / system / clear / title などカテゴリごとにキーを整理する。BattleScene / ClearScene で使うボタン・ラベル（attack / skills / guard / inspire / retry / back_to_title など）はすべて ui_texts.json から取得できるようにする。",
+		  "status": "todo"
+		},
+		{
+		  "id": "P1_T7_GAME_REF_CONFIRM",
+		  "title": "meirin_oop_game_ref.json の参照漏れチェック",
+		  "detail": "forms / stages / characters のマッピングが、実際の stages.json / story_flow.json で必要なIDを網羅しているか確認し、不足があれば追記する。",
+		  "status": "todo"
+		}
+	  ]
+	},
+	{
+	  "id": "P2_CORE_SYSTEM",
+	  "name": "コアシステム実装（RPGターン制 ＋ 進行）",
+	  "scope": "core",
+	  "milestone_type": "system",
+	  "status": "todo",
+	  "summary": "JSON と Godot シーンをつなぐロジック部分を完成させ、イベント→バトル→イベントの基本フローと、RPG型ターン制バトルを動かすフェーズ。",
+	  "tasks": [
+		{
+		  "id": "P2_T1_UITEXT_DB",
+		  "title": "UiTextDB / UiText の完成",
+		  "detail": "ui_texts.json をロードし、UiText.get(\"battle.attack_button\") のような統一APIで文字列を取得できるようにする。BattleScene / ClearScene / EventScene から直接文字列を埋め込まず、UiText経由で参照する。",
+		  "status": "todo",
+		  "depends_on": ["P1_T6_UI_TEXTS_ORGANIZE"]
+		},
+		{
+		  "id": "P2_T2_STORY_DB",
+		  "title": "StoryDB の完成",
+		  "detail": "events.json をロードし、get_lines(event_id): Array[Dictionary] のような関数で EventScene に会話行を提供する。型を明示した typed GDScript として実装する。",
+		  "status": "todo",
+		  "depends_on": ["P1_T4_EVENTS_SYNC"]
+		},
+		{
+		  "id": "P2_T3_STORY_FLOW_DB",
+		  "title": "StoryFlowDB の完成",
+		  "detail": "story_flow.json をロードし、現在ノード取得・次ノード遷移・フラグ管理のAPIを定義する（get_current_node / go_to_next / on_battle_result / set_flag など）。EventScene / BattleScene / ClearScene は StoryFlowDB を通して次シーンを決定する。",
+		  "status": "todo",
+		  "depends_on": ["P1_T3_STORY_FLOW_NORMALIZE"]
+		},
+		{
+		  "id": "P2_T4_GAME_STATE",
+		  "title": "GameState の整理",
+		  "detail": "現在の章・ステージ・メイリンのフォーム・HP・心ゲージ・グローバルフラグを一元管理する。StoryFlowDB と連携し、シーン切替時に状態をセットする。BattleScene からの結果（win/lose/story_defeat）を受け取り、進行を更新する。",
+		  "status": "todo",
+		  "depends_on": ["P1_T2_STAGES_NORMALIZE", "P2_T3_STORY_FLOW_DB"]
+		},
+		{
+		  "id": "P2_T5_BATTLE_FLOW_REWRITE",
+		  "title": "BattleFlow.gd のRPGターン制化",
+		  "detail": "じゃんけん関連のロジックをすべて削除し、BattleActorState 的な状態クラス（HP / 心 / フォーム / limit 状態など）と、apply_player_action / apply_enemy_action / check_battle_end を持つ数値処理専用のモジュールとして再設計する。",
+		  "status": "todo",
+		  "depends_on": ["P1_T5_BATTLE_TEXTS_REDESIGN"]
+		},
+		{
+		  "id": "P2_T6_BATTLE_SCENE_COMMAND_UI",
+		  "title": "BattleScene.gd のコマンド式UI化",
+		  "detail": "ボタンを attack / skills / guard / inspire などのコマンドに整理し、押下時に action_id を決定して BattleFlow.apply_player_action を呼ぶ構造にする。HPバー・心ゲージバー・フォームゲージバーを BattleFlow の結果で更新する。",
+		  "status": "todo",
+		  "depends_on": ["P2_T5_BATTLE_FLOW_REWRITE", "P2_T1_UITEXT_DB"]
+		},
+		{
+		  "id": "P2_T7_BATTLE_RESULT_HANDLING",
+		  "title": "勝利・敗北・物語敗北の処理統合",
+		  "detail": "BattleFlow.check_battle_end の結果に応じて、GameState.on_battle_result(stage_id, result) を呼び出し、StoryFlowDB に進行を委ねる。通常敗北は GameOver ノードへ、物語敗北は専用イベントノードへ遷移できるようにする。",
+		  "status": "todo",
+		  "depends_on": ["P2_T4_GAME_STATE", "P2_T3_STORY_FLOW_DB"]
+		},
+		{
+		  "id": "P2_T8_FORM_AND_GAUGE_LINK",
+		  "title": "フォーム変化とゲージ更新の連動",
+		  "detail": "BattleFlow または GameState で、フォームゲージ・心ゲージの値に応じて Rise / Form2 / Rebirth への移行判定を行う。BattleScene は現在フォームに応じて利用可能スキルや見た目を切り替える。",
+		  "status": "todo",
+		  "depends_on": ["P2_T5_BATTLE_FLOW_REWRITE", "P2_T4_GAME_STATE"]
+		},
+		{
+		  "id": "P2_T9_EVENT_AND_CLEAR_SCENES",
+		  "title": "EventScene / ClearScene の最終調整",
+		  "detail": "EventScene は StoryDB と StoryFlowDB を通してイベント表示と次ノード遷移を行い、ClearScene は GameState / StoryFlowDB に基づいてタイトル・次章・リトライなどのルートを処理する。",
+		  "status": "todo",
+		  "depends_on": ["P2_T2_STORY_DB", "P2_T3_STORY_FLOW_DB", "P2_T4_GAME_STATE"]
+		}
+	  ]
+	},
+	{
+	  "id": "P3_VERTICAL_SLICE_CH1",
+	  "name": "Vertical Slice（1章完成）",
+	  "scope": "vs",
+	  "milestone_type": "content",
+	  "status": "todo",
+	  "summary": "1章を完成形に近いクオリティで遊べる状態にし、ゲーム全体の骨格とプレイフィールを確定させるフェーズ。",
+	  "tasks": [
+		{
+		  "id": "P3_T1_CH1_RANGE_FIX",
+		  "title": "1章の範囲固定",
+		  "detail": "story_flow.json を見て、1章の開始ノードと終端ノードを明記する。chap01 に属するノードのみを VS 対象とする。",
+		  "status": "todo",
+		  "depends_on": ["P1_T3_STORY_FLOW_NORMALIZE"]
+		},
+		{
+		  "id": "P3_T2_EVENTS_CH1_FILL",
+		  "title": "1章 events.json の本文埋め",
+		  "detail": "1章で使用する event_id のテキストを埋める。恐怖→奮起→安堵といった感情の流れを意識して、最低限破綻のない会話を入れる。",
+		  "status": "todo",
+		  "depends_on": ["P1_T4_EVENTS_SYNC"]
+		},
+		{
+		  "id": "P3_T3_STAGES_CH1_TUNING",
+		  "title": "1章ステージのパラメータ調整",
+		  "detail": "chap01 に属するステージについて、HP / ダメージ量 / ゲージ増減量を調整し、3〜5ターン程度で決着がつく短めのバトルにする。",
+		  "status": "todo",
+		  "depends_on": ["P1_T2_STAGES_NORMALIZE", "P2_T5_BATTLE_FLOW_REWRITE"]
+		},
+		{
+		  "id": "P3_T4_BATTLE_TEXTS_CH1",
+		  "title": "1章用 battle_texts / ui_texts の仕上げ",
+		  "detail": "1章で使う技名・ラウンドメッセージ・システムメッセージと、対応する UI テキストが違和感なく表示されるようにする。未設定キーでエラーが出ないことを確認する。",
+		  "status": "todo",
+		  "depends_on": ["P1_T5_BATTLE_TEXTS_REDESIGN", "P1_T6_UI_TEXTS_ORGANIZE"]
+		},
+		{
+		  "id": "P3_T5_MINIMAL_FX_CH1",
+		  "title": "1章用の最低限の演出追加",
+		  "detail": "BattleEffects.gd / MessageHelper.gd などを利用して、攻撃・被弾・フォーム変化の最低限のビジュアル演出を追加する（激しすぎなくてよい）。",
+		  "status": "todo",
+		  "depends_on": ["P2_T6_BATTLE_SCENE_COMMAND_UI"]
+		},
+		{
+		  "id": "P3_T6_CH1_PLAYTHROUGH",
+		  "title": "1章通しプレイとバグ修正",
+		  "detail": "タイトル→1章開始→イベント→バトル→1章終了までを複数回プレイし、クラッシュや進行不能バグ、明らかな違和感を修正する。他人に渡しても遊べるレベルを目標とする。",
+		  "status": "todo",
+		  "depends_on": ["P3_T1_CH1_RANGE_FIX", "P3_T2_EVENTS_CH1_FILL", "P3_T3_STAGES_CH1_TUNING", "P3_T4_BATTLE_TEXTS_CH1", "P3_T5_MINIMAL_FX_CH1"]
+		}
+	  ]
+	},
+	{
+	  "id": "P4_FULL_STORY",
+	  "name": "本編量産（2〜5章）",
+	  "scope": "full",
+	  "milestone_type": "content",
+	  "status": "todo",
+	  "summary": "Vertical Slice で確定した骨格の上に、2〜5章のイベント・バトル・テキストを乗せていく量産フェーズ。",
+	  "tasks": [
+		{
+		  "id": "P4_T1_CH2_IMPLEMENT",
+		  "title": "2章の実装",
+		  "detail": "2章に対応する story_flow ノード・events テキスト・stages・battle_texts を埋め、1章→2章の通しプレイを可能にする。",
+		  "status": "todo",
+		  "depends_on": ["P3_VERTICAL_SLICE_CH1"]
+		},
+		{
+		  "id": "P4_T2_CH3_IMPLEMENT",
+		  "title": "3章の実装",
+		  "detail": "3章についても2章と同様に、story_flow / events / stages / battle_texts を埋め、通しプレイを確認する。",
+		  "status": "todo",
+		  "depends_on": ["P4_T1_CH2_IMPLEMENT"]
+		},
+		{
+		  "id": "P4_T3_CH4_MIDBOSS",
+		  "title": "4章（中ボス章）の実装",
+		  "detail": "中ボス戦を含む4章の story_flow / events / stages / battle_texts を実装し、中ボス戦らしい山場を構成する。",
+		  "status": "todo",
+		  "depends_on": ["P4_T2_CH3_IMPLEMENT"]
+		},
+		{
+		  "id": "P4_T4_CH5_FINAL",
+		  "title": "5章（ラスボス〜Rebirth〜浄化）の実装",
+		  "detail": "物語敗北（Form2 の光吸収）→ Rebirth → 最終浄化までを含む 5章の story_flow / events / stages / battle_texts を実装する。is_story_defeat / flags / Rebirth フォームの利用を含む。",
+		  "status": "todo",
+		  "depends_on": ["P4_T3_CH4_MIDBOSS", "P2_T7_BATTLE_RESULT_HANDLING", "P2_T8_FORM_AND_GAUGE_LINK"]
+		}
+	  ]
+	},
+	{
+	  "id": "P5_POLISH",
+	  "name": "総合仕上げ（演出・UI・サウンド）",
+	  "scope": "full",
+	  "milestone_type": "polish",
+	  "status": "todo",
+	  "summary": "ゲーム全体の見た目・手触りを完成品レベルに引き上げるフェーズ。演出・UI・サウンドを中心に調整する。",
+	  "tasks": [
+		{
+		  "id": "P5_T1_BATTLE_FX_ENHANCE",
+		  "title": "バトル演出の強化",
+		  "detail": "BattleEffects.gd を中心に、攻撃・被弾・フォーム変化・浄化などの演出を各章バトルに追加・調整する。",
+		  "status": "todo",
+		  "depends_on": ["P4_FULL_STORY"]
+		},
+		{
+		  "id": "P5_T2_FORM_VISUAL_TWEAK",
+		  "title": "フォームごとの演出差分調整",
+		  "detail": "Form1 / Rise / Form2 / Rebirth で、立ち姿・色味・エフェクトなどの差分が分かるように演出を整える。",
+		  "status": "todo",
+		  "depends_on": ["P4_FULL_STORY"]
+		},
+		{
+		  "id": "P5_T3_UI_DESIGN_PASS",
+		  "title": "UI デザイン調整",
+		  "detail": "ボタン配置・フォント・色・マージンなどを見直し、全体として統一感のある UI に整える。",
+		  "status": "todo"
+		},
+		{
+		  "id": "P5_T4_AUDIO_INTEGRATION",
+		  "title": "BGM / SE の組み込み",
+		  "detail": "各章のイベント・バトル・クリアにふさわしい BGM / SE を組み込み、音量バランスを調整する。",
+		  "status": "todo"
+		}
+	  ]
+	},
+	{
+	  "id": "P6_RELEASE_PREP",
+	  "name": "リリース準備（最終調整・ビルド）",
+	  "scope": "full",
+	  "milestone_type": "release",
+	  "status": "todo",
+	  "summary": "バグを潰し、調整を終え、PC 版としてビルドできる状態にするフェーズ。",
+	  "tasks": [
+		{
+		  "id": "P6_T1_FULL_PLAYTEST",
+		  "title": "全章通しプレイ",
+		  "detail": "1章〜5章まで通しで複数回プレイし、クラッシュや進行不能、重大な違和感を洗い出して修正する。",
+		  "status": "todo",
+		  "depends_on": ["P4_FULL_STORY"]
+		},
+		{
+		  "id": "P6_T2_BALANCE_ADJUST",
+		  "title": "難易度・バランス調整",
+		  "detail": "敵HP・ダメージ量・ゲージ増減量・回復量などを表にして整理し、プレイ感が適切になるよう微調整する。",
+		  "status": "todo",
+		  "depends_on": ["P6_T1_FULL_PLAYTEST"]
+		},
+		{
+		  "id": "P6_T3_CLEANUP",
+		  "title": "不要データ・コードの整理",
+		  "detail": "使っていない JSON エントリや旧スクリプト、デバッグログなどを削除し、リポジトリをクリーンな状態にする。",
+		  "status": "todo"
+		},
+		{
+		  "id": "P6_T4_BUILD_EXPORT",
+		  "title": "PC 版ビルド",
+		  "detail": "Godot のエクスポートテンプレートを設定し、Windows 向けの実行ファイルをビルドする。タイトル画像・アイコンも設定する。",
+		  "status": "todo"
+		}
+	  ]
+	},
+	{
+	  "id": "P7_POST_RELEASE",
+	  "name": "アップデート運用（任意）",
+	  "scope": "optional",
+	  "milestone_type": "post_release",
+	  "status": "todo",
+	  "summary": "公開後に必要であれば行うバグ修正・調整・追加要素など。",
+	  "tasks": [
+		{
+		  "id": "P7_T1_BUGFIX_PATCH",
+		  "title": "バグ修正パッチ",
+		  "detail": "リリース後に発見されたバグを修正し、必要に応じてパッチ版を出す。",
+		  "status": "todo"
+		},
+		{
+		  "id": "P7_T2_TUNING_PATCH",
+		  "title": "難易度・UI 調整パッチ",
+		  "detail": "プレイ感やフィードバックに応じて、難易度や UI を微調整する。",
+		  "status": "todo"
+		}
+	  ]
+	}
+  ]
+}

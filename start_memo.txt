@@ -33,40 +33,35 @@ git ls-files '*.gd' '*.json' \
 
 ## STEP 4. ChatGPT に読み込ませる
 
-新しいチャット開始時に、以下を貼る：
+web ツールを使用して、下記の GitHub リポジトリを読み込んでください。
+HTML ではなく、必ず raw.githubusercontent.com の生データを取得してください。
 
----
-
-**テンプレート**（あなた専用）
-
-```
-この GitHub リポジトリの最新ソースコードを、web ツールを使って読み込んでください。
 https://github.com/HirokiTakah/meirin-godot-game
 
-また、urls_raw.txt にあるすべての raw リンクを読み込んでください。
-HTML ではなく raw.githubusercontent.com の生ファイルを使ってください。
-```
+まず最初に、以下の設計JSONを必ず読み込んでください（仕様書の正として扱う）。
+1) docs/design_upstream_core.json
+2) docs/design_midstream_story.json
+3) docs/design_midstream_system.json
+4) docs/meirin_oop_bundle.json
+5) data/meirin_oop_game_ref.json
 
----
+次に、開発工程表（正規ロードマップ）として
+docs/dev_plan_pipeline.json
+も raw で読み込んでください。
 
-## STEP 5. ChatGPT が解析 → 設計 or コード生成
+その後、わたしが手動で貼り付ける「raw リンク一覧（urls_raw 手動版）」に含まれる
+すべての JSON / GDScript を順番に読み込んでください。
+（自動で urls_raw.txt を取りに行かないこと。必ずこちらが提示するリンクだけ読み込むこと）
 
-あなたは次のように依頼すればよい：
+読み込み後は、次のルールに従います。
 
-* 「上流・中流と矛盾がないか検証して」
-* 「RPG 型バトル計算式を提案して」
-* 「EventScene の進行を実装して」
-* 「stages.json の ch01 を自動生成して」
+・上記 6 つの JSON（設計5種＋工程表）を、実装より優先して参照すること  
+・旧じゃんけんロジック（GDevelop / 旧Godotの三すくみ判定）は使用しないこと  
+・バトルは RPGターン制（HP / 心ゲージ / フォームゲージ）で実装すること  
+・設計JSONとコードが矛盾する場合は、設計に合わせて修正案を提示すること  
+・docs/dev_plan_pipeline.json の工程に沿って開発を進めること  
+（作業フェーズとタスクIDを明確にした上で回答する）
 
-ChatGPT は **最新のJSON・GDScript** をもとに回答します。
-
----
-
-# 3. まとめ（結論）
-
-あなたが書いたサイクルは **正しい** です。
-ただし、以下3点を改善すると完璧になります。
-
-1. commit message を具体的にする
-2. ローカルフォルダ名とGitHub名の違いに注意
-3. ChatGPTへ渡すテンプレート（STEP4）を固定して使う
+準備が整ったら、
+「設計JSON5種・工程表JSONを読み込みました。次に raw リンクを提示してください。」
+とだけ返答してください。

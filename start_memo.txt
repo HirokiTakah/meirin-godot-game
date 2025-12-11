@@ -1,69 +1,72 @@
 
 ---
 
-【作業サイクル】
+# ★ 改訂版：メイリンゲーム開発サイクル
 
-■ 1. 作業を終えたら毎回やること（「ローカル変更 → 履歴に保存 → GitHub に反映」まで完了）
+## STEP 1. 開発
+
+Godot / JSON / GDScript / docs の作業をする。
+
+---
+
+## STEP 2. Git に保存して GitHub と同期
 
 ```bash
-
 cd /c/GodotProjects/meirin-battle-godot
 
 git add .
-git commit -m "fixed battle flow / updated json"   # メッセージはその時の内容に合わせて
+git commit -m "update: <具体的な内容>" 
 git push
-
 ```
-
 
 ---
 
-■ 2. ChatGPT 用の URL リストをつくる
+## STEP 3. ChatGPT 用 “URL 一括リスト” を生成
 
 ```bash
-
-cd /c/GodotProjects/meirin-battle-godot
-
 git ls-files '*.gd' '*.json' \
   | sed 's|^|https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/|' \
   > urls_raw.txt
-
 ```
 
+---
+
+## STEP 4. ChatGPT に読み込ませる
+
+新しいチャット開始時に、以下を貼る：
 
 ---
 
-■ 3. ChatGPT で新しいチャットを始めるときのテンプレ
+**テンプレート**（あなた専用）
 
+```
+この GitHub リポジトリの最新ソースコードを、web ツールを使って読み込んでください。
+https://github.com/HirokiTakah/meirin-godot-game
+
+また、urls_raw.txt にあるすべての raw リンクを読み込んでください。
+HTML ではなく raw.githubusercontent.com の生ファイルを使ってください。
+```
 
 ---
 
-このGitHubリポジトリの最新ソースコードを、webツールを使って読み込んでください。
-[https://github.com/HirokiTakah/meirin-godot-game](https://github.com/HirokiTakah/meirin-godot-game)
+## STEP 5. ChatGPT が解析 → 設計 or コード生成
 
-特に、次のファイルの「中身のテキスト」を必ず取得してほしいです。
-HTML画面ではなく、raw.githubusercontent.com か ?raw=1 付きの生テキストURLから読んでください。
+あなたは次のように依頼すればよい：
 
-## 作品世界の正典（必ず読み込む）
+* 「上流・中流と矛盾がないか検証して」
+* 「RPG 型バトル計算式を提案して」
+* 「EventScene の進行を実装して」
+* 「stages.json の ch01 を自動生成して」
 
-[https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/docs/meirin_oop_bundle.json](https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/docs/meirin_oop_bundle.json)
+ChatGPT は **最新のJSON・GDScript** をもとに回答します。
 
-## ゲームアダプター（必ず読み込む）
+---
 
-[https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/meirin_oop_game_ref.json](https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/meirin_oop_game_ref.json)
+# 3. まとめ（結論）
 
-## ゲームの JSON & GDScript（urls_raw.txt の中身）
+あなたが書いたサイクルは **正しい** です。
+ただし、以下3点を改善すると完璧になります。
 
-＜ここに urls_raw.txt の必要部分を貼る＞
-
-まずこれらのファイルをすべて取得し、内容を把握したうえで
-「各ファイルの役割・依存関係・読み込み順」を整理してください。
-
-そのうえで、必要に応じて JSON / GDScript の改善案を提案してください。
-
-もし GitHub 側の制限などで raw テキストが取得できない場合は、
-「どのURLで、どんなエラーが出たか」を具体的に教えてください。
-
---------------------------------
-
-
+1. commit message を具体的にする
+2. ローカルフォルダ名とGitHub名の違いに注意
+3. ChatGPTへ渡すテンプレート（STEP4）を固定して使う

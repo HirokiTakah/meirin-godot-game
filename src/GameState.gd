@@ -64,16 +64,20 @@ func _ready() -> void:
 	load_stages()
 	init_stage()
 
+func reset_run() -> void:
+	game_stage = 1
+	tea_pieces = 0
+	meirin_form = 1
+	is_gameover = false
+	is_cleared = false
+	boss_no_damage_count = 0
+	boss_hp_drain_active = false
+	load_stages()
+	init_stage()
 
-func _on_retry_pressed() -> void:
-	GameState.game_stage = 1
-	GameState.tea_pieces = 0
-	GameState.is_cleared = false
-	GameState.is_gameover = false
-	GameState.init_stage()
-	StoryFlowDB.reset_story()
-	get_tree().change_scene_to_file("res://scenes/event/EventScene.tscn")
-
+# 既存の _on_retry_pressed は削除（またはコメントアウト）
+# func _on_retry_pressed() -> void:
+#   （削除）
 
 func load_stages() -> void:
 	stage_data.clear()
@@ -324,27 +328,24 @@ func player_attack(player_choice: int) -> Dictionary:
 # ティーピース獲得 → 次ステージへ
 # ================================
 
+# next_stage は「報酬だけ」に変更（stage を進めない）
 func next_stage() -> Dictionary:
 	var d: Dictionary = _get_stage_dict(game_stage)
 	var reward: Dictionary = d.get("reward", {})
-
 	var tea_add: int = 0
+
 	if typeof(reward) == TYPE_DICTIONARY:
-		# 旧: "tea_piece"
-		# 新: "tea_pieces"
 		tea_add = int(reward.get("tea_piece", reward.get("tea_pieces", 0)))
 
 	if tea_add > 0:
 		tea_pieces += tea_add
 
-	var unlocked_form2 := false
+	var unlocked_form2: bool = false
 	if tea_pieces >= 4 and meirin_form < 2:
 		meirin_form = 2
 		unlocked_form2 = true
 
-	game_stage += 1
-	init_stage()
-
+	# ここで game_stage += 1 と init_stage() はしない
 	return {
 		"tea_piece_add": tea_add,
 		"unlocked_form2": unlocked_form2,

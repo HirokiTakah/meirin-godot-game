@@ -122,7 +122,7 @@ static func _handle_enemy_defeated(scene: Node) -> void:
 		# 1) ステージ勝利メッセージ
 		var win_msg: String = GameState.get_stage_win_message()
 		if win_msg != "":
-			await MessageHelper.typewriter_show(
+			await MessageHelperScript.typewriter_show(
 				scene,
 				scene.battle_text,
 				win_msg,
@@ -137,7 +137,7 @@ static func _handle_enemy_defeated(scene: Node) -> void:
 		if tea_add > 0:
 			var tea_msg: String = UiText.get_tea_piece_reward_message()
 			if tea_msg != "":
-				await MessageHelper.typewriter_show(
+				await MessageHelperScript.typewriter_show(
 					scene,
 					scene.battle_text,
 					tea_msg,
@@ -150,7 +150,7 @@ static func _handle_enemy_defeated(scene: Node) -> void:
 		if unlocked_form2:
 			var form_msg: String = UiText.get_form2_unlocked_message()
 			if form_msg != "":
-				await MessageHelper.typewriter_show(
+				await MessageHelperScript.typewriter_show(
 					scene,
 					scene.battle_text,
 					form_msg,
@@ -170,6 +170,7 @@ static func _handle_enemy_defeated(scene: Node) -> void:
 		# 次もバトルならバトルシーンを再読み込み
 		scene.get_tree().reload_current_scene()
 		return
+
 
 	# -------------------------------
 	# ここから最終ステージ（7）撃破時

@@ -14,21 +14,27 @@ Godot / JSON / GDScript / docs の作業を進める。
 # STEP 2. Git に保存して GitHub と同期
 
 ```bash
+
 cd /c/GodotProjects/meirin-battle-godot
 
 git add .
-git commit -m "update: <具体的な内容>"
+git commit -m "update: P2_T1"
 git push
 ```
+
 
 ---
 
 # STEP 3. ChatGPT 用 URL リストを生成（3分類）
 
 ```bash
+
+cd /c/GodotProjects/meirin-battle-godot
+
 git ls-files 'docs/*.json' \
   | sed 's|^|https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/|' \
   > urls_docs_json.txt
+
 
 git ls-files 'data/*.json' \
   | sed 's|^|https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/|' \
@@ -37,6 +43,7 @@ git ls-files 'data/*.json' \
 git ls-files 'src/*.gd' \
   | sed 's|^|https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/|' \
   > urls_gd.txt
+
 ```
 
 * urls_docs_json.txt … 設計JSON
@@ -50,6 +57,10 @@ git ls-files 'src/*.gd' \
 新しいチャット開始時に、まず ChatGPT に **「工程表に沿って開発を進めること」** を理解させる。
 
 ### （チャット開始テンプレ）
+
+
+
+
 
 ```
 
@@ -77,9 +88,10 @@ https://github.com/HirokiTakah/meirin-godot-game
 とだけ返答してください。
 
 
+→ **このテンプレの下に、urls_docs_json.txt の内容を貼る**
+
 ```
 
-→ **このテンプレの下に、urls_docs_json.txt の内容を貼る**
 
 ChatGPT が docs JSON を読み込んだら
 

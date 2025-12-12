@@ -13,12 +13,7 @@ var _line_index: int = 0
 
 
 func _ready() -> void:
-	var raw_lines: Array = StoryFlowDB.get_current_event_lines()
-	_lines.clear()
-	for v: Variant in raw_lines:
-		if typeof(v) == TYPE_DICTIONARY:
-			_lines.append(v as Dictionary)
-
+	_lines = StoryFlowDB.get_current_event_lines()
 	_line_index = 0
 
 	if next_button:

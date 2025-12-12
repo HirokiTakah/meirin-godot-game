@@ -514,13 +514,7 @@ func on_continue_pressed() -> void:
 
 	if is_clear:
 		# クリア後は最初から（イントロイベントから再開）
-		GameState.game_stage = 1
-		GameState.tea_pieces = 0
-		GameState.meirin_form = 1
-		GameState.player_hp = GameState.player_max_hp
-		GameState.is_gameover = false
-		GameState.is_cleared = false
-		GameState.init_stage()
+		GameState.reset_run()
 		StoryFlowDB.reset_story()
 
 		# 最初のイベントへ

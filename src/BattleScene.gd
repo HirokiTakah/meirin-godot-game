@@ -92,33 +92,26 @@ func _post_ready() -> void:
 
 
 func _show_battle_ui() -> void:
-	# ボタン
-	var janken_buttons := $UIRoot/JankenButtons
+	# ボタン（旧じゃんけん。将来コマンドUIに置換予定）
 	if janken_buttons:
 		janken_buttons.visible = true
 
 	# メッセージ枠
-	var msg_panel := $UIRoot/MessagePanel
-	if msg_panel:
-		msg_panel.visible = true
+	if message_panel:
+		message_panel.visible = true
 
 	# HPバー
-	var enemy_bar := $UIRoot/EnemyHPBar
-	if enemy_bar:
-		enemy_bar.visible = true
-
-	var player_bar := $UIRoot/PlayerHPBar
-	if player_bar:
-		player_bar.visible = true
+	if enemy_hp_bar:
+		enemy_hp_bar.visible = true
+	if player_hp_bar:
+		player_hp_bar.visible = true
 
 	# 立ち絵
-	var meirin := $MeirinSprite
-	if meirin:
-		meirin.visible = true
+	if meirin_sprite:
+		meirin_sprite.visible = true
+	if enemy_sprite:
+		enemy_sprite.visible = true
 
-	var enemy := $EnemySprite
-	if enemy:
-		enemy.visible = true
 
 
 func _set_clear_background() -> void:
@@ -130,26 +123,25 @@ func _set_clear_background() -> void:
 	if tex != null:
 		bg.texture = tex
 
+
 func _hide_battle_ui() -> void:
 	# ボタン群
-	if $UIRoot/JankenButtons:
-		$UIRoot/JankenButtons.visible = false
-
+	if $UI/UIRoot/JankenButtons:
+		$UI/UIRoot/JankenButtons.visible = false
 	# メッセージ枠
-	if $UIRoot/MessagePanel:
-		$UIRoot/MessagePanel.visible = false
-
+	if $UI/UIRoot/MessagePanel:
+		$UI/UIRoot/MessagePanel.visible = false
 	# HPバー
-	if $UIRoot/EnemyHPBar:
-		$UIRoot/EnemyHPBar.visible = false
-	if $UIRoot/PlayerHPBar:
-		$UIRoot/PlayerHPBar.visible = false
-
+	if $UI/UIRoot/EnemyHPBar:
+		$UI/UIRoot/EnemyHPBar.visible = false
+	if $UI/UIRoot/PlayerHPBar:
+		$UI/UIRoot/PlayerHPBar.visible = false
 	# 立ち絵
 	if $MeirinSprite:
 		$MeirinSprite.visible = false
 	if $EnemySprite:
 		$EnemySprite.visible = false
+
 
 
 # ----------------------------------------

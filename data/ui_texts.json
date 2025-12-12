@@ -1,26 +1,104 @@
 {
-  "move_names": [
-	"灯籠シールド",
-	"浄化のリボン",
-    "結び封じ"
-  ],
-  "drain": {
-	"start_message": "……力が吸い取られていく……！",
-	"last_message": "……もう…動けない……。"
+  "meta": {
+	"project": "Meirin Project – Battle Story Game",
+	"file_name": "ui_texts.json",
+	"version": "2025-12-12-01",
+	"language": "ja",
+	"note": "UiText.get(\"battle.buttons.attack\") のようなドットパス参照を前提にカテゴリ整理した。legacy は旧参照互換のため残す（P6_T3 で削除候補）。"
   },
-  "game_over": {
-	"label": "GAME OVER",
-	"message": "……もう…動けない……。"
+  "title": {
+	"labels": {
+	  "game_title": "Meirin Project – Battle Story Game"
+	},
+	"buttons": {
+	  "start": "はじめる",
+	  "continue": "つづきから",
+	  "options": "設定",
+	  "quit": "終了"
+	},
+	"messages": {
+	  "loading": "読み込み中…"
+	}
+  },
+  "battle": {
+	"labels": {
+	  "player_name": "メイリン",
+	  "enemy_name": "敵",
+	  "hp": "HP",
+	  "spirit": "心",
+	  "form": "フォーム",
+	  "turn": "TURN",
+	  "command": "コマンド"
+	},
+	"buttons": {
+	  "attack": "たたかう",
+	  "skills": "わざ",
+	  "guard": "まもる",
+	  "inspire": "こころ",
+	  "confirm": "決定",
+	  "back": "もどる",
+	  "next": "つぎへ"
+	},
+	"messages": {
+	  "choose_command": "どうする？",
+	  "choose_skill": "どのわざを使う？"
+	}
+  },
+  "system": {
+	"labels": {
+	  "game_over": "GAME OVER"
+	},
+	"messages": {
+	  "drain_start": "……力が吸い取られていく……！",
+	  "drain_last": "……もう…動けない……。",
+	  "game_over_message": "……もう…動けない……。"
+	},
+	"reward": {
+	  "tea_fragment_1": "茶器のかけらを1つ手に入れた。（4つ集めると、メイリンがフェイス2に変身できる）",
+	  "tea_fragment_2": "茶器のかけらを2つ手に入れた。"
+	},
+	"form": {
+	  "form2_unlocked": "茶器が4つ揃い、メイリンはフェイス2に変身できるようになった！"
+	}
   },
   "clear": {
-	"label": "GAME CLEAR",
-	"result_label": "クリア！",
-	"battle_message": "「……終わった。\n 光が、ぜんぶ戻ってきたね。」"
+	"labels": {
+	  "clear_title": "GAME CLEAR",
+	  "result_label": "クリア！"
+	},
+	"messages": {
+	  "battle_message": "「……終わった。\n 光が、ぜんぶ戻ってきたね。」"
+	},
+	"buttons": {
+	  "next": "つぎへ",
+	  "retry": "もう一度",
+	  "back_to_title": "タイトルへ"
+	}
   },
-  "reward": {
-	"tea_piece": "茶器のかけらを1つ手に入れた。（4つ集めると、メイリンがフェイス2に変身できる）"
-  },
-  "form": {
-	"form2_unlocked": "茶器が4つ揃い、メイリンはフェイス2に変身できるようになった！"
+  "legacy": {
+	"move_names": [
+	  "灯籠シールド",
+	  "浄化のリボン",
+      "結び封じ"
+	],
+	"drain": {
+	  "start_message": "……力が吸い取られていく……！",
+	  "last_message": "……もう…動けない……。"
+	},
+	"game_over": {
+	  "label": "GAME OVER",
+	  "message": "……もう…動けない……。"
+	},
+	"clear": {
+	  "label": "GAME CLEAR",
+	  "result_label": "クリア！",
+	  "battle_message": "「……終わった。\n 光が、ぜんぶ戻ってきたね。」"
+	},
+	"reward": {
+	  "tea_piece": "茶器のかけらを1つ手に入れた。（4つ集めると、メイリンがフェイス2に変身できる）"
+	},
+	"form": {
+	  "form2_unlocked": "茶器が4つ揃い、メイリンはフェイス2に変身できるようになった！"
+	}
   }
 }

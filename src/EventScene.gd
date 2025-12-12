@@ -2,6 +2,8 @@ extends Control
 
 const BATTLE_SCENE_PATH: String = "res://scenes/battle/battle_scene.tscn"
 
+const UiText = preload("res://src/UiText.gd")
+
 @onready var speaker_label: Label = $UI/UIRoot/SpeakerLabel
 @onready var text_label: Label = $UI/UIRoot/TextLabel
 @onready var next_button: Button = $UI/UIRoot/NextButton
@@ -14,7 +16,9 @@ func _ready() -> void:
 	_line_index = 0
 
 	if next_button:
+		next_button.text = UiText.text("event.buttons.next", "つぎへ")
 		next_button.pressed.connect(_on_next_pressed)
+
 
 	_show_current_line()
 

@@ -126,21 +126,24 @@ func _set_clear_background() -> void:
 
 func _hide_battle_ui() -> void:
 	# ボタン群
-	if $UI/UIRoot/JankenButtons:
-		$UI/UIRoot/JankenButtons.visible = false
+	if janken_buttons:
+		janken_buttons.visible = false
+
 	# メッセージ枠
-	if $UI/UIRoot/MessagePanel:
-		$UI/UIRoot/MessagePanel.visible = false
+	if message_panel:
+		message_panel.visible = false
+
 	# HPバー
-	if $UI/UIRoot/EnemyHPBar:
-		$UI/UIRoot/EnemyHPBar.visible = false
-	if $UI/UIRoot/PlayerHPBar:
-		$UI/UIRoot/PlayerHPBar.visible = false
+	if enemy_hp_bar:
+		enemy_hp_bar.visible = false
+	if player_hp_bar:
+		player_hp_bar.visible = false
+
 	# 立ち絵
-	if $MeirinSprite:
-		$MeirinSprite.visible = false
-	if $EnemySprite:
-		$EnemySprite.visible = false
+	if meirin_sprite:
+		meirin_sprite.visible = false
+	if enemy_sprite:
+		enemy_sprite.visible = false
 
 
 
@@ -166,14 +169,26 @@ func _setup_ui() -> void:
 	if battle_text:
 		battle_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 
-	# ボタンの表示名を JSON から設定
-	var name0 := UiText.get_move_name(0)
-	var name1 := UiText.get_move_name(1)
-	var name2 := UiText.get_move_name(2)
+	# ボタンの表示名を JSON から設定（新キー優先、無ければ旧キーへフォールバック）
+	var name0: String = UiText.text("battle.move_names.0", "")
+	if name0 == "":
+		name0 = UiText.get_move_name(0)
+
+	var name1: String = UiText.text("battle.move_names.1", "")
+	if name1 == "":
+		name1 = UiText.get_move_name(1)
+
+	var name2: String = UiText.text("battle.move_names.2", "")
+	if name2 == "":
+		name2 = UiText.get_move_name(2)
+
 
 	btn_rock.text = name0
 	btn_scissors.text = name1
 	btn_paper.text = name2
+
+
+
 
 	# 攻撃ボタン
 	btn_rock.pressed.connect(func(): on_player_choice(0))
@@ -308,9 +323,11 @@ func play_defeat_sequence() -> void:
 	show_meirin_down()
 	await get_tree().create_timer(1.2).timeout
 
-	if gameover_label:
-		var label_text := UiText.get_game_over_label()
-		gameover_label.text = label_text
+	var label_text := UiText.text("system.labels.game_over", "")
+	if label_text == "":
+		label_text = UiText.get_game_over_label()
+	gameover_label.text = label_text
+
 
 	show_gameover_background()
 	apply_end_ui_mask(0.4, true)
@@ -324,9 +341,12 @@ func play_defeat_sequence() -> void:
 # ========================================
 
 func play_clear_sequence() -> void:
-	if gameover_label:
-		var label_text := UiText.get_clear_label()
-		gameover_label.text = label_text
+	
+	var label_text := UiText.text("clear.labels.clear_title", "")
+	if label_text == "":
+		label_text = UiText.get_clear_label()
+	gameover_label.text = label_text
+
 
 	if result_text:
 		var result_label := UiText.get_clear_result_label()
@@ -383,7 +403,9 @@ func start_stage6_drain() -> void:
 	add_child(drain_timer)
 	drain_timer.start()
 
-	var msg := UiText.get_drain_start_message()
+	var msg := UiText.text("system.messages.drain_start", "")
+	if msg == "":
+		msg = UiText.get_drain_start_message()
 	battle_text.text = msg
 
 
@@ -397,37 +419,40 @@ func _on_drain_tick() -> void:
 	# ドレイン中も軽くダメージ演出
 	await BattleEffects.play_player_hit_fx(meirin_sprite)
 
-	# HP が 0 になった → ここで「ステージ6の物語的敗北」
+	# HP が 0 になった → 物語的敗北
 	if GameState.player_hp <= 0:
 		drain_timer.stop()
 		draining = false
 
 		show_meirin_down()
 
-		var msg := UiText.get_drain_last_message()
+		var msg := UiText.text("system.messages.drain_last", "")
+		if msg == "":
+			msg = UiText.get_drain_last_message()
 		if msg == "":
 			msg = "……もう…動けない……。"
 		battle_text.text = msg
 
 		await get_tree().create_timer(1.5).timeout
 
-		# ★ステージを7に飛ばさず、ストーリーフローを進める
+		# ストーリーフローを進める
 		StoryFlowDB.debug_print_state("before goto_next_node (stage6_drain)")
 		StoryFlowDB.goto_next_node()
 		StoryFlowDB.debug_print_state("after goto_next_node (stage6_drain)")
 
-		# 次がイベント（event_07_drain_collapse のはず）なら EventScene へ
+		# 次がイベントなら EventScene へ
 		if StoryFlowDB.is_current_event():
 			get_tree().change_scene_to_file("res://scenes/event/EventScene.tscn")
 			return
 
-		# 想定外でイベントでなければ、とりあえずバトルシーンをリロード
+		# 想定外ならリロード
 		get_tree().reload_current_scene()
 		return
 
-	# まだ HP が残っている場合は、ドレイン継続
+	# まだ HP が残っている場合はドレイン継続
 	if GameState.player_hp > 0 and draining:
 		update_meirin_idle()
+
 
 
 

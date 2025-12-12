@@ -20,7 +20,21 @@
 	  "loading": "読み込み中…"
 	}
   },
+
+  "event": {
+	"buttons": {
+	  "next": "つぎへ"
+	}
+  },
+
   "battle": {
+	
+	"move_names": {
+	  "0": "灯籠シールド",
+	  "1": "浄化のリボン",
+	  "2": "結び封じ"
+	},
+	
 	"labels": {
 	  "player_name": "メイリン",
 	  "enemy_name": "敵",

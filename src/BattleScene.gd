@@ -525,3 +525,26 @@ func on_continue_pressed() -> void:
 	GameState.restore_full_hp()
 	GameState.is_gameover = false
 	get_tree().reload_current_scene()
+	
+	# BattleScene.gd に追加
+
+func update_hp_bars_instant() -> void:
+	player_hp_bar.max_value = GameState.player_max_hp
+	player_hp_bar.value = GameState.player_hp
+	enemy_hp_bar.max_value = GameState.enemy_max_hp
+	enemy_hp_bar.value = GameState.enemy_hp
+
+func animate_hp_bars_to_current(duration: float = 0.25) -> void:
+	# max は即時反映
+	player_hp_bar.max_value = GameState.player_max_hp
+	enemy_hp_bar.max_value = GameState.enemy_max_hp
+
+	var tree := get_tree()
+	if tree == null:
+		update_hp_bars_instant()
+		return
+
+	var tween := tree.create_tween()
+	tween.tween_property(player_hp_bar, "value", float(GameState.player_hp), duration)
+	tween.parallel().tween_property(enemy_hp_bar, "value", float(GameState.enemy_hp), duration)
+	await tween.finished

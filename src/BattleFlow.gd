@@ -10,44 +10,71 @@ const TYPEWRITER_SPEED: float = 0.01
 
 
 # 1ターン分の処理
+# BattleFlow.gd の process_turn 内だけ差し替え（概念）
+
 static func process_turn(scene: Node, player_choice: int) -> void:
-	# すでに処理中なら無視（連打防止）
 	if scene.processing_turn:
 		return
-
 	scene.processing_turn = true
 	scene.set_attack_buttons_enabled(false)
 
-	# 数値計算は GameState（Autoload シングルトン）に任せる
-	var result: Dictionary = GameState.player_attack(player_choice)
-
-	# 想定外だが念のため
+	# 変更：HP確定しない計算だけ
+	var result: Dictionary = GameState.compute_turn(player_choice)
 	if result.get("result", "") in ["gameover", "ended"]:
 		scene.processing_turn = false
 		scene.set_attack_buttons_enabled(true)
 		return
 
-	# HP バー更新
-	scene.update_hp_bars()
-
-	# テキスト生成
+	# 先にテキスト（after を使ったテキスト）
 	var result_msg: String = String(result.get("result_msg", ""))
 	var battle_msg: String = String(result.get("battle_msg", ""))
 	var combined_text: String = scene._make_round_text(result_msg, battle_msg)
-
-	# メッセージ表示（タイプライター）
 	if combined_text != "":
-		await MessageHelperScript.typewriter_show(
-			scene,
-			scene.battle_text,
-			combined_text,
-			TYPEWRITER_SPEED
-		)
+		await MessageHelperScript.typewriter_show(scene, scene.battle_text, combined_text, TYPEWRITER_SPEED)
 
-	# ラウンド後処理（演出＋分岐）
-	await _handle_post_round(scene, result)
+	# モーション（ここは現行踏襲。ただし LOSE は「HPが残っている条件」を外す）
+	await _handle_post_round_fx_only(scene, result)
 
+	# ここでHP確定
+	GameState.apply_turn(result)
+
+	# ここでHPバーを減らす（Tween）
+	await scene.animate_hp_bars_to_current(0.25)
+
+	# 特殊：ステージ6ドレイン開始（現行仕様に合わせるなら、HP確定後に開始でもOK）
+	if GameState.game_stage == 6 and bool(result.get("start_drain", false)):
+		scene.start_stage6_drain()
+		scene.processing_turn = false
+		return
+
+	# 勝敗判定（apply後のHPで見る）
+	if GameState.player_hp <= 0:
+		await scene.play_defeat_sequence()
+		scene.processing_turn = false
+		return
+
+	if GameState.enemy_hp <= 0:
+		await _handle_enemy_defeated(scene)
+		scene.processing_turn = false
+		return
+
+	scene.set_attack_buttons_enabled(true)
+	scene.update_meirin_idle()
 	scene.processing_turn = false
+
+
+# 追加：演出だけをする関数（HP条件に依存しない）
+static func _handle_post_round_fx_only(scene: Node, result: Dictionary) -> void:
+	var round_result: int = int(result.get("round_result", -1))
+	if round_result == GameState.ROUND_WIN:
+		await BattleEffects.play_player_attack_fx(scene.meirin_sprite)
+		await BattleEffects.play_enemy_hit_fx(scene.enemy_sprite)
+	elif round_result == GameState.ROUND_LOSE:
+		await BattleEffects.play_enemy_attack_fx(scene.enemy_sprite)
+		scene.show_meirin_damage()
+		await BattleEffects.play_player_hit_fx(scene.meirin_sprite)
+		scene.update_meirin_idle()
+
 
 
 # ラウンド後の分岐処理・演出

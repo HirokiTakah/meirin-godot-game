@@ -18,14 +18,14 @@ Godot / JSON / GDScript / docs の作業を進める。
 cd /c/GodotProjects/meirin-battle-godot
 
 git add .
-git commit -m "update: P2_T1"
+git commit -m "update: P2_T4"
 git push
 ```
 
 
 ---
 
-# STEP 3. ChatGPT 用 URL リストを生成（3分類）
+# STEP 3. ChatGPT 用 URL リストを生成（3分類）※新しくファイルが増えた場合
 
 ```bash
 
@@ -52,13 +52,11 @@ git ls-files 'src/*.gd' \
 
 ---
 
-# STEP 4. ChatGPT に読み込ませる（初期化：docs → data）
+# STEP 4. ChatGPT に読み込ませる（初期化：docs → data）※チャットごとに変えないこと
 
 新しいチャット開始時に、まず ChatGPT に **「工程表に沿って開発を進めること」** を理解させる。
 
 ### （チャット開始テンプレ）
-
-
 
 
 
@@ -87,11 +85,16 @@ https://github.com/HirokiTakah/meirin-godot-game
 「docs の設計JSONを読み込みました。次に data の json raw リンクを提示してください。」
 とだけ返答してください。
 
+・docs/*.json（設計ファイル）の raw URL 一覧
 
-→ **このテンプレの下に、urls_docs_json.txt の内容を貼る**
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/docs/design_midstream_story.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/docs/design_midstream_system.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/docs/design_upstream_core.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/docs/dev_plan_pipeline.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/docs/meirin_oop_bundle.json
 
-```
 
+↑ **urls_docs_json.txt の内容**
 
 ChatGPT が docs JSON を読み込んだら
 
@@ -104,6 +107,17 @@ ChatGPT が docs JSON を読み込んだら
 # STEP 5. data JSON を読み込ませる（初期化：第2段階）
 
 ChatGPT が要求したら、urls_data_json.txt の中身をそのまま貼るだけ。
+
+
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/battle_texts.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/events.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/meirin_oop_game_ref.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/stages.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/stages_new.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/story_flow.json
+https://raw.githubusercontent.com/HirokiTakah/meirin-godot-game/main/data/ui_texts.json
+
+
 
 読み込み完了後 ChatGPT は：
 

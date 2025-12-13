@@ -213,117 +213,6 @@ func restore_full_hp() -> void:
 	enemy_hp = enemy_max_hp
 
 
-# ============================================================
-# じゃんけんロジック（数値計算＋フラグ生成のみ）
-# ============================================================
-
-func player_attack(player_choice: int) -> Dictionary:
-	if is_gameover:
-		return {"result": "gameover"}
-
-	if player_hp <= 0 or enemy_hp <= 0:
-		return {"result": "ended"}
-
-	# 敵の手
-	var enemy_choice := randi() % 3
-	var round_result: int = (3 + player_choice - enemy_choice) % 3
-
-	# あいこ軽減のための振り直し
-	if round_result == ROUND_DRAW:
-		var second_enemy_choice := randi() % 3
-		var second_result: int = (3 + player_choice - second_enemy_choice) % 3
-		if second_result != ROUND_DRAW:
-			enemy_choice = second_enemy_choice
-			round_result = second_result
-	# この結果、あいこ率は 1/3 → 約 1/9 くらいまで減ります
-
-	# ダメージ処理
-	var damage := 0
-	var miss := false
-	var critical := false
-	var ineffective := false
-	var start_drain := false
-
-	# -------------------------------
-	# ダメージ／ミス／無効判定
-	# -------------------------------
-	if round_result == ROUND_WIN or round_result == ROUND_LOSE:
-		# ステージ6：必殺技前はプレイヤー勝ちでもダメージ0（一定回数まで）
-		if game_stage == 6 and not boss_hp_drain_active and round_result == ROUND_WIN:
-			ineffective = true
-			damage = 0
-			boss_no_damage_count += 1
-			if boss_no_damage_count >= STAGE6_NO_DAMAGE_THRESHOLD:
-				# 規定回数効かない攻撃 → HPドレイン開始フラグON
-				boss_hp_drain_active = true
-				start_drain = true
-		else:
-			# 通常のランダム判定
-			var roll := randf()
-			if roll < MISS_RATE:
-				damage = 0
-				miss = true
-			elif roll > 1.0 - CRITICAL_RATE:
-				damage = 2
-				critical = true
-			else:
-				damage = 1
-
-		# フォーム2補正（プレイヤー勝ち時）
-		if meirin_form == 2 and round_result == ROUND_WIN and damage > 0 and not miss and not ineffective:
-			damage += FORM2_DAMAGE_BONUS
-
-		# ステージ7補正
-		if game_stage == 7 and damage > 0 and not miss and not ineffective:
-			damage += STAGE7_DAMAGE_BONUS
-
-	# -------------------------------
-	# ダメージ適用（デバッグ用にメイリン有利）
-	# -------------------------------
-	if round_result == ROUND_WIN and not ineffective:
-		# プレイヤーが勝った時は敵へのダメージを 2 倍
-		enemy_hp -= damage * 2
-	elif round_result == ROUND_LOSE:
-		# プレイヤーが負けた時は被ダメージを 1/2（端数切り上げ）
-		var dmg_to_player: int = int(ceil(float(damage) * 0.5))
-		player_hp -= dmg_to_player
-
-	if enemy_hp < 0:
-		enemy_hp = 0
-	if player_hp < 0:
-		player_hp = 0
-
-	# 通常の敗北時はゲームオーバー扱い
-	if player_hp <= 0 and game_stage != 6:
-		is_gameover = true
-
-	# -------------------------------
-	# テキスト生成（BattleText に委譲）
-	# -------------------------------
-	var text_dict: Dictionary = BattleText.get_round_text(
-		game_stage,
-		round_result,
-		miss,
-		critical,
-		ineffective,
-		start_drain,
-		player_hp,
-		enemy_hp
-	)
-
-	var result_msg: String = text_dict.get("result_msg", "")
-	var battle_msg: String = text_dict.get("battle_msg", "")
-
-	return {
-		"player_hp": player_hp,
-		"enemy_hp": enemy_hp,
-		"result_msg": result_msg,
-		"battle_msg": battle_msg,
-		"start_drain": start_drain,
-		"round_result": round_result,
-	}
-
-
 # ================================
 # ティーピース獲得 → 次ステージへ
 # ================================
@@ -350,3 +239,129 @@ func next_stage() -> Dictionary:
 		"tea_piece_add": tea_add,
 		"unlocked_form2": unlocked_form2,
 	}
+	
+	# GameState.gd に追加
+
+func compute_turn(player_choice: int) -> Dictionary:
+	if is_gameover:
+		return {"result": "gameover"}
+	if player_hp <= 0 or enemy_hp <= 0:
+		return {"result": "ended"}
+
+	# 敵の手
+	var enemy_choice: int = randi() % 3
+	var round_result: int = (3 + player_choice - enemy_choice) % 3
+
+	# あいこ軽減のための振り直し
+	if round_result == ROUND_DRAW:
+		var second_enemy_choice: int = randi() % 3
+		var second_result: int = (3 + player_choice - second_enemy_choice) % 3
+		if second_result != ROUND_DRAW:
+			enemy_choice = second_enemy_choice
+			round_result = second_result
+
+	var damage: int = 0
+	var miss: bool = false
+	var critical: bool = false
+	var ineffective: bool = false
+	var start_drain: bool = false
+
+	# ここでは HP を直接いじらず、ダメージ値を確定させる
+	var dmg_to_enemy: int = 0
+	var dmg_to_player: int = 0
+
+	if round_result == ROUND_WIN or round_result == ROUND_LOSE:
+		# ステージ6：必殺技前はプレイヤー勝ちでもダメージ0（一定回数まで）
+		if game_stage == 6 and (not boss_hp_drain_active) and round_result == ROUND_WIN:
+			ineffective = true
+			damage = 0
+			boss_no_damage_count += 1
+			if boss_no_damage_count >= STAGE6_NO_DAMAGE_THRESHOLD:
+				boss_hp_drain_active = true
+				start_drain = true
+		else:
+			var roll: float = randf()
+			if roll < MISS_RATE:
+				damage = 0
+				miss = true
+			elif roll > 1.0 - CRITICAL_RATE:
+				damage = 2
+				critical = true
+			else:
+				damage = 1
+
+		# フォーム2補正（プレイヤー勝ち時）
+		if meirin_form == 2 and round_result == ROUND_WIN and damage > 0 and (not miss) and (not ineffective):
+			damage += FORM2_DAMAGE_BONUS
+
+		# ステージ7補正
+		if game_stage == 7 and damage > 0 and (not miss) and (not ineffective):
+			damage += STAGE7_DAMAGE_BONUS
+
+	# ダメージ量へ変換（現行仕様を踏襲）
+	if round_result == ROUND_WIN and (not ineffective):
+		dmg_to_enemy = damage * 2
+	elif round_result == ROUND_LOSE:
+		dmg_to_player = int(ceil(float(damage) * 0.5))
+
+	# 適用後HP（予告）
+	var enemy_hp_after: int = enemy_hp - dmg_to_enemy
+	var player_hp_after: int = player_hp - dmg_to_player
+	if enemy_hp_after < 0:
+		enemy_hp_after = 0
+	if player_hp_after < 0:
+		player_hp_after = 0
+
+	# テキスト生成（StoryDB が参照するのは渡すHP値なので after を渡す）
+	var text_dict: Dictionary = BattleText.get_round_text(
+		game_stage,
+		round_result,
+		miss,
+		critical,
+		ineffective,
+		start_drain,
+		player_hp_after,
+		enemy_hp_after
+	)
+
+	return {
+		"round_result": round_result,
+		"enemy_choice": enemy_choice,
+		"miss": miss,
+		"critical": critical,
+		"ineffective": ineffective,
+		"start_drain": start_drain,
+		"dmg_to_enemy": dmg_to_enemy,
+		"dmg_to_player": dmg_to_player,
+		"player_hp_after": player_hp_after,
+		"enemy_hp_after": enemy_hp_after,
+		"result_msg": String(text_dict.get("result_msg", "")),
+		"battle_msg": String(text_dict.get("battle_msg", "")),
+	}
+
+func apply_turn(result: Dictionary) -> void:
+	var dmg_to_enemy: int = int(result.get("dmg_to_enemy", 0))
+	var dmg_to_player: int = int(result.get("dmg_to_player", 0))
+
+	enemy_hp -= dmg_to_enemy
+	player_hp -= dmg_to_player
+
+	if enemy_hp < 0:
+		enemy_hp = 0
+	if player_hp < 0:
+		player_hp = 0
+
+	# 通常の敗北時はゲームオーバー扱い（現行踏襲）
+	if player_hp <= 0 and game_stage != 6:
+		is_gameover = true
+
+# 既存 player_attack は互換ラッパにする（BattleFlow 側を段階的に移行できる）
+func player_attack(player_choice: int) -> Dictionary:
+	var result: Dictionary = compute_turn(player_choice)
+	if result.get("result", "") in ["gameover", "ended"]:
+		return result
+	apply_turn(result)
+	# 互換として「現在HP」を入れて返す（既存呼び出しのため）
+	result["player_hp"] = player_hp
+	result["enemy_hp"] = enemy_hp
+	return result

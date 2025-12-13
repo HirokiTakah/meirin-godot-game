@@ -79,6 +79,124 @@ func reset_run() -> void:
 # func _on_retry_pressed() -> void:
 #   （削除）
 
+# --- P2_T6: command actions state ---
+var guard_active: bool = false
+var inspire_active: bool = false
+
+# 固定技の基礎ダメージ（暫定）
+const FIXED_BASE_DAMAGE_TO_ENEMY: int = 2
+const FIXED_BASE_DAMAGE_TO_PLAYER: int = 1
+
+# 暫定（ユーザー指定で確定）
+const GUARD_REDUCTION_RATE: float = 0.5
+const INSPIRE_BONUS_DAMAGE: int = 1
+
+
+func _roll_damage_unit() -> Dictionary:
+	# MISS_RATE / CRITICAL_RATE は既存定数を流用
+	var miss: bool = false
+	var critical: bool = false
+	var damage_unit: int = 1
+
+	var roll: float = randf()
+	if roll < MISS_RATE:
+		miss = true
+		damage_unit = 0
+	elif roll > 1.0 - CRITICAL_RATE:
+		critical = true
+		damage_unit = 2
+	else:
+		damage_unit = 1
+
+	return {
+		"miss": miss,
+		"critical": critical,
+		"damage_unit": damage_unit
+	}
+
+
+func compute_player_attack_fixed() -> Dictionary:
+	# enemy に与えるダメージを計算（HPは変えない）
+	var roll: Dictionary = _roll_damage_unit()
+	var miss: bool = bool(roll["miss"])
+	var critical: bool = bool(roll["critical"])
+	var unit: int = int(roll["damage_unit"])
+
+	var dmg: int = unit * FIXED_BASE_DAMAGE_TO_ENEMY
+
+	# inspire（次の攻撃1回だけ +1）
+	if inspire_active and dmg > 0 and (not miss):
+		dmg += INSPIRE_BONUS_DAMAGE
+		inspire_active = false
+
+	# 既存のフォーム／ステージ補正は流用（存在する前提）
+	if meirin_form == 2 and dmg > 0 and (not miss):
+		dmg += FORM2_DAMAGE_BONUS
+
+	if game_stage == 7 and dmg > 0 and (not miss):
+		dmg += STAGE7_DAMAGE_BONUS
+
+	var enemy_hp_after: int = enemy_hp - dmg
+	if enemy_hp_after < 0:
+		enemy_hp_after = 0
+
+	return {
+		"miss": miss,
+		"critical": critical,
+		"dmg_to_enemy": dmg,
+		"dmg_to_player": 0,
+		"player_hp_after": player_hp,
+		"enemy_hp_after": enemy_hp_after
+	}
+
+
+func compute_enemy_attack_fixed() -> Dictionary:
+	# player に与えるダメージを計算（HPは変えない）
+	var roll: Dictionary = _roll_damage_unit()
+	var miss: bool = bool(roll["miss"])
+	var critical: bool = bool(roll["critical"])
+	var unit: int = int(roll["damage_unit"])
+
+	var dmg: int = unit * FIXED_BASE_DAMAGE_TO_PLAYER
+
+	# guard（次の被弾1回だけ 50% 軽減）
+	if guard_active and dmg > 0 and (not miss):
+		dmg = int(ceil(float(dmg) * (1.0 - GUARD_REDUCTION_RATE)))
+		if dmg < 0:
+			dmg = 0
+		guard_active = false
+
+	var player_hp_after: int = player_hp - dmg
+	if player_hp_after < 0:
+		player_hp_after = 0
+
+	return {
+		"miss": miss,
+		"critical": critical,
+		"dmg_to_enemy": 0,
+		"dmg_to_player": dmg,
+		"player_hp_after": player_hp_after,
+		"enemy_hp_after": enemy_hp
+	}
+
+
+func apply_fixed_result(result: Dictionary) -> void:
+	var dmg_to_enemy: int = int(result.get("dmg_to_enemy", 0))
+	var dmg_to_player: int = int(result.get("dmg_to_player", 0))
+
+	enemy_hp -= dmg_to_enemy
+	player_hp -= dmg_to_player
+
+	if enemy_hp < 0:
+		enemy_hp = 0
+	if player_hp < 0:
+		player_hp = 0
+
+	# 既存仕様踏襲
+	if player_hp <= 0 and game_stage != 6:
+		is_gameover = true
+
+
 func load_stages() -> void:
 	stage_data.clear()
 

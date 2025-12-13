@@ -8,6 +8,158 @@ const UiText := preload("res://src/UiText.gd")
 
 const TYPEWRITER_SPEED: float = 0.01
 
+# --- P2_T6: command actions entry point ---
+static func apply_player_action(scene: Node, action_id: String) -> Dictionary:
+	# scene は BattleScene を想定
+	scene.processing_turn = true
+	scene.set_attack_buttons_enabled(false)
+
+	# プレイヤー行動
+	var r1: Dictionary = await _do_player_action(scene, action_id)
+	if not bool(r1.get("ok", false)):
+		scene.processing_turn = false
+		scene.set_attack_buttons_enabled(true)
+		return r1
+
+	# プレイヤー行動で敵が倒れたら、敵行動はスキップ
+	if GameState.enemy_hp <= 0:
+		r1["is_enemy_dead"] = true
+		r1["is_player_dead"] = GameState.player_hp <= 0
+		scene.processing_turn = false
+		return r1
+
+	# 敵行動（必ず行う）
+	var r2: Dictionary = await _do_enemy_action(scene)
+
+	r2["is_enemy_dead"] = GameState.enemy_hp <= 0
+	r2["is_player_dead"] = GameState.player_hp <= 0
+	scene.processing_turn = false
+	return r2
+
+
+static func _do_player_action(scene: Node, action_id: String) -> Dictionary:
+	if action_id == "attack":
+		return await _present_and_apply_player_attack(scene)
+	if action_id == "guard":
+		GameState.guard_active = true
+		return await _present_status_only(scene, "Guard", "guard")
+	if action_id == "inspire":
+		GameState.inspire_active = true
+		return await _present_status_only(scene, "Inspire", "inspire")
+
+	return {
+		"ok": false,
+		"action_id": action_id,
+		"move_name": "",
+		"result_msg": "Unknown action",
+		"battle_msg": "",
+		"player_hp_after": GameState.player_hp,
+		"enemy_hp_after": GameState.enemy_hp,
+		"player_hp_max": GameState.player_max_hp,
+		"enemy_hp_max": GameState.enemy_max_hp,
+		"is_player_dead": GameState.player_hp <= 0,
+		"is_enemy_dead": GameState.enemy_hp <= 0
+	}
+
+
+static func _do_enemy_action(scene: Node) -> Dictionary:
+	return await _present_and_apply_enemy_attack(scene)
+
+
+static func _present_status_only(scene: Node, move_name: String, action_id: String) -> Dictionary:
+	scene.move_name_label.text = move_name
+
+	var msg: String = move_name + "!"
+	await MessageHelper.typewriter_show(scene, scene.battle_text, msg, scene.TYPEWRITER_SPEED)
+
+	# HP変化なし（必要なら短い間を追加してもOK）
+	# await scene.get_tree().create_timer(0.15).timeout
+
+	return {
+		"ok": true,
+		"action_id": action_id,
+		"move_name": move_name,
+		"result_msg": msg,
+		"battle_msg": "",
+		"player_hp_after": GameState.player_hp,
+		"enemy_hp_after": GameState.enemy_hp,
+		"player_hp_max": GameState.player_max_hp,
+		"enemy_hp_max": GameState.enemy_max_hp,
+		"is_player_dead": GameState.player_hp <= 0,
+		"is_enemy_dead": GameState.enemy_hp <= 0
+	}
+
+
+static func _present_and_apply_player_attack(scene: Node) -> Dictionary:
+	scene.move_name_label.text = "Attack"
+
+	var calc: Dictionary = GameState.compute_player_attack_fixed()
+
+	var msg: String = "Attack!"
+	if bool(calc.get("miss", false)):
+		msg = "Attack missed!"
+	elif bool(calc.get("critical", false)):
+		msg = "Critical hit!"
+
+	await MessageHelper.typewriter_show(scene, scene.battle_text, msg, scene.TYPEWRITER_SPEED)
+
+	await BattleEffects.play_player_attack_fx(scene.meirin_sprite)
+	if int(calc.get("dmg_to_enemy", 0)) > 0:
+		await BattleEffects.play_enemy_hit_fx(scene.enemy_sprite)
+
+	GameState.apply_fixed_result(calc)
+	await scene.animate_hp_bars_to_current(0.25)
+
+	return {
+		"ok": true,
+		"action_id": "attack",
+		"move_name": "Attack",
+		"result_msg": msg,
+		"battle_msg": "",
+		"player_hp_after": GameState.player_hp,
+		"enemy_hp_after": GameState.enemy_hp,
+		"player_hp_max": GameState.player_max_hp,
+		"enemy_hp_max": GameState.enemy_max_hp,
+		"is_player_dead": GameState.player_hp <= 0,
+		"is_enemy_dead": GameState.enemy_hp <= 0
+	}
+
+
+static func _present_and_apply_enemy_attack(scene: Node) -> Dictionary:
+	scene.move_name_label.text = "Enemy Attack"
+
+	var calc: Dictionary = GameState.compute_enemy_attack_fixed()
+
+	var msg: String = "Enemy attacks!"
+	if bool(calc.get("miss", false)):
+		msg = "Enemy missed!"
+	elif bool(calc.get("critical", false)):
+		msg = "Enemy critical!"
+
+	await MessageHelper.typewriter_show(scene, scene.battle_text, msg, scene.TYPEWRITER_SPEED)
+
+	await BattleEffects.play_enemy_attack_fx(scene.enemy_sprite)
+	scene.show_meirin_damage()
+	if int(calc.get("dmg_to_player", 0)) > 0:
+		await BattleEffects.play_player_hit_fx(scene.meirin_sprite)
+
+	GameState.apply_fixed_result(calc)
+	await scene.animate_hp_bars_to_current(0.25)
+
+	return {
+		"ok": true,
+		"action_id": "enemy_attack",
+		"move_name": "Enemy Attack",
+		"result_msg": msg,
+		"battle_msg": "",
+		"player_hp_after": GameState.player_hp,
+		"enemy_hp_after": GameState.enemy_hp,
+		"player_hp_max": GameState.player_max_hp,
+		"enemy_hp_max": GameState.enemy_max_hp,
+		"is_player_dead": GameState.player_hp <= 0,
+		"is_enemy_dead": GameState.enemy_hp <= 0
+	}
+
 
 # 1ターン分の処理
 # BattleFlow.gd の process_turn 内だけ差し替え（概念）
@@ -213,3 +365,5 @@ static func _handle_enemy_defeated(scene: Node) -> void:
 	# クリア演出はここでは行わず、event_09 を読み終えたあと
 	# ClearScene でまとめて表示する方針にする
 	scene.get_tree().change_scene_to_file("res://scenes/event/EventScene.tscn")
+	
+	

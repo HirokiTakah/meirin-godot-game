@@ -55,6 +55,25 @@ const TYPEWRITER_SPEED := 0.01
 # ========================================
 func _ready() -> void:
 	call_deferred("_post_ready")
+	# 省略：既存の初期化（ロード、HPバー初期化など）
+
+	var janken_buttons: Node = $UI/UIRoot/JankenButtons
+
+	var btn_attack: BaseButton = janken_buttons.get_node("BtnRock") as BaseButton
+	var btn_guard: BaseButton = janken_buttons.get_node("BtnScissors") as BaseButton
+	var btn_inspire: BaseButton = janken_buttons.get_node("BtnPaper") as BaseButton
+
+	if btn_attack == null or btn_guard == null or btn_inspire == null:
+		push_error("Buttons not found under UI/UIRoot/JankenButtons (BtnRock/BtnScissors/BtnPaper).")
+		return
+
+	_set_button_caption(btn_attack, "Attack")
+	_set_button_caption(btn_guard, "Guard")
+	_set_button_caption(btn_inspire, "Inspire")
+
+	#print("BtnRock class=", btn_attack.get_class())
+	#print("BtnRock children=", btn_attack.get_children())
+
 
 func _post_ready() -> void:
 	# 1) ゲーム起動直後：最初のイベントへ飛ばす
@@ -76,6 +95,12 @@ func _post_ready() -> void:
 		_hide_battle_ui()
 		await play_clear_sequence()
 		return
+		
+	#デバッグのために敵HPを小さくする
+	#if GameState.game_stage == 1:
+		#GameState.enemy_hp = 1
+		#GameState.enemy_max_hp = 1
+		#update_hp_bars()
 
 	# 3) 通常バトル開始
 	load_background()
@@ -89,6 +114,32 @@ func _post_ready() -> void:
 	_show_battle_ui()
 
 	await _play_stage_intro()
+
+
+func _set_all_labels_in_tree(node: Node, caption: String) -> void:
+	# このノード自体が Label / RichTextLabel なら更新
+	var lbl: Label = node as Label
+	if lbl != null:
+		lbl.text = caption
+
+	var rlbl: RichTextLabel = node as RichTextLabel
+	if rlbl != null:
+		rlbl.text = caption
+
+	# 子へ再帰
+	for child in node.get_children():
+		_set_all_labels_in_tree(child, caption)
+
+
+func _set_button_caption(btn: BaseButton, caption: String) -> void:
+	# Button.text を使っている場合は更新（TextureButton等だと text がないので try しない）
+	if btn is Button:
+		var b: Button = btn as Button
+		b.text = caption
+
+	# 配下のLabelを全部更新（これが本命）
+	_set_all_labels_in_tree(btn, caption)
+
 
 
 func _show_battle_ui() -> void:
@@ -112,6 +163,64 @@ func _show_battle_ui() -> void:
 	if enemy_sprite:
 		enemy_sprite.visible = true
 
+func _on_action_pressed(action_id: String) -> void:
+	if processing_turn:
+		return
+		
+	# MoveNameLabel 表示（任意）
+	if move_name_label:
+		match action_id:
+			"attack":
+				move_name_label.text = "Attack"
+			"guard":
+				move_name_label.text = "Guard"
+			"inspire":
+				move_name_label.text = "Inspire"
+
+	var result: Dictionary = await BattleFlow.apply_player_action(self, action_id)
+	if not bool(result.get("ok", false)):
+		set_attack_buttons_enabled(true)
+		processing_turn = false
+		return
+
+	# 敗北
+	if bool(result.get("is_player_dead", false)):
+		await play_defeat_sequence()
+		return
+
+	# 勝利
+	if bool(result.get("is_enemy_dead", false)):
+		await BattleFlow._handle_enemy_defeated(self)
+		return
+
+
+
+	# 継続
+	set_attack_buttons_enabled(true)
+	update_meirin_idle()
+
+func _on_stage_cleared() -> void:
+	# 最終ステージだけ全クリア演出
+	# いったん暫定で 7 を最終とします（必要なら後で設計JSONに合わせて置換）
+	if GameState.game_stage == 7:
+		await play_clear_sequence()
+		return
+
+	# 通常ステージは「次のノードへ進む」既存処理に戻す
+	# すでに BattleScene の中に goto_next_node / load_next / go_to_event_scene などがあるはずです。
+	# ここでは、既存関数名に合わせて1行差し替えしてください。
+
+	# 例A（もし存在するなら）
+	# await _go_to_next_story_node()
+
+	# 例B（もし存在するなら）
+	# await goto_next_node()
+
+	# 例C（もし存在するなら）
+	# await go_to_event_scene()
+
+	# いったん暫定で「押し間違いが分かるログ」を出して止める
+	push_error("_on_stage_cleared(): next-node transition function is not wired. Please replace with your existing transition function.")
 
 
 func _set_clear_background() -> void:
@@ -169,35 +278,32 @@ func _setup_ui() -> void:
 	if battle_text:
 		battle_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 
-	# ボタンの表示名を JSON から設定（新キー優先、無ければ旧キーへフォールバック）
-	var name0: String = UiText.text("battle.move_names.0", "")
-	if name0 == "":
-		name0 = UiText.get_move_name(0)
+	# --- P2_T6: コマンドボタン表示名（ui_texts優先） ---
+	var cap_attack: String = UiText.text("ui.battle.command.attack", "")
+	if cap_attack == "":
+		cap_attack = "Attack"
 
-	var name1: String = UiText.text("battle.move_names.1", "")
-	if name1 == "":
-		name1 = UiText.get_move_name(1)
+	var cap_guard: String = UiText.text("ui.battle.command.guard", "")
+	if cap_guard == "":
+		cap_guard = "Guard"
 
-	var name2: String = UiText.text("battle.move_names.2", "")
-	if name2 == "":
-		name2 = UiText.get_move_name(2)
+	var cap_inspire: String = UiText.text("ui.battle.command.inspire", "")
+	if cap_inspire == "":
+		cap_inspire = "Inspire"
 
+	# ボタン表示
+	btn_rock.text = cap_attack
+	btn_scissors.text = cap_guard
+	btn_paper.text = cap_inspire
 
-	btn_rock.text = name0
-	btn_scissors.text = name1
-	btn_paper.text = name2
+	# --- P2_T6: 押下時は action_id を渡す ---
+	btn_rock.pressed.connect(func() -> void: _on_action_pressed("attack"))
+	btn_scissors.pressed.connect(func() -> void: _on_action_pressed("guard"))
+	btn_paper.pressed.connect(func() -> void: _on_action_pressed("inspire"))
 
-
-
-
-	# 攻撃ボタン
-	btn_rock.pressed.connect(func(): on_player_choice(0))
-	btn_scissors.pressed.connect(func(): on_player_choice(1))
-	btn_paper.pressed.connect(func(): on_player_choice(2))
-
-	# MoveNameLabel は使わないので隠す
+	# MoveNameLabel は P2_T6 では使ってよい（見せる）
 	if move_name_label:
-		move_name_label.visible = false
+		move_name_label.visible = true
 		move_name_label.text = ""
 
 	# Continue（リトライ）
@@ -339,6 +445,10 @@ func play_defeat_sequence() -> void:
 # ========================================
 # クリア演出（最終戦勝利時）
 # ========================================
+
+func _handle_enemy_defeated() -> void:
+	await play_clear_sequence()
+
 
 func play_clear_sequence() -> void:
 	

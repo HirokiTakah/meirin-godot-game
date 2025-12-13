@@ -35,12 +35,15 @@ offset_bottom = 440.0
 
 [node name="BtnRock" type="Button" parent="UI/UIRoot/JankenButtons"]
 layout_mode = 2
+text = "Rock"
 
 [node name="BtnScissors" type="Button" parent="UI/UIRoot/JankenButtons"]
 layout_mode = 2
+text = "Scissors"
 
 [node name="BtnPaper" type="Button" parent="UI/UIRoot/JankenButtons"]
 layout_mode = 2
+text = "Paper"
 
 [node name="EnemyHPBar" type="ProgressBar" parent="UI/UIRoot"]
 layout_mode = 0
